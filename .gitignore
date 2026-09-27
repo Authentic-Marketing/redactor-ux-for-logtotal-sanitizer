@@ -1,0 +1,11 @@
+node_modules/
+__pycache__/
+*.pyc
+.DS_Store
+.venv/
+*.bak-*
+build/bridge/package.json
+build/bridge/package-lock.json
+build/shots/
+build/small.log
+build/big.log

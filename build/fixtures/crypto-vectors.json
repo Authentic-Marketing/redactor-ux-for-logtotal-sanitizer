@@ -1,0 +1,980 @@
+[
+ {
+  "family": "bitcoin:main",
+  "value": "1FsSia9rv4NeEwvJ2GvXrX7LyxYspbN2mo",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:main",
+  "value": "36j4NfKv6Akva9amjWrLG6MuSQym1GuEmm",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:testnet4",
+  "value": "mzK2FFDEhxqHcmrJw1ysqFkVyhUULo45hZ",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:testnet4",
+  "value": "2NC2hEhe28ULKAJkW5MjZ3jtTMJdvXmByvK",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:signet",
+  "value": "mww4LvqtTMKvmeQvizPz2EQv26xTneWrbg",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:signet",
+  "value": "2N1r7aC69VHeE7yQJPDLi9T1PYq4wnwvjuT",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:regtest",
+  "value": "n4fajahJrAuKbN7uNsKjLjQkz9Qn5ewJXQ",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:regtest",
+  "value": "2MxFajLApXpYk4VodBSZSt7rw8y4ryABkfA",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:main",
+  "value": "bc1qvyq0cc6rahyvsazfdje0twl7ez82ndmuac2lhv",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:main",
+  "value": "bc1qyucykdlhp62tezs0hagqury402qwhk589q80tqs5myh3rxq34nwqhkdhv7",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:main",
+  "value": "bc1p83n3au0rjylefxq2nc2xh2y4jzz4pm6zxj4mw5pagdjjr2a9f36s6jjnnu",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:main",
+  "value": "bc1z2rksukkjr8",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:testnet4",
+  "value": "tb1qcrh3yqn4nlleplcez2yndq2ry8h9ncg3qh7n54",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:testnet4",
+  "value": "tb1quyl9ujpgwr2chdzdnnalen48sup245vdfnh2jxhsuq3yx80rrwlq5hqfe4",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:testnet4",
+  "value": "tb1p35n52jy6xkm4wd905tdy8qtagrn73kqdz73xe4zxpvq9t3fp50aqk3s6gz",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:testnet4",
+  "value": "tb1rgv5m6uvdk3kc7qsuz0c79v88ycr5w4wa",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:signet",
+  "value": "tb1q3vya2h5435jkugq2few7dmktlrwq4ejmfaw7kr",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:signet",
+  "value": "tb1qxkhrl2s6ttrclckldruea0e8anhrehffl8xv7t0pdyrzm08v2hyqy408nf",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:signet",
+  "value": "tb1pae5um27ahn8n73pgexe3kcwlp8dhswpn684h2k2w6t9a7w3eq65qephd5y",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:signet",
+  "value": "tb1rx9n9g37az8mu236e5jpxdt0m67y4fuq8rhs0ss3djnm0kscfrwvq0ntlyg",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:regtest",
+  "value": "bcrt1qdavt4j2sd7dlhqsavtnfxvzppw6k7qy97tmnu9",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:regtest",
+  "value": "bcrt1qan8gntac7z7me2ejt4hpru42ad2f759fmy0m3ejvs98656znv7eqga4uhv",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:regtest",
+  "value": "bcrt1pfwxjqvtt4tcxrtdluukfmy2dv7xd2qzdfy6kajv5nwn4yam3wxkq3553uh",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:regtest",
+  "value": "bcrt1sx6p8njlx7h9mc2agz4yg82dzne23050ncq72cneeecez2pst8mahn8xecsf8g6hzx94420",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:main",
+  "value": "1FjL87pn8ky6Vbavd1ZHeChRXtoxwRGCRd",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:main",
+  "value": "3BZECeAH8gSKkjrTx8PwMrNQBLG18yHpvf",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:testnet4",
+  "value": "n4YNbYuFdPwFrxSP8sjHFbAhUbLMUiY9jE",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:testnet4",
+  "value": "2NAeQVZayzVFAtgeC3iYJsjpjWDmsDph71A",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:signet",
+  "value": "mnCBpkNMJEJLehgdEkzSo2eioniyJMxLpZ",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:signet",
+  "value": "2N5sNHomeNJDZv67AcFx9ES7FBZY4jx9KDA",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:regtest",
+  "value": "mfhE6jAUwjUDNZhaX1PAsDTKfneQF2Nshc",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:regtest",
+  "value": "2MxNm1VHyVU4RuP3u1c1v5aQLk2dQjwy1Qk",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:main",
+  "value": "bc1qhxt04s5xnpy0kxw4x99n5hpdf5pmtzpqs52es2",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:main",
+  "value": "bc1qgc9ljrvdf2e0zg9rmmq86xklqwfys7r6wptjlacdgrcdc7sa6ggqu4rrxf",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:main",
+  "value": "bc1pve739yap4uxjvfk0jrey69078u0gasm2nwvv483ec6zkzulgw9xqu4w9fd",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:main",
+  "value": "bc1zmjtqxkzs89",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:testnet4",
+  "value": "tb1ql4k5ayv7p7w0t0ge7tpntgpkgw53g2payxkszr",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:testnet4",
+  "value": "tb1q9jx3x2qqdpempxrcfgyrkjd5fzeacaqj4ua7cs7fe2sfd2wdaueq5wn26y",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:testnet4",
+  "value": "tb1pdswckwd9ym5yf5eyzg8j4jjwnzla8y0tf9cp7aasfkek0u29sz9qfr00yf",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:testnet4",
+  "value": "tb1r0ecpfxg2udhtc556gqrpwwhk4sw3f0kc",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:signet",
+  "value": "tb1q6mwf89hnqhlu8txjgjfs4s7p93ugffn3k062ll",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:signet",
+  "value": "tb1qafrjalu4d73dql0czau9j6z422434kef235mzljf48ckd5xz3sys09jm97",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:signet",
+  "value": "tb1pwst9qszjrhuv2e7as0flcq9gm698v6gdxzz9e87p07s8rssdx3zqklm3vf",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:signet",
+  "value": "tb1r3ss76jtsuxe8c8c8lxsehnpak55ylrgr345pww076l536ahjr6jsydamx3",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:regtest",
+  "value": "bcrt1q65nhlm4hf2ptg3t264al57p7wjxj2c3s6kyt83",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:regtest",
+  "value": "bcrt1qawvc90lpytw3z3k9etdx54l0exq5f5sqfzu5e45kjnl6slwayeeqx2dyac",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:regtest",
+  "value": "bcrt1p39a4s4vdcw9kqa8w2t0rp7aj8kfxyw7mce5sk5d70x6wnnmpvt7skf2kxy",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:regtest",
+  "value": "bcrt1s489d9fhmyel0vzfqsrmew4x7r80asuqesm5hgqacy35daflcyufh3j8cgdtflvt99ph05m",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:main",
+  "value": "1G9A9j6W8TLuh6dEeVwWeyibK1Uc5MfVFV",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:main",
+  "value": "33GA3ZXbw5o5HeUrBEaqkWXFYYZmdxGRRP",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:testnet4",
+  "value": "mwgS2HRbjyfYxFnR1nF9VKLvmdgMfFBmGq",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:testnet4",
+  "value": "2MwBVrJQ76BdaGD76CTmou8cZzQYLpe4NqU",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:signet",
+  "value": "mfnJ8tEkqKNFE5YaHTXFxyHk2mnDK2fvDh",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:signet",
+  "value": "2My83D67ir7K8PPzeT6mE2oth3ZwNTVRS9F",
+  "source": "bitcoin/bitcoin src/test/data/key_io_valid.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bech32",
+  "value": "BC1QW508D6QEJXTDG4Y5R3ZARVARY0C5XW7KV8F3T4",
+  "source": "bitcoin/bips bip173.md valid addresses",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bech32",
+  "value": "BC1SW50QA3JX3S",
+  "source": "bitcoin/bips bip173.md valid addresses",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bech32",
+  "value": "bc1pw508d6qejxtdg4y5r3zarvary0c5xw7kw508d6qejxtdg4y5r3zarvary0c5xw7k7grplx",
+  "source": "bitcoin/bips bip173.md valid addresses",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bech32",
+  "value": "bc1zw508d6qejxtdg4y5r3zarvaryvg6kdaj",
+  "source": "bitcoin/bips bip173.md valid addresses",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bech32",
+  "value": "tb1qqqqqp399et2xygdj5xreqhjjvcmzhxw4aywxecjdzew6hylgvsesrxh6hy",
+  "source": "bitcoin/bips bip173.md valid addresses",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bech32",
+  "value": "tb1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3q0sl5k7",
+  "source": "bitcoin/bips bip173.md valid addresses",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bech32",
+  "value": "BC1QW508D6QEJXTDG4Y5R3ZARVARY0C5XW7KV8F3T4",
+  "source": "bitcoin/bips bip350.md valid addresses",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bech32",
+  "value": "BC1SW50QGDZ25J",
+  "source": "bitcoin/bips bip350.md valid addresses",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bech32",
+  "value": "bc1p0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7vqzk5jj0",
+  "source": "bitcoin/bips bip350.md valid addresses",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bech32",
+  "value": "bc1pw508d6qejxtdg4y5r3zarvary0c5xw7kw508d6qejxtdg4y5r3zarvary0c5xw7kt5nd6y",
+  "source": "bitcoin/bips bip350.md valid addresses",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bech32",
+  "value": "bc1zw508d6qejxtdg4y5r3zarvaryvaxxpcs",
+  "source": "bitcoin/bips bip350.md valid addresses",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bech32",
+  "value": "tb1pqqqqp399et2xygdj5xreqhjjvcmzhxw4aywxecjdzew6hylgvsesf3hn0c",
+  "source": "bitcoin/bips bip350.md valid addresses",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bech32",
+  "value": "tb1qqqqqp399et2xygdj5xreqhjjvcmzhxw4aywxecjdzew6hylgvsesrxh6hy",
+  "source": "bitcoin/bips bip350.md valid addresses",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bech32",
+  "value": "tb1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3q0sl5k7",
+  "source": "bitcoin/bips bip350.md valid addresses",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:silentpayment",
+  "value": "sp1qqgrz6j0lcqnc04vxccydl0kpsj4frfje0ktmgcl2t346hkw30226xqupawdf48k8882j0strrvcmgg2kdawz53a54dd376ngdhak364hzcmynqtn",
+  "source": "bitcoin/bips bip-0352 send_and_receive_test_vectors.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:silentpayment",
+  "value": "sp1qqgste7k9hx0qftg6qmwlkqtwuy6cycyavzmzj85c6qdfhjdpdjtdgq7c2zfthc6x3a5yecwc52nxa0kfd20xuz08zyrjpfw4l2j257yq6qgnkdh5",
+  "source": "bitcoin/bips bip-0352 send_and_receive_test_vectors.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:silentpayment",
+  "value": "sp1qqgste7k9hx0qftg6qmwlkqtwuy6cycyavzmzj85c6qdfhjdpdjtdgqaxww2fnhrx05cghth75n0qcj59e3e2anscr0q9wyknjxtxycg07y3pevyj",
+  "source": "bitcoin/bips bip-0352 send_and_receive_test_vectors.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:silentpayment",
+  "value": "sp1qqgste7k9hx0qftg6qmwlkqtwuy6cycyavzmzj85c6qdfhjdpdjtdgqjex54dmqmmv6rw353tsuqhs99ydvadxzrsy9nuvk74epvee55drs734pqq",
+  "source": "bitcoin/bips bip-0352 send_and_receive_test_vectors.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:lightning",
+  "value": "lnbc10m1pvjluezpp5qqqsyqcyq5rqwzqfqqqsyqcyq5rqwzqfqqqsyqcyq5rqwzqfqypqdp9wpshjmt9de6zqmt9w3skgct5vysxjmnnd9jx2mq8q8a04uqsp5zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zygs9q2gqqqqqqsgq7hf8he7ecf7n4ffphs6awl9t6676rrclv9ckg3d3ncn7fct63p6s365duk5wrk202cfy3aj5xnnp5gs3vrdvruverwwq7yzhkf5a3xqpd05wjc",
+  "source": "lightning/bolts 11-payment-encoding.md Examples",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:lightning",
+  "value": "lnbc1pvjluezsp5zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zygspp5qqqsyqcyq5rqwzqfqqqsyqcyq5rqwzqfqqqsyqcyq5rqwzqfqypqdpl2pkx2ctnv5sxxmmwwd5kgetjypeh2ursdae8g6twvus8g6rfwvs8qun0dfjkxaq9qrsgq357wnc5r2ueh7ck6q93dj32dlqnls087fxdwk8qakdyafkq3yap2r09nt4ndd0unm3z9u5t48y6ucv4r5sg7lk98c77ctvjczkspk5qprc90gx",
+  "source": "lightning/bolts 11-payment-encoding.md Examples",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:lightning",
+  "value": "lnbc1pvjluezsp5zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zygspp5qqqsyqcyq5rqwzqfqqqsyqcyq5rqwzqfqqqsyqcyq5rqwzqfqypqdpl2pkx2ctnv5sxxmmwwd5kgetjypeh2ursdae8g6twvus8g6rfwvs8qun0dfjkxaq9qrsgq357wnc5r2ueh7ck6q93dj32dlqnls087fxdwk8qakdyafkq3yap9us6v52vjjsrvywa6rt52cm9r9zqt8r2t7mlcwspyetp5h2tztugp9lfyql",
+  "source": "lightning/bolts 11-payment-encoding.md Examples",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:lightning",
+  "value": "lnbc20m1pvjluezsp5zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zygshp58yjmdan79s6qqdhdzgynm4zwqd5d7xmw5fk98klysy043l2ahrqspp5qqqsyqcyq5rqwzqfqqqsyqcyq5rqwzqfqqqsyqcyq5rqwzqfqypqfp4qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3q9qrsgq9vlvyj8cqvq6ggvpwd53jncp9nwc47xlrsnenq2zp70fq83qlgesn4u3uyf4tesfkkwwfg3qs54qe426hp3tz7z6sweqdjg05axsrjqp9yrrwc",
+  "source": "lightning/bolts 11-payment-encoding.md Examples",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:lightning",
+  "value": "lnbc20m1pvjluezsp5zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zygshp58yjmdan79s6qqdhdzgynm4zwqd5d7xmw5fk98klysy043l2ahrqspp5qqqsyqcyq5rqwzqfqqqsyqcyq5rqwzqfqqqsyqcyq5rqwzqfqypqfppj3a24vwu6r8ejrss3axul8rxldph2q7z99qrsgqz6qsgww34xlatfj6e3sngrwfy3ytkt29d2qttr8qz2mnedfqysuqypgqex4haa2h8fx3wnypranf3pdwyluftwe680jjcfp438u82xqphf75ym",
+  "source": "lightning/bolts 11-payment-encoding.md Examples",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:lightning",
+  "value": "lnbc20m1pvjluezsp5zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zygshp58yjmdan79s6qqdhdzgynm4zwqd5d7xmw5fk98klysy043l2ahrqspp5qqqsyqcyq5rqwzqfqqqsyqcyq5rqwzqfqqqsyqcyq5rqwzqfqypqfppqw508d6qejxtdg4y5r3zarvary0c5xw7k9qrsgqt29a0wturnys2hhxpner2e3plp6jyj8qx7548zr2z7ptgjjc7hljm98xhjym0dg52sdrvqamxdezkmqg4gdrvwwnf0kv2jdfnl4xatsqmrnsse",
+  "source": "lightning/bolts 11-payment-encoding.md Examples",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bolt12",
+  "value": "lno1zcss9mk8y3wkklfvevcrszlmu23kfrxh49px20665dqwmn4p72pksese",
+  "source": "lightning/bolts bolt12/offers-test.json valid",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bolt12",
+  "value": "lno1pgx9getnwss8vetrw3hhyuckyypwa3eyt44h6txtxquqh7lz5djge4afgfjn7k4rgrkuag0jsd5xvxg",
+  "source": "lightning/bolts bolt12/offers-test.json valid",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bolt12",
+  "value": "lno1qgsyxjtl6luzd9t3pr62xr7eemp6awnejusgf6gw45q75vcfqqqqqqq2p32x2um5ypmx2cm5dae8x93pqthvwfzadd7jejes8q9lhc4rvjxd022zv5l44g6qah82ru5rdpnpj",
+  "source": "lightning/bolts bolt12/offers-test.json valid",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bolt12",
+  "value": "lno1qgsxlc5vp2m0rvmjcxn2y34wv0m5lyc7sdj7zksgn35dvxgqqqqqqqq2p32x2um5ypmx2cm5dae8x93pqthvwfzadd7jejes8q9lhc4rvjxd022zv5l44g6qah82ru5rdpnpj",
+  "source": "lightning/bolts bolt12/offers-test.json valid",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bolt12",
+  "value": "lno1qfqpge38tqmzyrdjj3x2qkdr5y80dlfw56ztq6yd9sme995g3gsxqqm0u2xq4dh3kdevrf4zg6hx8a60jv0gxe0ptgyfc6xkryqqqqqqqq9qc4r9wd6zqan9vd6x7unnzcss9mk8y3wkklfvevcrszlmu23kfrxh49px20665dqwmn4p72pksese",
+  "source": "lightning/bolts bolt12/offers-test.json valid",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bolt12",
+  "value": "lno1qsgqqqqqqqqqqqqqqqqqqqqqqqqqqzsv23jhxapqwejkxar0wfe3vggzamrjghtt05kvkvpcp0a79gmy3nt6jsn98ad2xs8de6sl9qmgvcvs",
+  "source": "lightning/bolts bolt12/offers-test.json valid",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bolt12",
+  "value": "lno1pqpzwyq2p32x2um5ypmx2cm5dae8x93pqthvwfzadd7jejes8q9lhc4rvjxd022zv5l44g6qah82ru5rdpnpj",
+  "source": "lightning/bolts bolt12/offers-test.json valid",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bolt12",
+  "value": "lno1qcp4256ypqpzwyq2p32x2um5ypmx2cm5dae8x93pqthvwfzadd7jejes8q9lhc4rvjxd022zv5l44g6qah82ru5rdpnpj",
+  "source": "lightning/bolts bolt12/offers-test.json valid",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bolt12",
+  "value": "lno1pgx9getnwss8vetrw3hhyucwq3ay997czcss9mk8y3wkklfvevcrszlmu23kfrxh49px20665dqwmn4p72pksese",
+  "source": "lightning/bolts bolt12/offers-test.json valid",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bolt12",
+  "value": "lno1pgx9getnwss8vetrw3hhyucjy358garswvaz7tmzdak8gvfj9ehhyeeqgf85c4p3xgsxjmnyw4ehgunfv4e3vggzamrjghtt05kvkvpcp0a79gmy3nt6jsn98ad2xs8de6sl9qmgvcvs",
+  "source": "lightning/bolts bolt12/offers-test.json valid",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bolt12",
+  "value": "lno1pgx9getnwss8vetrw3hhyuc5qyz3vggzamrjghtt05kvkvpcp0a79gmy3nt6jsn98ad2xs8de6sl9qmgvcvs",
+  "source": "lightning/bolts bolt12/offers-test.json valid",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bolt12",
+  "value": "lno1pgx9getnwss8vetrw3hhyuc5qqtzzqhwcuj966ma9n9nqwqtl032xeyv6755yeflt235pmww58egx6rxry",
+  "source": "lightning/bolts bolt12/offers-test.json valid",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bolt12",
+  "value": "lno1pgx9getnwss8vetrw3hhyuc5qyq3vggzamrjghtt05kvkvpcp0a79gmy3nt6jsn98ad2xs8de6sl9qmgvcvs",
+  "source": "lightning/bolts bolt12/offers-test.json valid",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bolt12",
+  "value": "lno1pgx9getnwss8vetrw3hhyucvp5yqqqqqqqqqqqqqqqqqqqqkyypwa3eyt44h6txtxquqh7lz5djge4afgfjn7k4rgrkuag0jsd5xvxg",
+  "source": "lightning/bolts bolt12/offers-test.json valid",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bolt12",
+  "value": "lno1pgx9getnwss8vetrw3hhyucs5ypjgef743p5fzqq9nqxh0ah7y87rzv3ud0eleps9kl2d5348hq2k8qzqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgqpqqqqqqqqqqqqqqqqqqqqqqqqqqqzqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqqzq3zyg3zyg3zyg3vggzamrjghtt05kvkvpcp0a79gmy3nt6jsn98ad2xs8de6sl9qmgvcvs",
+  "source": "lightning/bolts bolt12/offers-test.json valid",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bolt12",
+  "value": "lno1pgx9getnwss8vetrw3hhyucs3yqqqqqqqqqqqqp2qgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqqyqqqqqqqqqqqqqqqqqqqqqqqqqqqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqqgzyg3zyg3zyg3z93pqthvwfzadd7jejes8q9lhc4rvjxd022zv5l44g6qah82ru5rdpnpj",
+  "source": "lightning/bolts bolt12/offers-test.json valid",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bolt12",
+  "value": "lno1pgx9getnwss8vetrw3hhyucs5ypjgef743p5fzqq9nqxh0ah7y87rzv3ud0eleps9kl2d5348hq2k8qzqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgqpqqqqqqqqqqqqqqqqqqqqqqqqqqqzqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqqzq3zyg3zyg3zygs",
+  "source": "lightning/bolts bolt12/offers-test.json valid",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bolt12",
+  "value": "lno1pgx9getnwss8vetrw3hhyucsl5qj5qeyv5l2cs6y3qqzesrth7mlzrlp3xg7xhulusczm04x6g6nms9trspqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqqsqqqqqqqqqqqqqqqqqqqqqqqqqqpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqsqpqg3zyg3zyg3zygpqqqqzqqqqgqqxqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqqgqqqqqqqqqqqqqqqqqqqqqqqqqqqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgpqyqszqgqqsg3zyg3zyg3zygtzzqhwcuj966ma9n9nqwqtl032xeyv6755yeflt235pmww58egx6rxry",
+  "source": "lightning/bolts bolt12/offers-test.json valid",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bolt12",
+  "value": "lno1pgx9getnwss8vetrw3hhyuckyypwa3eyt44h6txtxquqh7lz5djge4afgfjn7k4rgrkuag0jsd5xvxfppf5x2mrvdamk7unvvs",
+  "source": "lightning/bolts bolt12/offers-test.json valid",
+  "derived": false
+ },
+ {
+  "family": "bitcoin:bolt12",
+  "value": "lno1pgx9getnwss8vetrw3hhyuckyypwa3eyt44h6txtxquqh7lz5djge4afgfjn7k4rgrkuag0jsd5xvx078wdv5gg2dpjkcmr0wahhymry",
+  "source": "lightning/bolts bolt12/offers-test.json valid",
+  "derived": false
+ },
+ {
+  "family": "bitcoincash",
+  "value": "bitcoincash:ppm2qsznhks23z7629mms6s4cwef74vcwvn0h829pq",
+  "source": "bitcoincashorg spec/cashaddr.md",
+  "derived": false
+ },
+ {
+  "family": "bitcoincash",
+  "value": "bitcoincash:pqq3728yw0y47sqn6l2na30mcw6zm78dzq5ucqzc37",
+  "source": "bitcoincashorg spec/cashaddr.md",
+  "derived": false
+ },
+ {
+  "family": "bitcoincash",
+  "value": "bitcoincash:pr95sy3j9xwd2ap32xkykttr4cvcu7as4yc93ky28e",
+  "source": "bitcoincashorg spec/cashaddr.md",
+  "derived": false
+ },
+ {
+  "family": "bitcoincash",
+  "value": "bitcoincash:q9adhakpwzztepkpwp5z0dq62m6u5v5xtyj7j3h2ws4mr9g0",
+  "source": "bitcoincashorg spec/cashaddr.md",
+  "derived": false
+ },
+ {
+  "family": "ethereum:eip55",
+  "value": "0x27b1fdb04752bbc536007a920d24acb045561c26",
+  "source": "ethereum/ERCs erc-55.md",
+  "derived": false
+ },
+ {
+  "family": "ethereum:eip55",
+  "value": "0x52908400098527886E0F7030069857D2E4169EE7",
+  "source": "ethereum/ERCs erc-55.md",
+  "derived": false
+ },
+ {
+  "family": "ethereum:eip55",
+  "value": "0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed",
+  "source": "ethereum/ERCs erc-55.md",
+  "derived": false
+ },
+ {
+  "family": "ethereum:eip55",
+  "value": "0x8617E340B3D01FA5F11F306F4090FD50E238070D",
+  "source": "ethereum/ERCs erc-55.md",
+  "derived": false
+ },
+ {
+  "family": "ethereum:eip55",
+  "value": "0xD1220A0cf47c7B9Be7A2E6BA89F429762e7b9aDb",
+  "source": "ethereum/ERCs erc-55.md",
+  "derived": false
+ },
+ {
+  "family": "ethereum:eip55",
+  "value": "0xdbF03B407c01E7cD3CBea99509d93f8DDDC8C6FB",
+  "source": "ethereum/ERCs erc-55.md",
+  "derived": false
+ },
+ {
+  "family": "ethereum:eip3770",
+  "value": "eth:0x5aAeb6053F3E94C9b9A09f33669435E7Ef1BeAed",
+  "source": "ERC-3770 grammar shortName:address with the ERC-55 vector",
+  "derived": true
+ },
+ {
+  "family": "ethereum:caip10",
+  "value": "eip155:1:0xab16a96D359eC26a11e2C2b3d8f8B8942d5Bfcdb",
+  "source": "ChainAgnostic caip-10.md",
+  "derived": false
+ },
+ {
+  "family": "ethereum:ens",
+  "value": "foo.eth",
+  "source": "ethereum/ERCs erc-137.md",
+  "derived": false
+ },
+ {
+  "family": "ethereum:ens",
+  "value": "beercoin.eth",
+  "source": "ethereum/ERCs erc-137.md",
+  "derived": false
+ },
+ {
+  "family": "stellar",
+  "value": "GA7QYNF7SOWQ3GLR2BGMZEHXAVIRZA4KVWLTJJFC7MGXUA74P7UJVSGZ",
+  "source": "stellar/stellar-protocol sep-0023.md valid",
+  "derived": false
+ },
+ {
+  "family": "stellar",
+  "value": "MA7QYNF7SOWQ3GLR2BGMZEHXAVIRZA4KVWLTJJFC7MGXUA74P7UJUAAAAAAAAAAAACJUQ",
+  "source": "stellar/stellar-protocol sep-0023.md valid",
+  "derived": false
+ },
+ {
+  "family": "stellar",
+  "value": "MA7QYNF7SOWQ3GLR2BGMZEHXAVIRZA4KVWLTJJFC7MGXUA74P7UJVAAAAAAAAAAAAAJLK",
+  "source": "stellar/stellar-protocol sep-0023.md valid",
+  "derived": false
+ },
+ {
+  "family": "zcash:unified",
+  "value": "u1l8xunezsvhq8fgzfl7404m450nwnd76zshscn6nfys7vyz2ywyh4cc5daaq0c7q2su5lqfh23sp7fkf3kt27ve5948mzpfdvckzaect2jtte308mkwlycj2u0eac077wu70vqcetkxf",
+  "source": "zcash/zcash-test-vectors unified_address.json",
+  "derived": false
+ },
+ {
+  "family": "zcash:unified",
+  "value": "u1fl5mprj0t9p4jg92hjjy8q5myvwc60c9wv0xachauqpn3c3k4xwzlaueafq27dcg7tzzzaz5jl8tyj93wgs983y0jq0qfhzu6n4r8rakpv5f4gg2lrw4z6pyqqcrcqx04d38yunc6je",
+  "source": "zcash/zcash-test-vectors unified_address.json",
+  "derived": false
+ },
+ {
+  "family": "zcash:unified",
+  "value": "u1qxqf8ctkxlsdh7xdcgkdtyw4mku7dxma8tsz45xd6ttgs322gdk7kazg3sdn52z7na3tzcrzf7lt3xrdtfp9d4pccderalchvvxk8hghduxrky5guzqlw65fmgp6x7aj4k8v5jkgwuw",
+  "source": "zcash/zcash-test-vectors unified_address.json",
+  "derived": false
+ },
+ {
+  "family": "zcash:t1",
+  "value": "t1V9mnyk5Z5cTNMCkLbaDwSskgJZucTLdgW",
+  "source": "protocol.tex lead bytes 1C B8 over unified_address.json p2pkh_bytes",
+  "derived": true
+ },
+ {
+  "family": "zcash:t3",
+  "value": "t3LrLvLY5YtscdPjnKYhx2cvgFSNGSzT3z2",
+  "source": "protocol.tex lead bytes 1C BD over 20 fixture bytes",
+  "derived": true
+ },
+ {
+  "family": "zcash:sapling",
+  "value": "zs1mrhc9y7jdh5r9ece8u5khgvj9kg0zgkxzdduyv0whkg7lkcrkx5xqem3e48avjq9wn2rukydkwn",
+  "source": "protocol.tex HRP zs over unified_address.json sapling_raw_addr",
+  "derived": true
+ },
+ {
+  "family": "zcash:sprout",
+  "value": "zcLJjJuHiZLJ5AKhpiahJS8uqZhFetKNVqd9TbGqL52YDoDXJ7pj2hFhEw2cvgh14mcKzeaNa8XKv4xZpUvLYvJ9iNYrFYZ",
+  "source": "protocol.tex lead bytes 16 9A over 64 fixture bytes",
+  "derived": true
+ },
+ {
+  "family": "zcash:zip320",
+  "value": "t1VmmGiyjVNeCjxDZzg7vZmd99WyzVby9yC",
+  "source": "zcash/zips zip-0320.rst",
+  "derived": false
+ },
+ {
+  "family": "zcash:zip320",
+  "value": "tex1s2rt77ggv6q989lr49rkgzmh5slsksa9khdgte",
+  "source": "zcash/zips zip-0320.rst",
+  "derived": false
+ },
+ {
+  "family": "dogecoin:pubkey",
+  "value": "DD4KSSuBJqcjuTcvUg1CgUKeurPUFeEZkE",
+  "source": "dogecoin/dogecoin src/test/data/base58_keys_valid.json",
+  "derived": false
+ },
+ {
+  "family": "dogecoin:script",
+  "value": "A7HRQk3GFCW2QasvdZxXuYj8kkQK5QrYLs",
+  "source": "dogecoin/dogecoin src/test/data/base58_keys_valid.json",
+  "derived": false
+ },
+ {
+  "family": "dogecoin:pubkey:test",
+  "value": "nhRsrUaxZou6sewjqaS37cJrMRJRgwVXdk",
+  "source": "dogecoin/dogecoin src/test/data/base58_keys_valid.json",
+  "derived": false
+ },
+ {
+  "family": "dogecoin:script:test",
+  "value": "2MsvyG12kxxipe276Au4zKqvd2xdrBuHWb3",
+  "source": "dogecoin/dogecoin src/test/data/base58_keys_valid.json",
+  "derived": false
+ },
+ {
+  "family": "dogecoin:pubkey",
+  "value": "DBjW6kna7rUPE4Mj9j4B3oK3xVA1SDHrdt",
+  "source": "dogecoin/dogecoin src/test/data/base58_keys_valid.json",
+  "derived": false
+ },
+ {
+  "family": "dogecoin:script",
+  "value": "A3RHoAQLPDSuBewbuvt5NMqEKasqs9ty3C",
+  "source": "dogecoin/dogecoin src/test/data/base58_keys_valid.json",
+  "derived": false
+ },
+ {
+  "family": "dogecoin:pubkey:test",
+  "value": "ngbSgr1dhCqsLg6Z5tpsaCspwrH72x2Zk3",
+  "source": "dogecoin/dogecoin src/test/data/base58_keys_valid.json",
+  "derived": false
+ },
+ {
+  "family": "dogecoin:script:test",
+  "value": "2MvY1BBau2C6jRC1hNX5LmviLrpvVG386TM",
+  "source": "dogecoin/dogecoin src/test/data/base58_keys_valid.json",
+  "derived": false
+ },
+ {
+  "family": "dogecoin:pubkey",
+  "value": "D77Z1nmgSZxJTmtN65n2MVF9yvLSB4MpiC",
+  "source": "dogecoin/dogecoin src/test/data/base58_keys_valid.json",
+  "derived": false
+ },
+ {
+  "family": "dogecoin:script",
+  "value": "9zYnVRaekPtdKBYuPw5QiBtv3NNrzD2LLW",
+  "source": "dogecoin/dogecoin src/test/data/base58_keys_valid.json",
+  "derived": false
+ },
+ {
+  "family": "dogecoin:pubkey:test",
+  "value": "ngao4q8auS6YuDKYPkzjt7zKYYT8LzkGZS",
+  "source": "dogecoin/dogecoin src/test/data/base58_keys_valid.json",
+  "derived": false
+ },
+ {
+  "family": "dogecoin:script:test",
+  "value": "2N22vuiMGhfqD77vPqsXPiALBfn6oUTtFtH",
+  "source": "dogecoin/dogecoin src/test/data/base58_keys_valid.json",
+  "derived": false
+ },
+ {
+  "family": "dogecoin:pubkey",
+  "value": "DGYdw7jC17b9SappjsrAsaghhDTS8sV5Mx",
+  "source": "dogecoin/dogecoin src/test/data/base58_keys_valid.json",
+  "derived": false
+ },
+ {
+  "family": "dogecoin:script",
+  "value": "A3YUuiZjn3FzW2i6KqFVgHaN5r5fjvwEJ1",
+  "source": "dogecoin/dogecoin src/test/data/base58_keys_valid.json",
+  "derived": false
+ },
+ {
+  "family": "dogecoin:pubkey:test",
+  "value": "nbo7vyCuiMxiYW4thwwuaTHQdCoqinmzJz",
+  "source": "dogecoin/dogecoin src/test/data/base58_keys_valid.json",
+  "derived": false
+ },
+ {
+  "family": "dogecoin:script:test",
+  "value": "2N1Gz97rN7P6VCj9xf64wWFqQZgpUng1mM3",
+  "source": "dogecoin/dogecoin src/test/data/base58_keys_valid.json",
+  "derived": false
+ },
+ {
+  "family": "dogecoin:pubkey",
+  "value": "DExWunrSkF2P9NAzW4JpEeC38uC3z36cCk",
+  "source": "dogecoin/dogecoin src/test/data/base58_keys_valid.json",
+  "derived": false
+ },
+ {
+  "family": "dogecoin:script",
+  "value": "AFVkW8WgPP2rsTdAeyogFK9k8gXJ1LZwrb",
+  "source": "dogecoin/dogecoin src/test/data/base58_keys_valid.json",
+  "derived": false
+ },
+ {
+  "family": "dogecoin:pubkey:test",
+  "value": "nagGnGDKWYpvnphf9rgo3xtQhAxiEM1QGD",
+  "source": "dogecoin/dogecoin src/test/data/base58_keys_valid.json",
+  "derived": false
+ },
+ {
+  "family": "dogecoin:script:test",
+  "value": "2N2f7vA5j92GCGuNt868zihqDBexEdDmJ8V",
+  "source": "dogecoin/dogecoin src/test/data/base58_keys_valid.json",
+  "derived": false
+ },
+ {
+  "family": "dogecoin:pubkey",
+  "value": "DMYFDsuFamS4kogsiqxQRXK9diCfmJzNLh",
+  "source": "dogecoin/dogecoin src/test/data/base58_keys_valid.json",
+  "derived": false
+ },
+ {
+  "family": "dogecoin:script",
+  "value": "A2CUbyEtqGUjngAjxpGmM5Nwhrz72gh23v",
+  "source": "dogecoin/dogecoin src/test/data/base58_keys_valid.json",
+  "derived": false
+ },
+ {
+  "family": "dogecoin:pubkey:test",
+  "value": "nics7FiGssSKTuDrfNbHXa913W4LrLLK2w",
+  "source": "dogecoin/dogecoin src/test/data/base58_keys_valid.json",
+  "derived": false
+ },
+ {
+  "family": "dogecoin:script:test",
+  "value": "2MtHzsXQHKJCW6s6MikTVM14kk8aqF3WmZv",
+  "source": "dogecoin/dogecoin src/test/data/base58_keys_valid.json",
+  "derived": false
+ },
+ {
+  "family": "dogecoin:pubkey",
+  "value": "DQJXChtyuN3aiU3W6pG4mgnykisHH5hqst",
+  "source": "dogecoin/dogecoin src/test/data/base58_keys_valid.json",
+  "derived": false
+ },
+ {
+  "family": "dogecoin:script",
+  "value": "AD21pKoCWcrqrUW4oRv5xUaGwCfXhiyx6y",
+  "source": "dogecoin/dogecoin src/test/data/base58_keys_valid.json",
+  "derived": false
+ },
+ {
+  "family": "provenance",
+  "value": "pb199h4qqjqu0zvlux9qeurqmc2pul8rfuenvfrft",
+  "source": "provenance-io/provenance app/prefix.go HRP pb",
+  "derived": true
+ },
+ {
+  "family": "provenance:test",
+  "value": "tp199h4qqjqu0zvlux9qeurqmc2pul8rfueq8v0tp",
+  "source": "provenance-io/provenance app/prefix.go HRP tp",
+  "derived": true
+ },
+ {
+  "family": "bnb-beacon",
+  "value": "bnb199h4qqjqu0zvlux9qeurqmc2pul8rfuecxa29e",
+  "source": "bnb-chain/go-sdk common/types/address.go HRP bnb",
+  "derived": true
+ },
+ {
+  "family": "bnb-beacon:test",
+  "value": "tbnb12hlquylu78cjylk5zshxpdj6hf3t0tahwjt3ex",
+  "source": "bnb-chain/go-sdk e2e/e2e_rpc_test.go",
+  "derived": false
+ },
+ {
+  "family": "bnb-beacon:test",
+  "value": "tbnb1e803p76n4rtyeclef7pg3295nurwfuwsw8l36m",
+  "source": "bnb-chain/go-sdk e2e/e2e_rpc_test.go",
+  "derived": false
+ },
+ {
+  "family": "bitcoincash:cashtokens",
+  "value": "bitcoincash:r0llllllllllllllllllllllllllllllllllllllllllllllllll75zs2wagl",
+  "source": "cashtokens/cashtokens test-vectors/cashaddr.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoincash:cashtokens",
+  "value": "bitcoincash:r0xvenxvenxvenxvenxvenxvenxvenxvenxvenxvenxvenxvenxvcff5rv284",
+  "source": "cashtokens/cashtokens test-vectors/cashaddr.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoincash:cashtokens",
+  "value": "bitcoincash:rdzyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zyg3zygrpttc42c",
+  "source": "cashtokens/cashtokens test-vectors/cashaddr.json",
+  "derived": false
+ },
+ {
+  "family": "bitcoincash:cashtokens",
+  "value": "bitcoincash:rpawqn2h74a4t50phuza84kdp3794pq3cct3k50p0y",
+  "source": "cashtokens/cashtokens test-vectors/cashaddr.json",
+  "derived": false
+ },
+ {
+  "family": "stellar:contract",
+  "value": "CA7QYNF7SOWQ3GLR2BGMZEHXAVIRZA4KVWLTJJFC7MGXUA74P7UJUWDA",
+  "source": "stellar/stellar-protocol sep-0023.md valid contract",
+  "derived": false
+ },
+ {
+  "family": "litecoin:mweb",
+  "value": "ltcmweb1qq20e2arnhvxw97katjkmsd35agw3capxjkrkh7dk8d30rczm8ypxuq329nwh2twmchhqn3jqh7ua4ps539f6aazh79jy76urqht4qa59ts3at6gf",
+  "source": "litecoin-project/litecoin src/wallet/test/scriptpubkeyman_tests.cpp",
+  "derived": false
+ },
+ {
+  "family": "litecoin:mweb",
+  "value": "ltcmweb1qqg5hddkl4uhspjwg9tkmatxa4s6gswdaq9swl8vsg5xxznmye7phcqatzc62mzkg788tsrfcuegxe9q3agf5cplw7ztqdusqf7x3n2tl55x4gvyt",
+  "source": "litecoin-project/litecoin src/wallet/test/scriptpubkeyman_tests.cpp",
+  "derived": false
+ },
+ {
+  "family": "litecoin:mweb",
+  "value": "ltcmweb1qq0yq03ewm830ugmkkvrvjmyyeslcpwk8ayd7k27qx63sryy6kx3ksqm3k6jd24ld3r5dp5lzx7rm7uyxfujf8sn7v4nlxeqwrcq6k6xxwqdc6tl3",
+  "source": "litecoin-project/litecoin src/wallet/test/scriptpubkeyman_tests.cpp",
+  "derived": false
+ }
+]

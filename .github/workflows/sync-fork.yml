@@ -1,0 +1,91 @@
+# Keeps Authentic-Marketing/logtotal-sanitizer an exact copy of socprime/logtotal-sanitizer.
+# It lives here, not in the fork, because a workflow file committed to the fork would itself be a
+# commit SOC Prime does not have, and the fork would stop being a mirror.
+# Needs the FORK_SYNC_TOKEN secret: a fine-grained token scoped to the fork, Contents read and write.
+name: Sync fork with SOC Prime
+
+on:
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: sync-fork
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions: {}
+    env:
+      FORK: Authentic-Marketing/logtotal-sanitizer
+      UPSTREAM_OWNER: socprime
+      BRANCH: master
+    steps:
+      - name: Require the sync token
+        env:
+          GH_TOKEN: ${{ secrets.FORK_SYNC_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::error::FORK_SYNC_TOKEN is not set."
+            exit 1
+          fi
+
+      - name: Refuse if the fork has commits of its own
+        env:
+          GH_TOKEN: ${{ secrets.FORK_SYNC_TOKEN }}
+        run: |
+          ahead=$(gh api "repos/$FORK/compare/$UPSTREAM_OWNER:$BRANCH...$BRANCH" --jq '.ahead_by')
+          echo "fork ahead of upstream by $ahead"
+          if [ "$ahead" != "0" ]; then
+            echo "::error::The fork is $ahead commits ahead of upstream. It is no longer a mirror; a person decides what to do."
+            exit 1
+          fi
+
+      - name: Fast-forward the fork
+        env:
+          GH_TOKEN: ${{ secrets.FORK_SYNC_TOKEN }}
+        run: |
+          type=$(gh api -X POST "repos/$FORK/merge-upstream" -f branch="$BRANCH" --jq '.merge_type')
+          echo "merge_type=$type"
+          case "$type" in
+            fast-forward|none) ;;
+            *) echo "::error::merge-upstream returned merge_type=$type, expected fast-forward or none."; exit 1 ;;
+          esac
+
+      - name: Read back both branches
+        env:
+          GH_TOKEN: ${{ secrets.FORK_SYNC_TOKEN }}
+        run: |
+          fork=$(gh api "repos/$FORK/commits/$BRANCH" --jq '.sha')
+          upstream=$(gh api "repos/$UPSTREAM_OWNER/logtotal-sanitizer/commits/$BRANCH" --jq '.sha')
+          echo "fork     $fork"
+          echo "upstream $upstream"
+          if [ "$fork" != "$upstream" ]; then
+            echo "::error::After the sync the fork tip differs from upstream."
+            exit 1
+          fi
+
+  report:
+    needs: sync
+    if: failure()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      issues: write
+    steps:
+      - name: Open or update the failure issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          title="Fork sync failing"
+          n=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "\"$title\" in:title" --json number --jq '.[0].number // empty')
+          if [ -n "$n" ]; then
+            gh issue comment "$n" --repo "$GITHUB_REPOSITORY" --body "Failed again: $RUN_URL"
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body "The scheduled sync of Authentic-Marketing/logtotal-sanitizer failed: $RUN_URL"
+          fi

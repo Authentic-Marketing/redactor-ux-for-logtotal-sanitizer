@@ -1,0 +1,197 @@
+# Watches npm for a newer @socprime/logtotal-sanitizer. When one lands it rebuilds the page with
+# it, runs every check, and opens one pull request with the results. It never merges.
+# The job that runs code downloaded from npm holds a read-only token and no secrets; the job that
+# can write only copies three known files out of that job's artifact and runs nothing from it.
+name: Watch SOC Prime for a new library
+
+on:
+  schedule:
+    - cron: "41 6 * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: upstream-watch
+  cancel-in-progress: false
+
+env:
+  PKG: "@socprime/logtotal-sanitizer"
+
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      bump: ${{ steps.decide.outputs.bump }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Compare npm latest with the bundled version
+        id: decide
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          latest=$(npm view "$PKG" dist-tags.latest)
+          line=$(python3 build/upstream_check.py "$latest")
+          bump=${line#bump=}
+          if [ -n "$bump" ]; then
+            open=$(gh pr list --repo "$GITHUB_REPOSITORY" --state open --head "upstream/$bump" --json number --jq '.[0].number // empty')
+            if [ -n "$open" ]; then
+              echo "Pull request #$open already proposes $bump."
+              bump=""
+            fi
+          fi
+          echo "bundled vs npm latest $latest: bump='$bump'"
+          echo "bump=$bump" >> "$GITHUB_OUTPUT"
+
+  build:
+    needs: detect
+    if: needs.detect.outputs.bump != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    env:
+      BUMP: ${{ needs.detect.outputs.bump }}
+    defaults:
+      run:
+        working-directory: build
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "22"
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Install check dependencies
+        run: |
+          python -m pip install -r requirements.txt
+          python -m playwright install --with-deps chromium
+
+      - name: Rebuild the page with the new library
+        run: |
+          node bump-library.mjs "$BUMP"
+          python assemble.py ../index.html --public
+          cd bridge && npm install --no-save "$PKG@$BUMP"
+
+      - name: Run every check
+        run: |
+          status=0
+          {
+            echo "| Check | Result | Last line |"
+            echo "| --- | --- | --- |"
+          } > ../checks.md
+          for s in verify.py verify-rules.py verify-update-check.py verify-bridge.py redleg-rules.py redleg-update-check.py redleg-bridge.py; do
+            if python "$s" > "../$s.log" 2>&1; then r=pass; else r=FAIL; status=1; fi
+            last=$(tail -n 1 "../$s.log" | tr '|' '/' | cut -c1-160)
+            echo "| $s | $r | $last |" >> ../checks.md
+          done
+          echo "$status" > ../checks-status
+          cat ../checks.md
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: bump
+          retention-days: 7
+          path: |
+            build/pkg/sanitizer.iife.js
+            build/ui/app-1.js
+            index.html
+            checks.md
+            checks-status
+
+  pr:
+    needs: [detect, build]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      BUMP: ${{ needs.detect.outputs.bump }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: bump
+          path: ${{ runner.temp }}/bump
+
+      - name: Copy the three rebuilt files, nothing else
+        env:
+          SRC: ${{ runner.temp }}/bump
+        run: |
+          cp "$SRC/build/pkg/sanitizer.iife.js" build/pkg/sanitizer.iife.js
+          cp "$SRC/build/ui/app-1.js" build/ui/app-1.js
+          cp "$SRC/index.html" index.html
+          changed=$(git status --porcelain | awk '{print $2}' | sort | tr '\n' ' ')
+          if [ "$changed" != "build/pkg/sanitizer.iife.js build/ui/app-1.js index.html " ]; then
+            echo "::error::Unexpected change set: $changed"
+            exit 1
+          fi
+
+      - name: Open the pull request and supersede older ones
+        env:
+          SRC: ${{ runner.temp }}/bump
+        run: |
+          branch="upstream/$BUMP"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git commit -m "Bundle $PKG $BUMP" -- build/pkg/sanitizer.iife.js build/ui/app-1.js index.html
+          git push origin "$branch"
+          status=$(cat "$SRC/checks-status")
+          if [ "$status" = "0" ]; then verdict="All checks passed."; else verdict="**Some checks failed.** Do not merge until they pass."; fi
+          {
+            echo "SOC Prime published $PKG $BUMP. This rebuilds the page with it."
+            echo
+            echo "$verdict"
+            echo
+            cat "$SRC/checks.md"
+            echo
+            echo "Before merging: review the diff, bump PAGE in build/ui/app-1.js if the page should"
+            echo "announce a new version, and regenerate version.json only after the download it"
+            echo "names serves that version. This workflow never merges."
+          } > "$RUNNER_TEMP/body.md"
+          gh pr create --base "${{ github.event.repository.default_branch }}" --head "$branch" \
+            --title "Bundle $PKG $BUMP" --body-file "$RUNNER_TEMP/body.md"
+          gh pr list --repo "$GITHUB_REPOSITORY" --state open --json number,headRefName \
+            --jq ".[] | select(.headRefName | startswith(\"upstream/\")) | select(.headRefName != \"$branch\") | .number" |
+          while read -r old; do
+            gh pr close "$old" --repo "$GITHUB_REPOSITORY" --delete-branch --comment "Superseded by $branch."
+          done
+          if [ "$status" != "0" ]; then
+            echo "::error::Checks failed on $BUMP; the pull request says so."
+            exit 1
+          fi
+
+  report:
+    needs: [detect, build, pr]
+    if: failure()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      issues: write
+    steps:
+      - name: Open or update the failure issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          title="Upstream watch failing"
+          n=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --search "\"$title\" in:title" --json number --jq '.[0].number // empty')
+          if [ -n "$n" ]; then
+            gh issue comment "$n" --repo "$GITHUB_REPOSITORY" --body "Failed again: $RUN_URL"
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body "The upstream watch failed: $RUN_URL"
+          fi

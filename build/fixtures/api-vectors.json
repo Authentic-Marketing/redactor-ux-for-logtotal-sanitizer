@@ -1,0 +1,52 @@
+{
+ "note": "Each key is the vendor-documented prefix plus a deterministic body; only xAI is a verbatim vendor example. Hosts are not in this rule by the 2026-09-23 ruling.",
+ "must_match": [
+  {
+   "vendor": "OpenRouter",
+   "value": "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",
+   "source": "openrouter.ai/docs/guides/community/replit (prefix)"
+  },
+  {
+   "vendor": "Groq",
+   "value": "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",
+   "source": "console.groq.com/docs/production-readiness/security-onboarding (prefix)"
+  },
+  {
+   "vendor": "Hugging Face",
+   "value": "hf_lhtnzq3ertEzcVuPG4QLazbmcCVpqunkN5",
+   "source": "huggingface.co/docs/hub/security-tokens (prefix)"
+  },
+  {
+   "vendor": "Replicate",
+   "value": "r8_5wawfgcjgqoVsxdsGwWCc1T1MKX7AnhiEf15T",
+   "source": "replicate.com/docs/topics/security/api-tokens (prefix, 40 chars)"
+  },
+  {
+   "vendor": "Fireworks",
+   "value": "fw_yCwnooiVz22JYNGBTp7r6Kt1",
+   "source": "docs.fireworks.ai/ecosystem/firerouter/quickstart (prefix)"
+  },
+  {
+   "vendor": "xAI",
+   "value": "xai-2xr2bnFV7lAbcdelZbqSxLd77pjlU6gcFmt3tPLSK3d7z7302htoH6mc4LlKlTY7nJtlU0lRXXQjoYZ4",
+   "source": "docs.x.ai/developers/rest-api-reference/management/auth (verbatim example)"
+  },
+  {
+   "vendor": "Anthropic",
+   "value": "sk-ant-api03-vTvW9hX3HuOH40AHCpkUBgzBbShxHPEJb0QiG_pzaywt4zDd2Ond0RwGpYTn_lySezsFOxNgEBCWwq1eySV_abYis8bwcAA",
+   "source": "shipped pattern, pre-existing"
+  },
+  {
+   "vendor": "OpenAI",
+   "value": "sk-proj-NrnJLU0UKtA2pPdfRsOQQOshkiavKiNGHss5WH8fT3BlbkFJBMXsP4dXbEUCEIUDT0cGsoFQiJGwerrbdQOMuo5b",
+   "source": "shipped pattern, pre-existing"
+  }
+ ],
+ "must_not_match": [
+  "fw_PolicyDenyInboundTraffic",
+  "fw_rule_allow_443",
+  "hf_hub_download",
+  "gsk_short",
+  "r8_tooshort"
+ ]
+}

