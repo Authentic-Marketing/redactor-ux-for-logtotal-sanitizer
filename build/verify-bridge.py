@@ -1,4 +1,4 @@
-import base64, json, os, re, signal, subprocess, sys, tempfile, time, urllib.request, urllib.error
+import atexit, base64, json, os, re, signal, subprocess, sys, tempfile, time, urllib.request, urllib.error
 from playwright.sync_api import sync_playwright
 import pathlib
 
@@ -25,6 +25,9 @@ UPDATE_SRC = open(
     os.path.join(HERE, "bridge", "update-page.mjs"), encoding="utf-8"
 ).read()
 results = []
+# Every bridge this run starts, so a crash or a kill cannot leave one listening. A stray bridge
+# on 7412 makes the next run read "Connected" where it expects "not detected".
+SPAWNED = []
 
 
 def check(name, ok, detail=""):
@@ -79,6 +82,7 @@ def start_bridge():
         stderr=subprocess.STDOUT,
         start_new_session=True,
     )
+    SPAWNED.append(p)
     assert wait_health(10), "bridge did not start"
     return p
 
@@ -94,6 +98,20 @@ def stop(p):
             return
         time.sleep(0.25)
 
+
+def stop_spawned():
+    for p in SPAWNED:
+        if p.poll() is None:
+            stop(p)
+
+
+atexit.register(stop_spawned)
+# SIGTERM would otherwise end the run without atexit; turn it into a normal exit.
+signal.signal(signal.SIGTERM, lambda *_: sys.exit(143))
+
+if healthy():
+    print("FAIL a bridge is already listening on 127.0.0.1:7412 before the run; stop it first")
+    sys.exit(1)
 
 with sync_playwright() as pw:
     b = pw.chromium.launch()
@@ -207,9 +225,10 @@ with sync_playwright() as pw:
     page.wait_for_function(
         "document.querySelector('#stMatches').textContent === '43'", timeout=8000
     )
-    # Ruling 14 removed the Add custom rule button from every view and left the editor
-    # open on load, so the fields are filled directly with no button to click first.
+    # Ruling 14 removed the Add custom rule button from every view. Since 2026-09-28 the
+    # editor starts closed, so the test opens it through its summary before filling it.
     configure(page)
+    page.click("details.editor-wrap > summary")
     page.fill("#rf-id", "acme_ticket")
     page.fill("#rf-token", "TICKET")
     page.fill("#rf-patterns", r"\bCASE-\d{6}\b")
@@ -266,6 +285,7 @@ with sync_playwright() as pw:
         stderr=subprocess.STDOUT,
         start_new_session=True,
     )
+    SPAWNED.append(alt)
     time.sleep(1.5)
 
     def ask(origin=None, path="/health"):

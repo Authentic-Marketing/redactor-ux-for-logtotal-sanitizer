@@ -92,7 +92,11 @@ with sync_playwright() as p:
     view(page, 'sanitize'); page.fill('#inputText', page.input_value('#inputText') + '\nSep 19 10:07:00 srv-app-01 desk[9]: opened CASE-123456 for alice@example.test, dup of CASE-123456')
     # Amended 2026-09-21 on JJ's order (ruling 14): the Add custom rule button left view and the editor is open on
     # load, so the invalid rule is tried first in the open editor, then the valid rule is entered over it and saved.
-    view(page, 'configure'); page.fill('#rf-id', 'bad'); page.fill('#rf-patterns', '(a)(b)'); page.click('#rf-save'); page.wait_for_timeout(200)
+    # Amended 2026-09-28: the editor now starts closed (details.editor-wrap), so the check confirms that and the
+    # test opens it through its summary, the way a user would, before entering the rules.
+    view(page, 'configure')
+    check('rule editor starts closed', page.eval_on_selector('details.editor-wrap', 'd => !d.open'))
+    page.click('details.editor-wrap > summary'); page.fill('#rf-id', 'bad'); page.fill('#rf-patterns', '(a)(b)'); page.click('#rf-save'); page.wait_for_timeout(200)
     check('invalid rule shows library message', 'capturing group' in page.text_content('#rf-err'), page.text_content('#rf-err')[:80])
     page.fill('#rf-id', 'acme_ticket'); page.fill('#rf-label', 'Support ticket IDs'); page.fill('#rf-token', 'TICKET'); page.fill('#rf-patterns', r'\bCASE-\d{6}\b')
     page.click('#rf-test'); page.wait_for_timeout(200); check('rule test reports matches', '2 matches' in page.text_content('#rf-testOut'), page.text_content('#rf-testOut'))

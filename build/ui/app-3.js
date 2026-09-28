@@ -88,7 +88,7 @@ window.LogTotalSanitizerUi = {
   seedHash, ruleIds: () => state.rules.map((r) => ({ id: r.id, enabled: r.enabled, hash: r.kind === 'custom' ? seedHash(state.custom[r.id]) : null })),
   sanitizeAsPage: (text) => L.createSanitizer(Object.assign(buildOptions(), { report: { previewBytes: 0 } })).sanitizeText(text).output,
   declaredOrder: () => DEFAULT_ORDER.slice(),
-  exportedRules: () => enabledCustom(), recipeSource: () => optionsSource(false),
+  exportedRules: () => enabledCustom(), recipeSource: () => optionsSource(false), resultSeq: () => resultSeq,
   builtinCount: () => L.builtinRuleIds.length, updateCmd, cmpVer };
 function wireEngine() {
   $('#bundledVersion').textContent = LIB.version + ', ' + LIB.published;

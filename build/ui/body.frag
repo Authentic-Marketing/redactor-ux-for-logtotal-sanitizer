@@ -1,7 +1,7 @@
 <body data-view="sanitize">
 <header class="topbar">
   <div class="brand">
-    <h1 class="title" title="Redactor UX for LogTotal Sanitizer, by Authentic Marketing">Redactor UX for LogTotal Sanitizer, by Authentic Marketing</h1>
+    <h1 class="title" title="Redactor UX for LogTotal Sanitizer">Redactor UX for LogTotal Sanitizer</h1>
     <code class="pkg" title="npm package name">@socprime/logtotal-sanitizer</code>
   </div>
   <div class="topbar-right">
@@ -14,6 +14,7 @@
   <button type="button" data-view="sanitize" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21"/><path d="M22 21H7"/><path d="m5 11 9 9"/></svg>Sanitize</button>
   <button type="button" data-view="configure" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>Settings</button>
   <button type="button" data-view="integrate" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg>Integrate</button>
+  <button type="button" data-view="how" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>How it works</button>
 </nav>
 
 <div class="workspace">
@@ -59,7 +60,7 @@
         <button class="btn sm" id="addRuleBtn" type="button"><svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Add custom rule</button>
         <button class="btn sm ghost" id="resetOrder" type="button"><svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Reset order</button>
       </div>
-      <details class="editor-wrap" open>
+      <details class="editor-wrap">
         <summary><h3 id="rf-title">New custom rule</h3></summary>
         <form class="editor" id="ruleEditor" autocomplete="off">
         <div class="two">
@@ -92,18 +93,17 @@
   </details>
 
   <details class="sec" open>
-    <summary>Matching</summary>
+    <summary>Matching<label class="switch"><input type="checkbox" id="aggressive"><span class="sw"></span><span class="small"><b>Aggressive mode</b></span></label></summary>
     <div class="sec-body">
-      <label class="switch"><input type="checkbox" id="aggressive"><span class="sw"></span><span class="small"><b>Aggressive mode</b></span></label>
       <div class="field"><label for="jsonMode">JSON lines</label><select id="jsonMode"><option value="auto">auto: redact named fields, scan the rest</option><option value="off">off: plain-text scan only</option></select></div>
     </div>
   </details>
 
   <details class="sec" open>
-    <summary>Key</summary>
+    <summary>HMAC key</summary>
     <div class="sec-body">
-      <div class="field"><label for="keyInput">HMAC key</label>
-        <div class="row"><input class="input mono grow" id="keyInput" type="password" spellcheck="false" autocomplete="off"><button class="btn icon" id="keyShow" type="button" aria-pressed="false" aria-label="Show key">o</button></div>
+      <div class="field">
+        <div class="row"><input class="input mono grow" id="keyInput" aria-label="HMAC key" type="password" spellcheck="false" autocomplete="off"><button class="btn icon" id="keyShow" type="button" aria-pressed="false" aria-label="Show key">o</button></div>
       </div>
       <div class="row">
         <button class="btn sm" id="keyGen" type="button">Generate new key</button>
@@ -200,20 +200,17 @@
             <button type="button" role="menuitem" data-export="report">Report <span class="k">report.json, contains originals</span></button>
           </div>
         </div>
-        <span class="tsep" aria-hidden="true"></span>
-        <button class="btn sm ghost" id="clearInput" type="button"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>Clear</button>
+        <button class="btn sm ghost" id="stopBtn" type="button" hidden>Stop</button>
+        <button class="btn primary" id="runBtn" type="button">Sanitize</button>
       </div>
     </div>
     <div class="card-body">
-      <div class="composer-top">
-        <div class="row">
-          <button class="btn sm ghost" id="stopBtn" type="button" hidden>Stop</button>
-          <button class="btn primary" id="runBtn" type="button">Sanitize</button>
-        </div>
-      </div>
       <div class="srcfile" id="srcFile" hidden><span>File</span><span class="name" id="srcName"></span><span class="mut" id="srcSize"></span><button class="btn sm ghost" id="srcRemove" type="button" style="margin-left:auto">Back to paste</button></div>
       <textarea class="input-area" id="inputText" aria-label="Log text" placeholder="Sep 19 10:01:02 srv-app-01 sshd[1122]: Accepted publickey for alice@example.test from 10.20.4.15 port 51522" spellcheck="false"></textarea>
-      <span class="small mut" id="inputMeta">0 lines</span>
+      <div class="input-foot">
+        <span class="small mut" id="inputMeta">0 lines</span>
+        <button class="btn sm" id="clearInput" type="button"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>Clear</button>
+      </div>
       <div class="progress" id="progress" hidden><div class="bar"><i id="progBar"></i></div><span class="mono" id="progText"></span></div>
       <div class="err" id="cfgErr" role="alert"></div>
     </div>
@@ -283,6 +280,106 @@
     <div class="panel">
       <p class="small" id="intNote"></p>
       <div class="codeblock"><div class="cb-head"><span id="intFile">shell</span><button class="btn sm ghost" id="copyInt" type="button">Copy</button></div><pre id="intCode"></pre></div>
+    </div>
+  </section>
+  <section class="card how" id="howCard" aria-labelledby="howTitle">
+    <div class="how-body">
+      <h2 id="howTitle">How it works</h2>
+      <p>Redactor UX runs SOC Prime's logtotal-sanitizer library (0.2.0-beta.3) unchanged in this tab. By default, nothing leaves your computer.</p>
+      <p>Three requests stay off until you turn them on: two version checks against npm and GitHub, and the local engine, which sends your text to a bridge at 127.0.0.1 or localhost on your own machine.</p>
+      <figure class="hiw">
+        <div class="hiw-scroll">
+<svg class="hiw-diagram" viewBox="0 0 983 318" role="img" aria-labelledby="hiwTitle hiwDesc">
+  <title id="hiwTitle">How the library turns your text into redacted text and a report</title>
+  <desc id="hiwDesc">Your text goes to the line splitter, which sends one line at a time to a JSON or text check. JSON lines go to a JSON field check, which sends invalid JSON back as text. Text lines and other JSON text values go to rule matching. Named field values and found values go to the token maker, which uses the secret key and sends each token back. The JSON or text step outputs redacted text and a report with counts and originals.</desc>
+  <defs>
+    <marker id="hiwArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z"/>
+    </marker>
+  </defs>
+
+  <!-- boxes -->
+  <g class="box" data-id="B1"><rect x="10" y="140" width="96" height="50" rx="6"/><text x="58" y="165">Your text</text></g>
+  <g class="box" data-id="B2"><rect x="183" y="140" width="96" height="50" rx="6"/><text x="231" y="165"><tspan x="231" dy="-9">Line</tspan><tspan x="231" dy="18">splitter</tspan></text></g>
+  <g class="box" data-id="B3"><rect x="356" y="140" width="96" height="50" rx="6"/><text x="404" y="165"><tspan x="404" dy="-9">JSON</tspan><tspan x="404" dy="18">or text</tspan></text></g>
+  <g class="box" data-id="B4"><rect x="529" y="30" width="96" height="50" rx="6"/><text x="577" y="55"><tspan x="577" dy="-9">JSON field</tspan><tspan x="577" dy="18">check</tspan></text></g>
+  <g class="box" data-id="B5"><rect x="529" y="140" width="96" height="50" rx="6"/><text x="577" y="165"><tspan x="577" dy="-9">Rule</tspan><tspan x="577" dy="18">matching</tspan></text></g>
+  <g class="box" data-id="B6"><rect x="702" y="140" width="96" height="50" rx="6"/><text x="750" y="165"><tspan x="750" dy="-9">Token</tspan><tspan x="750" dy="18">maker</tspan></text></g>
+  <g class="box key" data-id="B7"><rect x="702" y="30" width="96" height="50" rx="6"/><text x="750" y="55">Secret key</text></g>
+  <g class="box" data-id="B8"><rect x="875" y="90" width="96" height="50" rx="6"/><text x="923" y="115"><tspan x="923" dy="-9">Redacted</tspan><tspan x="923" dy="18">text</tspan></text></g>
+  <g class="box" data-id="B9"><rect x="875" y="195" width="96" height="50" rx="6"/><text x="923" y="220">Report</text></g>
+
+  <!-- arrows, spec order -->
+  <path class="flow" d="M106,165 H181" marker-end="url(#hiwArrow)"/>
+  <text class="lbl mid" x="144" y="138">text</text>
+  <text class="lbl mid" x="144" y="154">chunks</text>
+
+  <path class="flow" d="M279,165 H354" marker-end="url(#hiwArrow)"/>
+  <text class="lbl mid" x="317" y="138">one line</text>
+  <text class="lbl mid" x="317" y="154">each</text>
+
+  <path class="flow" d="M380,140 V45 H527" marker-end="url(#hiwArrow)"/>
+  <text class="lbl mid" x="455" y="37">JSON lines</text>
+
+  <path class="flow" d="M527,68 H428 V138" marker-end="url(#hiwArrow)"/>
+  <text class="lbl mid" x="478" y="84">not valid</text>
+  <text class="lbl mid" x="478" y="100">JSON</text>
+
+  <path class="flow" d="M452,165 H527" marker-end="url(#hiwArrow)"/>
+  <text class="lbl mid" x="490" y="155">text lines</text>
+
+  <path class="flow" d="M577,80 V138" marker-end="url(#hiwArrow)"/>
+  <text class="lbl" x="585" y="100">other</text>
+  <text class="lbl" x="585" y="116">text</text>
+  <text class="lbl" x="585" y="132">values</text>
+
+  <path class="flow" d="M627,65 H663 V152 H700" marker-start="url(#hiwArrow)" marker-end="url(#hiwArrow)"/>
+  <text class="lbl" x="669" y="98">named</text>
+  <text class="lbl" x="669" y="114">field</text>
+  <text class="lbl" x="669" y="130">values</text>
+
+  <path class="flow" d="M627,178 H700" marker-start="url(#hiwArrow)" marker-end="url(#hiwArrow)"/>
+  <text class="lbl mid" x="663" y="206">found values</text>
+
+  <path class="flow" d="M750,80 V138" marker-end="url(#hiwArrow)"/>
+  <text class="lbl" x="757" y="112">key</text>
+
+  <path class="flow" d="M430,190 V262 H850 V115 H873" marker-end="url(#hiwArrow)"/>
+  <text class="lbl mid" x="640" y="254">redacted lines</text>
+
+  <path class="flow" d="M378,190 V285 H862 V220 H873" marker-end="url(#hiwArrow)"/>
+  <text class="lbl mid" x="640" y="304">counts and originals</text>
+</svg>
+        </div>
+        <figcaption>An arrow with two heads means the token maker gives each token back to the step that sent it the value.</figcaption>
+      </figure>
+      <h3>Rules scan each line</h3>
+      <p>Each line is scanned alone. JSON lines (starting with { or [) come out compacted, with fields such as password replaced whole. Everything else is scanned as plain text.</p>
+      <p>Rules run top first, in an order you can change. Where matches overlap, the earliest start wins, then the higher rule. Some rules verify a match first, such as a Luhn checksum on card numbers. Allowlisted values and failed checks stay unredacted but still block overlaps.</p>
+      <h3>Values become tokens</h3>
+      <p>A found value becomes a token like <code>&lt;IP:3f9a0c2e7b1d4a65&gt;</code>, labeled by type in Pseudonymize mode and with R in Redact mode. The same key, rule and value always give the same token, and a new key changes them all. The page doesn't save the key with your settings. Download it if you'll want matching tokens later.</p>
+      <h3>Nothing is encrypted</h3>
+      <p>The library has no dependencies. It computes SHA-256 and HMAC-SHA256 itself, without crypto.subtle or Node's crypto.</p>
+      <p>A token is a one-way HMAC-SHA256, under your key, of the rule id, a zero byte and the value, so it can't be decrypted. It keeps the first 8 of 32 bytes (64 bits) as 16 hex characters.</p>
+      <p>Its one browser crypto call, crypto.getRandomValues, makes new keys of 32 random bytes. You can supply your own key as hex or plain text. The page loads no outside scripts, styles or fonts.</p>
+      <h3>The report holds originals</h3>
+      <p>It lists every original value with nearby text. Keep it private.</p>
+      <p>It also counts matches per rule and previews about the first 262,144 characters before and after.</p>
+      <h3>Limits</h3>
+      <ul>
+        <li>Values no rule covers pass through.</li>
+        <li>Values split across lines are missed, as are values across the cut in any line over 1,048,576 characters.</li>
+        <li>JSON numbers, true, false and null are kept. Field-name rules skip list items.</li>
+        <li>Private IPs are redacted, but loopback 127.0.0.1 isn't.</li>
+        <li>Memory grows with each new value.</li>
+        <li>Anyone with the key can hash a guess and compare tokens.</li>
+      </ul>
+      <h3>11 library rules</h3>
+      <ul>
+        <li>Redact (R): secrets, session and CSRF cookies, payment data, government IDs, health identifiers, home-path usernames.</li>
+        <li>Pseudonymize: phones (PHONE), IP and MAC addresses (IP), hosts and domains (HOST), emails, usernames and Windows account IDs (USER), coordinates and postcodes (GEO).</li>
+        <li>Added by this page: driver's licenses (DLN), license plates (PLATE), LLM API keys (LLMAPI) and cryptocurrency addresses (CRYPTO). Licenses and plates cover the 50 US states, DC and 10 Canadian provinces. License plates start on Strict and driver's licenses on Loose.</li>
+      </ul>
     </div>
   </section>
 </main>

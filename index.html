@@ -150,7 +150,7 @@ a.btn{text-decoration:none}
 #themeBtn::after{content:"";position:absolute;left:7px;top:16px;width:12px;height:12px;background-color:var(--bg);-webkit-mask:var(--ico-moon) center/12px 12px no-repeat;mask:var(--ico-moon) center/12px 12px no-repeat;transition:background-color var(--dur) ease}
 :root[data-theme="light"] #themeBtn::after{transform:translateX(18px);-webkit-mask-image:var(--ico-sun);mask-image:var(--ico-sun)}
 .viewtabs{display:none;position:sticky;top:var(--topbar-h);z-index:15;border-bottom:1px solid var(--hairline);background:var(--surface)}
-.viewtabs button{flex:1;min-height:48px;padding:0 8px;border:0;background:transparent;font-weight:600;font-size:.85rem;color:var(--mut);border-bottom:2px solid transparent}
+.viewtabs button{flex:1;min-height:48px;padding:0 4px;white-space:nowrap;border:0;background:transparent;font-weight:600;font-size:.85rem;color:var(--mut);border-bottom:2px solid transparent}
 .viewtabs button[aria-pressed="true"]{color:var(--fg);border-bottom-color:var(--accent)}
 /* Below 1080 the three destinations stay the tab strip above, unchanged. The rail and
    its glyphs exist only above 1080. */
@@ -168,9 +168,32 @@ a.btn{text-decoration:none}
 .workspace{display:grid;grid-template-columns:340px minmax(0,1fr);align-items:start}
 /* One destination at a time, at every width. These are the show and hide rules that used
    to sit in the phone block below; the layout half of that block stays where it is. */
-body[data-view="sanitize"] .rail,body[data-view="integrate"] .rail{display:none}
-body[data-view="configure"] .main,body[data-view="integrate"] .main>.card:not(.integrate){display:none}
-body[data-view="sanitize"] .main>.card.integrate{display:none}
+body[data-view="sanitize"] .rail,body[data-view="integrate"] .rail,body[data-view="how"] .rail{display:none}
+body[data-view="configure"] .main,body[data-view="integrate"] .main>.card:not(.integrate),body[data-view="how"] .main>.card:not(.how){display:none}
+body[data-view="sanitize"] .main>.card.integrate,body:not([data-view="how"]) .main>.card.how{display:none}
+/* How it works. The copy keeps a reading measure. The drawing keeps the spec layout and never
+   renders below 1000 px wide, so its labels stay legible: narrower screens scroll it inside
+   its own frame. */
+.how-body{padding:20px 24px 28px}
+.how-body>:not(figure){max-width:72ch}
+.how-body h2{margin:0 0 12px;font-size:1.25rem}
+.how-body h3{margin:24px 0 6px;font-size:1rem}
+.how-body p,.how-body li{line-height:1.6}
+.how-body p{margin:0 0 10px}
+.how-body ul{padding-left:1.2em}
+.how-body code{font-family:var(--font-mono);font-size:.85em}
+.how .hiw{margin:20px 0}
+.hiw-scroll{overflow-x:auto;border:1px solid var(--hairline);border-radius:var(--r-md);background:var(--bg)}
+.hiw-diagram{display:block;width:75%;min-width:750px;height:auto;margin:0 auto}
+.hiw-diagram .box rect{fill:var(--surface);stroke:var(--line);stroke-width:1.25}
+.hiw-diagram .box.key rect{fill:var(--tint);stroke:var(--accent)}
+.hiw-diagram .box text{fill:var(--fg);font:600 15px var(--font-sans);text-anchor:middle;dominant-baseline:central}
+.hiw-diagram .flow{fill:none;stroke:var(--accent);stroke-width:1.6}
+.hiw-diagram .lbl{fill:var(--mut);font:400 15px var(--font-sans)}
+.hiw-diagram .mid{text-anchor:middle}
+.hiw-diagram .end{text-anchor:end}
+.hiw-diagram marker path{fill:var(--accent)}
+.how figcaption{margin-top:8px;font-size:.85rem;color:var(--mut)}
 @media (min-width:1081px){
   /* The rail is fixed, so the work column and the footer carry its width as an inset. The
      destination line that used to sit above the workspace is gone, so both start directly
@@ -205,6 +228,8 @@ body[data-view="sanitize"] .main>.card.integrate{display:none}
 .sec>summary::before{content:"";width:16px;height:16px;flex:0 0 auto;background-color:currentColor;-webkit-mask:var(--ico-chev) center/16px 16px no-repeat;mask:var(--ico-chev) center/16px 16px no-repeat;transition:transform var(--dur) ease}
 .sec[open]>summary::before{transform:rotate(90deg)}
 .sec>summary:hover{color:var(--fg)}
+/* A switch inside a section title, beside the title word, set in the body type not the caps label. */
+.sec>summary .switch{margin-left:4px;text-transform:none;letter-spacing:0;font-weight:400;color:var(--fg)}
 .sec>summary .count{margin-left:auto}
 /* Engine loads collapsed, so its header carries the engine the page is actually running. The
    value is read from the radio the page's JS keeps checked, never written by us. Both labels
@@ -252,6 +277,17 @@ body[data-view="sanitize"] .main>.card.integrate{display:none}
    done here is subordinate it: the picker's own 44 px height, no gap at all against the
    picker, a muted label that lifts to full weight only on hover, and 16 px of air after it
    that tells the eye where the pair ends and the file actions begin. */
+/* Sanitize sits at the far end of the header row, filled, so it stays the page's one primary action. */
+#inputCard .card-head #runBtn{margin-left:8px;padding:0 16px;background:var(--btn-fill);color:var(--btn-label);font-weight:600}
+#inputCard .card-head #runBtn:hover{background:var(--btn-fill);box-shadow:inset 0 0 0 100px rgba(0,0,0,.08)}
+/* Sanitize holds the header's top-right corner at every width. The header keeps room for it, so
+   when the row of controls wraps it wraps under the title, never under the button. */
+#inputCard .card-head{position:relative;padding-right:124px}
+#inputCard .card-head #runBtn{position:absolute;top:8px;right:16px;margin:0}
+@media (max-width:760px){
+  #inputCard .card-head h2{flex:1 0 100%;display:flex;align-items:center;min-height:44px}
+}
+
 #inputCard .card-head #loadSample{margin:0 20px 0 -2px;padding:0 8px;color:var(--mut)}
 #inputCard .card-head #loadSample:hover{color:var(--fg)}
 #inputCard .card-head #loadSample .ico{color:inherit}
@@ -265,7 +301,11 @@ body[data-view="sanitize"] .main>.card.integrate{display:none}
    of the card's 16 px axis that the Sanitize button, the paste box and the pane count all sit
    on. The last button in each head gives that padding back as a negative margin: the label
    lands on the axis and the 44 px target and hover fill keep their size (wave 2 smoothing). */
-#inputCard .card-head #clearInput{margin-right:-10px}
+/* Clear sits at the end of the line count row, under the text box, away from Sanitize. */
+.input-foot{display:flex;align-items:center;gap:12px}
+.input-foot #clearInput{margin-left:auto;display:inline-flex;align-items:center;gap:6px;background:transparent;border-color:var(--btn-fill);color:var(--btn-fill)}
+.input-foot #clearInput:hover{background:var(--surface-2)}
+.input-foot #clearInput .ico{display:block;width:16px;height:16px;flex:0 0 auto;color:inherit}
 /* Above the rail's own breakpoint the row is wide enough to hold every control on one
    line, so wrapping is switched off there and left on below it, where the phone needs it. */
 @media (min-width:1081px){
@@ -334,10 +374,12 @@ body[data-view="sanitize"] .main>.card.integrate{display:none}
    prefix the output actually carries for a pseudo-mode one. */
 .rule-kind{display:inline-block;flex:0 0 auto;box-sizing:border-box;min-width:2.6rem;max-width:6rem;height:20px;padding:0 5px;border:1px solid var(--hairline);border-radius:var(--r-sm);background:transparent;font-family:var(--font-mono);font-size:.72rem;line-height:18px;text-align:center;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rule-acts{display:flex;align-items:center}
-.rule-meta .btn.tier{flex:0 0 auto;min-height:44px;padding:0 6px;border:0;border-radius:0;background:transparent;font-family:var(--font-mono);font-size:.72rem;color:var(--mut)}
-.rule-meta .btn.tier:hover{color:var(--fg);background:var(--surface-2)}
-.rule-meta .btn.tier[aria-pressed="true"]{color:var(--accent-text);box-shadow:inset 0 -2px 0 var(--accent)}
-.rule-meta .btn.tier[disabled]{opacity:1;cursor:default}
+.rule-meta .btn.tier{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;padding:0;border:0;border-radius:0;background:transparent;cursor:pointer}
+.rule-meta .btn.tier .rule-kind{min-width:3.25rem;padding:0 4px}
+.rule-meta .btn.tier:hover .rule-kind{border-color:var(--accent);color:var(--fg)}
+.rule-meta .btn.tier[aria-checked="true"] .rule-kind{background:var(--btn-fill);border-color:var(--btn-fill);color:var(--btn-label)}
+.rule-meta .btn.tier[aria-disabled="true"]{cursor:default}
+.rule-meta .btn.tier[aria-disabled="true"] .rule-kind{border-style:dashed;background:var(--tint);border-color:var(--btn-fill);color:var(--fg)}
 .rule-acts .btn{width:44px;min-height:44px;padding:0;border:0;border-radius:0;background:transparent;color:var(--mut)}
 .rule-acts .btn:hover{color:var(--fg);background:var(--surface-2)}
 /* A half-opacity chevron is a second stroke weight in the same row, which is one of the
@@ -562,7 +604,7 @@ mark.tok:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
 <body data-view="sanitize">
 <header class="topbar">
   <div class="brand">
-    <h1 class="title" title="Redactor UX for LogTotal Sanitizer, by Authentic Marketing">Redactor UX for LogTotal Sanitizer, by Authentic Marketing</h1>
+    <h1 class="title" title="Redactor UX for LogTotal Sanitizer">Redactor UX for LogTotal Sanitizer</h1>
     <code class="pkg" title="npm package name">@socprime/logtotal-sanitizer</code>
   </div>
   <div class="topbar-right">
@@ -575,6 +617,7 @@ mark.tok:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
   <button type="button" data-view="sanitize" aria-pressed="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21"/><path d="M22 21H7"/><path d="m5 11 9 9"/></svg>Sanitize</button>
   <button type="button" data-view="configure" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>Settings</button>
   <button type="button" data-view="integrate" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg>Integrate</button>
+  <button type="button" data-view="how" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>How it works</button>
 </nav>
 
 <div class="workspace">
@@ -620,7 +663,7 @@ mark.tok:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
         <button class="btn sm" id="addRuleBtn" type="button"><svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12h14"/><path d="M12 5v14"/></svg>Add custom rule</button>
         <button class="btn sm ghost" id="resetOrder" type="button"><svg class="ico" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Reset order</button>
       </div>
-      <details class="editor-wrap" open>
+      <details class="editor-wrap">
         <summary><h3 id="rf-title">New custom rule</h3></summary>
         <form class="editor" id="ruleEditor" autocomplete="off">
         <div class="two">
@@ -653,18 +696,17 @@ mark.tok:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
   </details>
 
   <details class="sec" open>
-    <summary>Matching</summary>
+    <summary>Matching<label class="switch"><input type="checkbox" id="aggressive"><span class="sw"></span><span class="small"><b>Aggressive mode</b></span></label></summary>
     <div class="sec-body">
-      <label class="switch"><input type="checkbox" id="aggressive"><span class="sw"></span><span class="small"><b>Aggressive mode</b></span></label>
       <div class="field"><label for="jsonMode">JSON lines</label><select id="jsonMode"><option value="auto">auto: redact named fields, scan the rest</option><option value="off">off: plain-text scan only</option></select></div>
     </div>
   </details>
 
   <details class="sec" open>
-    <summary>Key</summary>
+    <summary>HMAC key</summary>
     <div class="sec-body">
-      <div class="field"><label for="keyInput">HMAC key</label>
-        <div class="row"><input class="input mono grow" id="keyInput" type="password" spellcheck="false" autocomplete="off"><button class="btn icon" id="keyShow" type="button" aria-pressed="false" aria-label="Show key">o</button></div>
+      <div class="field">
+        <div class="row"><input class="input mono grow" id="keyInput" aria-label="HMAC key" type="password" spellcheck="false" autocomplete="off"><button class="btn icon" id="keyShow" type="button" aria-pressed="false" aria-label="Show key">o</button></div>
       </div>
       <div class="row">
         <button class="btn sm" id="keyGen" type="button">Generate new key</button>
@@ -761,20 +803,17 @@ mark.tok:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
             <button type="button" role="menuitem" data-export="report">Report <span class="k">report.json, contains originals</span></button>
           </div>
         </div>
-        <span class="tsep" aria-hidden="true"></span>
-        <button class="btn sm ghost" id="clearInput" type="button"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>Clear</button>
+        <button class="btn sm ghost" id="stopBtn" type="button" hidden>Stop</button>
+        <button class="btn primary" id="runBtn" type="button">Sanitize</button>
       </div>
     </div>
     <div class="card-body">
-      <div class="composer-top">
-        <div class="row">
-          <button class="btn sm ghost" id="stopBtn" type="button" hidden>Stop</button>
-          <button class="btn primary" id="runBtn" type="button">Sanitize</button>
-        </div>
-      </div>
       <div class="srcfile" id="srcFile" hidden><span>File</span><span class="name" id="srcName"></span><span class="mut" id="srcSize"></span><button class="btn sm ghost" id="srcRemove" type="button" style="margin-left:auto">Back to paste</button></div>
       <textarea class="input-area" id="inputText" aria-label="Log text" placeholder="Sep 19 10:01:02 srv-app-01 sshd[1122]: Accepted publickey for alice@example.test from 10.20.4.15 port 51522" spellcheck="false"></textarea>
-      <span class="small mut" id="inputMeta">0 lines</span>
+      <div class="input-foot">
+        <span class="small mut" id="inputMeta">0 lines</span>
+        <button class="btn sm" id="clearInput" type="button"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>Clear</button>
+      </div>
       <div class="progress" id="progress" hidden><div class="bar"><i id="progBar"></i></div><span class="mono" id="progText"></span></div>
       <div class="err" id="cfgErr" role="alert"></div>
     </div>
@@ -844,6 +883,106 @@ mark.tok:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
     <div class="panel">
       <p class="small" id="intNote"></p>
       <div class="codeblock"><div class="cb-head"><span id="intFile">shell</span><button class="btn sm ghost" id="copyInt" type="button">Copy</button></div><pre id="intCode"></pre></div>
+    </div>
+  </section>
+  <section class="card how" id="howCard" aria-labelledby="howTitle">
+    <div class="how-body">
+      <h2 id="howTitle">How it works</h2>
+      <p>Redactor UX runs SOC Prime's logtotal-sanitizer library (0.2.0-beta.3) unchanged in this tab. By default, nothing leaves your computer.</p>
+      <p>Three requests stay off until you turn them on: two version checks against npm and GitHub, and the local engine, which sends your text to a bridge at 127.0.0.1 or localhost on your own machine.</p>
+      <figure class="hiw">
+        <div class="hiw-scroll">
+<svg class="hiw-diagram" viewBox="0 0 983 318" role="img" aria-labelledby="hiwTitle hiwDesc">
+  <title id="hiwTitle">How the library turns your text into redacted text and a report</title>
+  <desc id="hiwDesc">Your text goes to the line splitter, which sends one line at a time to a JSON or text check. JSON lines go to a JSON field check, which sends invalid JSON back as text. Text lines and other JSON text values go to rule matching. Named field values and found values go to the token maker, which uses the secret key and sends each token back. The JSON or text step outputs redacted text and a report with counts and originals.</desc>
+  <defs>
+    <marker id="hiwArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z"/>
+    </marker>
+  </defs>
+
+  <!-- boxes -->
+  <g class="box" data-id="B1"><rect x="10" y="140" width="96" height="50" rx="6"/><text x="58" y="165">Your text</text></g>
+  <g class="box" data-id="B2"><rect x="183" y="140" width="96" height="50" rx="6"/><text x="231" y="165"><tspan x="231" dy="-9">Line</tspan><tspan x="231" dy="18">splitter</tspan></text></g>
+  <g class="box" data-id="B3"><rect x="356" y="140" width="96" height="50" rx="6"/><text x="404" y="165"><tspan x="404" dy="-9">JSON</tspan><tspan x="404" dy="18">or text</tspan></text></g>
+  <g class="box" data-id="B4"><rect x="529" y="30" width="96" height="50" rx="6"/><text x="577" y="55"><tspan x="577" dy="-9">JSON field</tspan><tspan x="577" dy="18">check</tspan></text></g>
+  <g class="box" data-id="B5"><rect x="529" y="140" width="96" height="50" rx="6"/><text x="577" y="165"><tspan x="577" dy="-9">Rule</tspan><tspan x="577" dy="18">matching</tspan></text></g>
+  <g class="box" data-id="B6"><rect x="702" y="140" width="96" height="50" rx="6"/><text x="750" y="165"><tspan x="750" dy="-9">Token</tspan><tspan x="750" dy="18">maker</tspan></text></g>
+  <g class="box key" data-id="B7"><rect x="702" y="30" width="96" height="50" rx="6"/><text x="750" y="55">Secret key</text></g>
+  <g class="box" data-id="B8"><rect x="875" y="90" width="96" height="50" rx="6"/><text x="923" y="115"><tspan x="923" dy="-9">Redacted</tspan><tspan x="923" dy="18">text</tspan></text></g>
+  <g class="box" data-id="B9"><rect x="875" y="195" width="96" height="50" rx="6"/><text x="923" y="220">Report</text></g>
+
+  <!-- arrows, spec order -->
+  <path class="flow" d="M106,165 H181" marker-end="url(#hiwArrow)"/>
+  <text class="lbl mid" x="144" y="138">text</text>
+  <text class="lbl mid" x="144" y="154">chunks</text>
+
+  <path class="flow" d="M279,165 H354" marker-end="url(#hiwArrow)"/>
+  <text class="lbl mid" x="317" y="138">one line</text>
+  <text class="lbl mid" x="317" y="154">each</text>
+
+  <path class="flow" d="M380,140 V45 H527" marker-end="url(#hiwArrow)"/>
+  <text class="lbl mid" x="455" y="37">JSON lines</text>
+
+  <path class="flow" d="M527,68 H428 V138" marker-end="url(#hiwArrow)"/>
+  <text class="lbl mid" x="478" y="84">not valid</text>
+  <text class="lbl mid" x="478" y="100">JSON</text>
+
+  <path class="flow" d="M452,165 H527" marker-end="url(#hiwArrow)"/>
+  <text class="lbl mid" x="490" y="155">text lines</text>
+
+  <path class="flow" d="M577,80 V138" marker-end="url(#hiwArrow)"/>
+  <text class="lbl" x="585" y="100">other</text>
+  <text class="lbl" x="585" y="116">text</text>
+  <text class="lbl" x="585" y="132">values</text>
+
+  <path class="flow" d="M627,65 H663 V152 H700" marker-start="url(#hiwArrow)" marker-end="url(#hiwArrow)"/>
+  <text class="lbl" x="669" y="98">named</text>
+  <text class="lbl" x="669" y="114">field</text>
+  <text class="lbl" x="669" y="130">values</text>
+
+  <path class="flow" d="M627,178 H700" marker-start="url(#hiwArrow)" marker-end="url(#hiwArrow)"/>
+  <text class="lbl mid" x="663" y="206">found values</text>
+
+  <path class="flow" d="M750,80 V138" marker-end="url(#hiwArrow)"/>
+  <text class="lbl" x="757" y="112">key</text>
+
+  <path class="flow" d="M430,190 V262 H850 V115 H873" marker-end="url(#hiwArrow)"/>
+  <text class="lbl mid" x="640" y="254">redacted lines</text>
+
+  <path class="flow" d="M378,190 V285 H862 V220 H873" marker-end="url(#hiwArrow)"/>
+  <text class="lbl mid" x="640" y="304">counts and originals</text>
+</svg>
+        </div>
+        <figcaption>An arrow with two heads means the token maker gives each token back to the step that sent it the value.</figcaption>
+      </figure>
+      <h3>Rules scan each line</h3>
+      <p>Each line is scanned alone. JSON lines (starting with { or [) come out compacted, with fields such as password replaced whole. Everything else is scanned as plain text.</p>
+      <p>Rules run top first, in an order you can change. Where matches overlap, the earliest start wins, then the higher rule. Some rules verify a match first, such as a Luhn checksum on card numbers. Allowlisted values and failed checks stay unredacted but still block overlaps.</p>
+      <h3>Values become tokens</h3>
+      <p>A found value becomes a token like <code>&lt;IP:3f9a0c2e7b1d4a65&gt;</code>, labeled by type in Pseudonymize mode and with R in Redact mode. The same key, rule and value always give the same token, and a new key changes them all. The page doesn't save the key with your settings. Download it if you'll want matching tokens later.</p>
+      <h3>Nothing is encrypted</h3>
+      <p>The library has no dependencies. It computes SHA-256 and HMAC-SHA256 itself, without crypto.subtle or Node's crypto.</p>
+      <p>A token is a one-way HMAC-SHA256, under your key, of the rule id, a zero byte and the value, so it can't be decrypted. It keeps the first 8 of 32 bytes (64 bits) as 16 hex characters.</p>
+      <p>Its one browser crypto call, crypto.getRandomValues, makes new keys of 32 random bytes. You can supply your own key as hex or plain text. The page loads no outside scripts, styles or fonts.</p>
+      <h3>The report holds originals</h3>
+      <p>It lists every original value with nearby text. Keep it private.</p>
+      <p>It also counts matches per rule and previews about the first 262,144 characters before and after.</p>
+      <h3>Limits</h3>
+      <ul>
+        <li>Values no rule covers pass through.</li>
+        <li>Values split across lines are missed, as are values across the cut in any line over 1,048,576 characters.</li>
+        <li>JSON numbers, true, false and null are kept. Field-name rules skip list items.</li>
+        <li>Private IPs are redacted, but loopback 127.0.0.1 isn't.</li>
+        <li>Memory grows with each new value.</li>
+        <li>Anyone with the key can hash a guess and compare tokens.</li>
+      </ul>
+      <h3>11 library rules</h3>
+      <ul>
+        <li>Redact (R): secrets, session and CSRF cookies, payment data, government IDs, health identifiers, home-path usernames.</li>
+        <li>Pseudonymize: phones (PHONE), IP and MAC addresses (IP), hosts and domains (HOST), emails, usernames and Windows account IDs (USER), coordinates and postcodes (GEO).</li>
+        <li>Added by this page: driver's licenses (DLN), license plates (PLATE), LLM API keys (LLMAPI) and cryptocurrency addresses (CRYPTO). Licenses and plates cover the 50 US states, DC and 10 Canadian provinces. License plates start on Strict and driver's licenses on Loose.</li>
+      </ul>
     </div>
   </section>
 </main>
@@ -1020,7 +1159,7 @@ const SEEDED_RULES = [
   {
     "id": "drivers_license",
     "label": "Driver's licenses",
-    "description": "Driver's license numbers for all 50 US states, DC and the 10 Canadian provinces. Always on: a number of 4 or more characters after a label such as Driver's License, DLN or OLN, the AAMVA field DAQ, and printed formats no other value shares, such as Florida A123-456-78-901-0. Aggressive mode adds bare letter-and-digit formats, such as California A1234567 or CA1111111. All-digit numbers need a label.",
+    "description": "Driver's license numbers for all 50 US states, DC and the 10 Canadian provinces. Always on: a number of 4 or more characters after a label such as Driver's License, DLN or OLN, the AAMVA field DAQ, and printed formats no other value shares, such as Florida A123-456-78-901-0. The Loose button or Aggressive mode adds bare letter-and-digit formats, such as California A1234567 or CA1111111. All-digit numbers need a label.",
     "mode": "pseudo",
     "token": "DLN",
     "patterns": [
@@ -1075,7 +1214,7 @@ const SEEDED_RULES = [
   {
     "id": "license_plates",
     "label": "License plates",
-    "description": "License plates for all 50 US states, DC and the 10 Canadian provinces. Always on: any value after a label such as License Plate or Plate Number, and a 4 to 8 character capital-letter-and-digit value after a short label such as Plate or LPR. Aggressive mode adds bare passenger serials, such as 8ABC123 or ABC1234. A plate written with a space or hyphen, all-digit plates and vanity plates need a label.",
+    "description": "License plates for all 50 US states, DC and the 10 Canadian provinces. Always on: any value after a label such as License Plate or Plate Number, and a 4 to 8 character capital-letter-and-digit value after a short label such as Plate or LPR. The Loose button or Aggressive mode adds bare passenger serials, such as 8ABC123 or ABC1234. A plate written with a space or hyphen, all-digit plates and vanity plates need a label.",
     "mode": "pseudo",
     "token": "PLATE",
     "patterns": [
@@ -1118,7 +1257,7 @@ const SEED_VERSION = SEEDED_RULES.map((d) => d.id + ':' + seedHash(d)).join('|')
 const RETIRED_SEED_IDS = ['crypto_bitcoin', 'crypto_evm', 'crypto_tron', 'crypto_xrp', 'crypto_solana', 'crypto_dogecoin', 'crypto_cardano', 'crypto_litecoin', 'crypto_ton', 'crypto_monero', 'stablecoins'];
 // seedHash of every seed definition in every shipped version (28 versions in git history,
 // read 2026-09-23). A stored seed matching none of these was edited by the reader.
-const SHIPPED_SEED_HASHES = ['9236c193', '4857a8a5', '2031fe49', '27fc3acf', '34758dc3', 'bc200c61', 'df1ccb90', '6f9c7e5b', '63d4a3bc', 'a72116e0', '91204586', '9872ce54', 'b432cafa', '9968abe3', '95b32ec7', '28a1a862', '9b7f244e', '868ccfeb'];
+const SHIPPED_SEED_HASHES = ['9236c193', '4857a8a5', '2031fe49', '27fc3acf', '34758dc3', 'bc200c61', 'df1ccb90', '6f9c7e5b', '63d4a3bc', 'a72116e0', '91204586', '9872ce54', 'b432cafa', '9968abe3', '95b32ec7', '28a1a862', '9b7f244e', '868ccfeb', '7ae88286', '33a12bc3'];
 // What a masked rule shows in its chip. Plain 'mask' says only how the value is replaced,
 // not what was replaced, which is the thing a reader scanning the list wants. Keyed by
 // rule id so it works for a builtin too, and kept out of the rule itself so an export
@@ -1201,12 +1340,35 @@ function ruleInfo(r) {
 // its effect on every built-in. Loose folds the rule's aggressivePatterns into its patterns, so
 // the engine, the exported rules file and every generated recipe all run the same thing.
 const LOOSE_IDS = ['drivers_license', 'license_plates'];
+// Where a row starts until the reader switches it (JJ, 2026-09-28): licences Loose, plates Strict.
+const LOOSE_BY_DEFAULT = ['drivers_license'];
 const UX = {"btn_strict": "Strict", "btn_loose": "Loose", "title_strict": "Strict: matches labelled values and unique formats. Press to also match bare values for this rule.", "title_loose": "Loose: also matching bare values, which can catch lookalikes such as build IDs. Press to go strict.", "title_aggressive": "Aggressive mode is on, so the loose tier already runs for every rule.", "detail": "The strict tier needs a label, such as DLN or plate number, except for printed formats no other value shares, and the loose tier matches bare values too. Formats and sources are in build/fixtures/id-formats.json.", "toast_loose": "{label} set to loose", "toast_strict": "{label} set to strict"};
-function looseOn(r) { return Boolean(r && r.loose && LOOSE_IDS.includes(r.id)); }
-function ruleDef(r) {
-  const d = materialize(state.custom[r.id]);
-  if (looseOn(r) && d.aggressivePatterns) d.patterns = d.patterns.concat(d.aggressivePatterns);
+// A reader's edited copy of one of these seeds (drivers_license_custom) keeps the switch.
+function looseCapable(id, custom) {
+  const d = (custom || state.custom)[id];
+  return LOOSE_IDS.includes(String(id).replace(/_custom_*$/, '')) && Boolean(d && d.aggressivePatterns && d.aggressivePatterns.length);
+}
+function looseOn(r, custom) {
+  if (!r || !looseCapable(r.id, custom)) return false;
+  return typeof r.loose === 'boolean' ? r.loose : LOOSE_BY_DEFAULT.includes(String(r.id).replace(/_custom_*$/, ''));
+}
+// The one place Loose is applied: the loose patterns move into patterns and leave
+// aggressivePatterns, so Aggressive mode never runs them twice and every output carries one copy.
+function fold(d, loose) {
+  if (loose && d.aggressivePatterns && d.aggressivePatterns.length) { d.patterns = d.patterns.concat(d.aggressivePatterns); delete d.aggressivePatterns; }
   return d;
+}
+function ruleDef(r) { return fold(materialize(state.custom[r.id]), looseOn(r)); }
+// A definition that arrives with its loose tier already folded into patterns (a rules file
+// exported with the row on Loose) is split back into the two tiers, so the row's switch, and
+// not the stored patterns, decides what runs. Returns whether it was folded.
+function unfold(d) {
+  const seed = SEEDED_RULES.find((s) => s.id === String(d.id).replace(/_custom_*$/, ''));
+  if (!seed || !LOOSE_IDS.includes(seed.id) || (d.aggressivePatterns && d.aggressivePatterns.length) || !Array.isArray(d.patterns)) return false;
+  const agg = seed.aggressivePatterns || [];
+  if (!agg.length || !agg.every((p) => d.patterns.includes(p))) return false;
+  d.patterns = d.patterns.filter((p) => !agg.includes(p)); d.aggressivePatterns = agg.slice();
+  return d.patterns.length > 0;
 }
 function materialize(def) {
   const out = { id: def.id, label: def.label || def.id, description: def.description || def.label || def.id, mode: def.mode || 'pseudo', patterns: def.patterns.slice() };
@@ -1262,8 +1424,7 @@ function renderRules() {
         '<label class="switch"><input type="checkbox" data-act="toggle" aria-label="' + esc(info.label) + '"' + (r.enabled ? ' checked' : '') + '><span class="sw"></span>' +
           '<span class="rule-name" title="' + esc(info.label) + '">' + esc(info.label) + '</span></label>' +
         '<div class="rule-meta">' +
-          (LOOSE_IDS.includes(r.id) && info.custom ? tierButton(r) : '') +
-          '<span class="rule-kind" title="' + (info.mode === 'mask' ? 'mask mode: neutral R prefix' : 'pseudo mode: type prefix kept') + '">' + esc(info.mode === 'mask' ? (CHIP_LABELS[r.id] || 'mask') : info.token) + '</span>' +
+          (looseCapable(r.id) ? tierButton(r) : '<span class="rule-kind" title="' + (info.mode === 'mask' ? 'mask mode: neutral R prefix' : 'pseudo mode: type prefix kept') + '">' + esc(info.mode === 'mask' ? (CHIP_LABELS[r.id] || 'mask') : info.token) + '</span>') +
           '<div class="rule-acts">' +
             '<button class="btn" type="button" data-act="up" aria-label="Move up"' + (i === 0 ? ' disabled' : '') + '>' + ruleGlyph('up') + '</button>' +
             '<button class="btn" type="button" data-act="down" aria-label="Move down"' + (i === state.rules.length - 1 ? ' disabled' : '') + '>' + ruleGlyph('down') + '</button>' +
@@ -1271,7 +1432,7 @@ function renderRules() {
           '</div></div></div>' +
       '<div class="rule-detail" hidden>' +
         '<p>' + esc(info.note || 'No description.') + '</p>' +
-        (LOOSE_IDS.includes(r.id) && info.custom ? '<p class="small">' + esc(UX.detail) + '</p>' : '') +
+        (looseCapable(r.id) ? '<p class="small">' + esc(UX.detail) + '</p>' : '') +
         '<p class="small mut">Priority ' + (i + 1) + ' of ' + state.rules.length + '. Mode <b>' + info.mode + '</b>. Token <code>&lt;' + esc(info.mode === 'mask' ? 'R' : info.token) + ':&hellip;&gt;</code>. Rule id <code>' + esc(r.id) + '</code>.' + (info.custom ? ' Custom rule.' : '') + '</p>' +
         (info.keys.length ? '<p class="keys">JSON keys: ' + esc(info.keys.join(', ')) + '</p>' : '') +
         (info.custom ? '<div class="acts"><button class="btn sm" type="button" data-act="edit">Edit</button><button class="btn sm ghost" type="button" data-act="delete">Delete</button></div>' : '') +
@@ -1281,10 +1442,26 @@ function renderRules() {
   $('#rulesOn').textContent = state.rules.filter((r) => r.enabled).length;
   renderNeverRuleSelect();
 }
-function tierButton(r) {
+function tierState(r) {
   const all = state.aggressive; const on = all || looseOn(r);
-  return '<button class="btn tier" type="button" data-act="loose" aria-pressed="' + on + '"' + (all ? ' disabled' : '') +
-    ' title="' + esc(all ? UX.title_aggressive : on ? UX.title_loose : UX.title_strict) + '">' + esc(on ? UX.btn_loose : UX.btn_strict) + '</button>';
+  return { all, on, text: on ? UX.btn_loose : UX.btn_strict, title: all ? UX.title_aggressive : on ? UX.title_loose : UX.title_strict };
+}
+// The row's chip slot holds the switch for these two rules: it reads Strict or Loose and fills
+// when Loose, so the row stays one line. The token (DLN, PLATE) is named in the detail panel.
+// Held on by Aggressive mode it stays focusable, with aria-disabled and the reason in its
+// description.
+function tierButton(r) {
+  const t = tierState(r); const label = ruleInfo(r).label;
+  return '<button class="btn tier" type="button" role="switch" data-act="loose" aria-checked="' + t.on + '"' + (t.all ? ' aria-disabled="true"' : '') +
+    ' aria-label="' + esc('Loose matching, ' + label) + '" aria-description="' + esc(t.title) + '" title="' + esc(t.title) + '"><span class="rule-kind">' + esc(t.text) + '</span></button>';
+}
+// Update the switches in place, so an open detail panel stays open.
+function syncTierButtons() {
+  $$('#ruleList [data-act="loose"]').forEach((b) => {
+    const r = state.rules.find((x) => x.id === b.closest('.rule').dataset.id); if (!r) return;
+    const t = tierState(r); b.firstElementChild.textContent = t.text; b.title = t.title; b.setAttribute('aria-description', t.title);
+    b.setAttribute('aria-checked', String(t.on)); if (t.all) b.setAttribute('aria-disabled', 'true'); else b.removeAttribute('aria-disabled');
+  });
 }
 function moveRule(id, delta) {
   const i = state.rules.findIndex((r) => r.id === id); const j = i + delta;
@@ -1313,9 +1490,9 @@ function wireRules() {
     if (act === 'up') moveRule(id, -1);
     else if (act === 'down') moveRule(id, 1);
     else if (act === 'loose') {
+      if (btn.getAttribute('aria-disabled') === 'true') return;
       const r = state.rules.find((x) => x.id === id); r.loose = !looseOn(r);
-      renderRules(); changed(); toast((r.loose ? UX.toast_loose : UX.toast_strict).replace('{label}', ruleInfo(r).label));
-      const again = $('.rule[data-id="' + id + '"] [data-act="loose"]'); if (again) again.focus();
+      syncTierButtons(); changed(); toast((r.loose ? UX.toast_loose : UX.toast_strict).replace('{label}', ruleInfo(r).label));
     }
     else if (act === 'info') { const d = $('.rule-detail', li); d.hidden = !d.hidden; btn.setAttribute('aria-expanded', String(!d.hidden)); }
     else if (act === 'edit') openEditor(id);
@@ -1341,6 +1518,8 @@ function wireRules() {
 // ---------- custom rule editor ----------
 function openEditor(id) {
   const f = $('#ruleEditor'); f.hidden = false; editingId = id || null;
+  // The editor starts collapsed; Add rule and Edit open it.
+  f.closest('details').open = true;
   const d = id ? state.custom[id] : { id: '', label: '', description: '', mode: 'pseudo', token: '', patterns: [], aggressivePatterns: [], jsonKeys: [], jsonKeyContains: [] };
   $('#rf-title').textContent = id ? 'Edit custom rule' : 'New custom rule';
   $('#rf-id').value = d.id; $('#rf-id').disabled = Boolean(id);
@@ -1378,7 +1557,9 @@ function wireEditor() {
   $('#rf-test').addEventListener('click', () => {
     const def = readEditor(); const out = $('#rf-testOut');
     try {
-      const rule = validateDef(def);
+      validateDef(def);
+      const row = state.rules.find((x) => x.id === def.id);
+      const rule = L.defineRule(fold(materialize(def), looseOn(row, Object.assign({}, state.custom, { [def.id]: def }))));
       const text = srcFile ? '' : $('#inputText').value;
       if (!text) { out.textContent = 'Paste or load a log first.'; return; }
       const r = L.createSanitizer({ key, keyEncoding: state.keyEncoding, rules: [rule], aggressive: state.aggressive, report: { previewBytes: 0 } }).sanitizeText(text);
@@ -1414,7 +1595,7 @@ function updateCounts() {
 }
 function wireControls() {
   const on = (sel, ev, fn) => $(sel).addEventListener(ev, fn);
-  on('#aggressive', 'change', (e) => { state.aggressive = e.target.checked; renderRules(); changed(); });
+  on('#aggressive', 'change', (e) => { state.aggressive = e.target.checked; syncTierButtons(); changed(); });
   on('#jsonMode', 'change', (e) => { state.json = e.target.value; changed(); });
   on('#keyInput', 'input', (e) => { key = e.target.value.trim(); showErr($('#keyErr'), ''); changed(); });
   on('#keyEnc', 'change', (e) => { state.keyEncoding = e.target.value; changed(); });
@@ -1579,7 +1760,10 @@ function updateInputMeta() {
 
 // ---------- results ----------
 let origToToken = new Map();
+// Counts finished runs, so a caller can wait for the result of a change instead of guessing.
+let resultSeq = 0;
 function renderResults() {
+  resultSeq += 1;
   const has = Boolean(last);
   $('#empty').hidden = has; $('#stats').hidden = !has; $('#resultTabs').hidden = !has;
   ['#panelBA', '#panelReport', '#panelOutput'].forEach((s) => { $(s).hidden = true; });
@@ -1699,7 +1883,7 @@ function renderOutput() {
 
 // ---------- configuration, import, export ----------
 function configOf(st) {
-  return { rules: st.rules.map((r) => Object.assign({ id: r.id, enabled: r.enabled, kind: r.kind }, looseOn(r) ? { loose: true } : {})), customRules: Object.values(st.custom).map(materialize), aggressive: st.aggressive, json: st.json, keyEncoding: st.keyEncoding, alwaysRedact: st.always, neverRedact: st.never, report: st.report, lines: st.lines, ci: st.ci, engine: st.engine, bridgeUrl: st.bridgeUrl };
+  return { rules: st.rules.map((r) => Object.assign({ id: r.id, enabled: r.enabled, kind: r.kind }, looseCapable(r.id, st.custom) ? { loose: looseOn(r, st.custom) } : {})), customRules: Object.values(st.custom).map(materialize), aggressive: st.aggressive, json: st.json, keyEncoding: st.keyEncoding, alwaysRedact: st.always, neverRedact: st.never, report: st.report, lines: st.lines, ci: st.ci, engine: st.engine, bridgeUrl: st.bridgeUrl };
 }
 function configObject(withKey) {
   const c = Object.assign({ logtotalSanitizerUi: 1, library: LIB, exportedAt: new Date().toISOString() }, configOf(state));
@@ -1708,15 +1892,17 @@ function configObject(withKey) {
 }
 function applyConfig(c) {
   const st = defaultState();
-  (c.customRules || []).forEach((d) => { try { L.defineRule(d); st.custom[d.id] = Object.assign({ aggressivePatterns: [], jsonKeys: [], jsonKeyContains: [], token: '' }, d); } catch (e) { toast('Skipped custom rule ' + (d && d.id) + ': ' + errMessage(e)); } });
+  const folded = new Set();
+  (c.customRules || []).forEach((d) => { try { L.defineRule(d); d = Object.assign({}, d); if (unfold(d)) folded.add(d.id); st.custom[d.id] = Object.assign({ aggressivePatterns: [], jsonKeys: [], jsonKeyContains: [], token: '' }, d); } catch (e) { toast('Skipped custom rule ' + (d && d.id) + ': ' + errMessage(e)); } });
   if (Array.isArray(c.rules) && c.rules.length) {
     const seen = new Set(); st.rules = [];
-    c.rules.forEach((r) => { if (!r || seen.has(r.id)) return; if (L.getBuiltinRule(r.id)) { st.rules.push({ id: r.id, enabled: r.enabled !== false, kind: 'builtin' }); seen.add(r.id); } else if (st.custom[r.id]) { st.rules.push(Object.assign({ id: r.id, enabled: r.enabled !== false, kind: 'custom' }, r.loose === true && LOOSE_IDS.includes(r.id) ? { loose: true } : {})); seen.add(r.id); } });
+    c.rules.forEach((r) => { if (!r || seen.has(r.id)) return; if (L.getBuiltinRule(r.id)) { st.rules.push({ id: r.id, enabled: r.enabled !== false, kind: 'builtin' }); seen.add(r.id); } else if (st.custom[r.id]) { st.rules.push(Object.assign({ id: r.id, enabled: r.enabled !== false, kind: 'custom' }, typeof r.loose === 'boolean' ? { loose: r.loose } : {})); seen.add(r.id); } });
     L.builtinRuleIds.forEach((id) => { if (!seen.has(id)) st.rules.push({ id, enabled: true, kind: 'builtin' }); });
   }
   // A seed missing from a configuration saved by another build is new to this reader:
   // refreshSeeded places it at its declared position, so it is not appended here.
   const fromOtherBuild = c.seedVersion !== SEED_VERSION && Array.isArray(c.rules) && c.rules.length;
+  st.rules.forEach((r) => { if (folded.has(r.id)) r.loose = true; });
   Object.keys(st.custom).forEach((id) => { if (fromOtherBuild && SEEDED_IDS.includes(id)) return; if (!st.rules.some((r) => r.id === id)) st.rules.push({ id, enabled: true, kind: 'custom' }); });
   st.aggressive = Boolean(c.aggressive); st.json = c.json === 'off' ? 'off' : 'auto'; st.keyEncoding = c.keyEncoding === 'utf8' ? 'utf8' : 'hex';
   if (c.alwaysRedact) st.always = Object.assign(st.always, { values: (c.alwaysRedact.values || []).map(String), patterns: (c.alwaysRedact.patterns || []).map(String), token: c.alwaysRedact.token || 'CUSTOM', mode: c.alwaysRedact.mode === 'mask' ? 'mask' : 'pseudo' });
@@ -1742,7 +1928,8 @@ function refreshSeeded() {
     let copy = id + '_custom'; while (state.custom[copy]) copy += '_';
     state.custom[copy] = Object.assign({}, stored, { id: copy, label: (stored.label || id) + ' (your edit)' });
     const at = state.rules.findIndex((r) => r.id === id);
-    state.rules.splice(at < 0 ? state.rules.length : at + 1, 0, { id: copy, enabled: false, kind: 'custom' });
+    const was = state.rules[at] || {};
+    state.rules.splice(at < 0 ? state.rules.length : at + 1, 0, Object.assign({ id: copy, enabled: false, kind: 'custom' }, typeof was.loose === 'boolean' ? { loose: was.loose } : {}));
     kept.push(copy);
   });
   SEEDED_RULES.forEach((d) => { try { L.defineRule(d); state.custom[d.id] = Object.assign({ aggressivePatterns: [], jsonKeys: [], jsonKeyContains: [], token: '' }, d); } catch (e) { /* a bad seed must not stop the page */ } });
@@ -1800,7 +1987,13 @@ async function importFile(file) {
       const list = Array.isArray(parsed) ? parsed : (parsed ? [parsed] : []);
       if (list.length && list.every((d) => d && typeof d === 'object' && typeof d.id === 'string' && Array.isArray(d.patterns))) {
         let n = 0;
-        list.forEach((d) => { try { L.defineRule(d); state.custom[d.id] = Object.assign({ aggressivePatterns: [], jsonKeys: [], jsonKeyContains: [], token: '' }, d); if (!state.rules.some((r) => r.id === d.id)) state.rules.push({ id: d.id, enabled: true, kind: 'custom' }); n += 1; } catch (e) { toast('Skipped a rule: ' + errMessage(e)); } });
+        list.forEach((d) => { try {
+          L.defineRule(d); d = Object.assign({}, d); const wasFolded = unfold(d);
+          state.custom[d.id] = Object.assign({ aggressivePatterns: [], jsonKeys: [], jsonKeyContains: [], token: '' }, d);
+          let row = state.rules.find((r) => r.id === d.id); if (!row) { row = { id: d.id, enabled: true, kind: 'custom' }; state.rules.push(row); }
+          if (wasFolded) row.loose = true;
+          n += 1; } catch (e) { toast('Skipped a rule: ' + errMessage(e)); } });
+        renderRules();
         syncControls(); changed(); return toast(n + ' custom rule' + (n === 1 ? '' : 's') + ' imported from ' + file.name);
       }
     }
@@ -1909,7 +2102,7 @@ window.LogTotalSanitizerUi = {
   seedHash, ruleIds: () => state.rules.map((r) => ({ id: r.id, enabled: r.enabled, hash: r.kind === 'custom' ? seedHash(state.custom[r.id]) : null })),
   sanitizeAsPage: (text) => L.createSanitizer(Object.assign(buildOptions(), { report: { previewBytes: 0 } })).sanitizeText(text).output,
   declaredOrder: () => DEFAULT_ORDER.slice(),
-  exportedRules: () => enabledCustom(), recipeSource: () => optionsSource(false),
+  exportedRules: () => enabledCustom(), recipeSource: () => optionsSource(false), resultSeq: () => resultSeq,
   builtinCount: () => L.builtinRuleIds.length, updateCmd, cmpVer };
 function wireEngine() {
   $('#bundledVersion').textContent = LIB.version + ', ' + LIB.published;
