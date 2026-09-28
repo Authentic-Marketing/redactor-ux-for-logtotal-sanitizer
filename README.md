@@ -1,4 +1,4 @@
-# Sanitizer UI for LogTotal Sanitizer, by Authentic Marketing
+# Redactor UI for LogTotal Sanitizer, by Authentic Marketing
 
 One HTML file that runs [`@socprime/logtotal-sanitizer`](https://github.com/socprime/logtotal-sanitizer) in your browser tab. Open it from disk. Your logs stay in the page.
 
