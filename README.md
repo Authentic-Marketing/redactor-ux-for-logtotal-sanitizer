@@ -5,6 +5,7 @@ One HTML file that runs [`@socprime/logtotal-sanitizer`](https://github.com/socp
 ## What it covers
 
 - All eleven built-in rules in priority order, with enable and reorder
+- Driver's licenses and license plates for the 50 US states, DC and the 10 Canadian provinces, on by default
 - Aggressive and JSON modes
 - Key generate, paste, encoding and rotate
 - Always-redact and never-redact lists
@@ -15,6 +16,25 @@ One HTML file that runs [`@socprime/logtotal-sanitizer`](https://github.com/socp
 - CI mode: fail on match, or report only
 - Import and export of config, rules file, list file, key, output and report, in the CLI's file formats
 - Recipes for the CLI, Node, the browser, GitHub Actions, pre-commit and the local bridge, generated from the live configuration
+
+## Driver's licenses and license plates
+
+Two rules ship in the page, on by default: Driver's licenses (token `DLN`) and License plates (token `PLATE`). They cover all 50 US states, DC and the 10 Canadian provinces.
+
+Each rule has two tiers. The strict tier is always on. It catches a value after a label that names the document, such as `driver's license`, `OLN` or `plate number`. After a short label such as `DL` or `tag:`, it takes only an ID-shaped value. It also catches printed license formats no other value shares, such as Florida `A123-456-78-901-0`.
+
+The loose tier runs only in Aggressive mode, which also switches on the built-in rules' aggressive patterns. It adds bare letter-and-digit license formats, such as California `A1234567` and `CA1111111`, and bare plate serials such as `8ABC123`.
+
+Some values match only after a label: all-digit licenses (Texas, Pennsylvania, New York and more than 20 others), all-digit plates (Delaware, New Hampshire, Rhode Island), vanity plates, and plates written with a space or hyphen, such as `ABC-1234`. Ticket keys, issue numbers and prose are written the same way. Vanity plate rules could not be verified for most jurisdictions and are not encoded.
+
+Every format, its source URLs and a confidence grade are in `build/fixtures/id-formats.json`.
+
+Known limits:
+
+- The loose tier cannot be free of false positives. `ABC1234` is both a New York plate and a build ID. Leave Aggressive off unless recall matters more than precision.
+- The loose tier skips bare Missouri numbers that end in A to F, which read as hex. They still match after a label.
+- Plate formats rest on each jurisdiction's Wikipedia article, MEDIUM confidence at best. Unresolved source conflicts sit in `id-formats.json` with their confidence.
+- Fields named `dl`, `tag` or `registration` are not keyed on. They usually hold download counts and version tags.
 
 ## Two engines
 
@@ -109,11 +129,15 @@ cd build
 python3 assemble.py ../index.html
 pip install playwright && playwright install chromium
 python3 verify.py
+python3 verify-id-rules.py
+python3 redleg-id-rules.py
 cd bridge && npm install @socprime/logtotal-sanitizer@0.2.0-beta.2 && cd ..
 python3 verify-bridge.py
 ```
 
-`verify.py` runs 47 behavior checks against `../index.html` from `file://`. `verify-bridge.py` starts the bridge and runs 35 checks, including four proving the page refuses a bridge address that is not loopback and nine covering the bridge's own allowlist and request cap. `redleg-bridge.py` proves those last checks can fail, by starting the bridge with the guards widened and showing the refusals stop. Both verifiers write screenshots to `build/shots/`.
+`verify-id-rules.py` runs 25 checks on the driver's license and license plate rules. `redleg-id-rules.py` proves those checks can fail: it breaks seven mechanisms one at a time, from a printed format to the rule order, and requires the matching check to go red while the control stays green.
+
+`verify.py` runs 51 behavior checks against `../index.html` from `file://`. `verify-bridge.py` starts the bridge and runs 36 checks, including four proving the page refuses a bridge address that is not loopback and nine covering the bridge's own allowlist and request cap. `redleg-bridge.py` proves those last checks can fail, by starting the bridge with the guards widened and showing the refusals stop. Both verifiers write screenshots to `build/shots/`.
 
 ## Design
 

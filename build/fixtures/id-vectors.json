@@ -1,0 +1,1048 @@
+{
+ "note": "Synthetic values, one or more per format in id-formats.json: repeated or sequential digits and placeholder letters, never a real number. labels name the document and take any value; labels_short are also other words (DL is a download, tag a git tag) and take only an ID-shaped value. The negatives are real-shape lines, including every false positive found while these rules were built, and must stay untouched.",
+ "license": {
+  "labelled": [
+   {
+    "j": "AL",
+    "v": "1234567"
+   },
+   {
+    "j": "AL",
+    "v": "12345678"
+   },
+   {
+    "j": "AK",
+    "v": "1234567"
+   },
+   {
+    "j": "AZ",
+    "v": "B12345678"
+   },
+   {
+    "j": "AZ",
+    "v": "123456789"
+   },
+   {
+    "j": "AR",
+    "v": "1234"
+   },
+   {
+    "j": "AR",
+    "v": "123456789"
+   },
+   {
+    "j": "CA",
+    "v": "A1234567"
+   },
+   {
+    "j": "CA",
+    "v": "CA1111111"
+   },
+   {
+    "j": "CO",
+    "v": "123456789"
+   },
+   {
+    "j": "CO",
+    "v": "12-345-6789"
+   },
+   {
+    "j": "CO",
+    "v": "AB1234"
+   },
+   {
+    "j": "CT",
+    "v": "123456789"
+   },
+   {
+    "j": "DE",
+    "v": "1234567"
+   },
+   {
+    "j": "DC",
+    "v": "1234567"
+   },
+   {
+    "j": "DC",
+    "v": "123456789"
+   },
+   {
+    "j": "FL",
+    "v": "A123456789012"
+   },
+   {
+    "j": "FL",
+    "v": "A123-456-78-901-0"
+   },
+   {
+    "j": "GA",
+    "v": "123456789"
+   },
+   {
+    "j": "GA",
+    "v": "1234567"
+   },
+   {
+    "j": "HI",
+    "v": "H12345678"
+   },
+   {
+    "j": "HI",
+    "v": "123456789"
+   },
+   {
+    "j": "ID",
+    "v": "AB123456X"
+   },
+   {
+    "j": "ID",
+    "v": "123456789"
+   },
+   {
+    "j": "IL",
+    "v": "A12345678901"
+   },
+   {
+    "j": "IL",
+    "v": "A123-4567-8901"
+   },
+   {
+    "j": "IN",
+    "v": "1234567890"
+   },
+   {
+    "j": "IN",
+    "v": "A123456789"
+   },
+   {
+    "j": "IA",
+    "v": "123456789"
+   },
+   {
+    "j": "IA",
+    "v": "123AB4567"
+   },
+   {
+    "j": "KS",
+    "v": "K12345678"
+   },
+   {
+    "j": "KS",
+    "v": "A1B2C"
+   },
+   {
+    "j": "KY",
+    "v": "A12345678"
+   },
+   {
+    "j": "KY",
+    "v": "A123456789"
+   },
+   {
+    "j": "LA",
+    "v": "123456789"
+   },
+   {
+    "j": "ME",
+    "v": "1234567"
+   },
+   {
+    "j": "ME",
+    "v": "1234567X"
+   },
+   {
+    "j": "ME",
+    "v": "12345678"
+   },
+   {
+    "j": "MD",
+    "v": "M123456789012"
+   },
+   {
+    "j": "MD",
+    "v": "M-123-456-789-012"
+   },
+   {
+    "j": "MA",
+    "v": "S12345678"
+   },
+   {
+    "j": "MA",
+    "v": "SA1234567"
+   },
+   {
+    "j": "MI",
+    "v": "A123456789012"
+   },
+   {
+    "j": "MI",
+    "v": "A123-456-789-012"
+   },
+   {
+    "j": "MN",
+    "v": "A123456789012"
+   },
+   {
+    "j": "MS",
+    "v": "123456789"
+   },
+   {
+    "j": "MO",
+    "v": "A123456"
+   },
+   {
+    "j": "MO",
+    "v": "A123456789"
+   },
+   {
+    "j": "MO",
+    "v": "123A456789"
+   },
+   {
+    "j": "MO",
+    "v": "A123456R"
+   },
+   {
+    "j": "MO",
+    "v": "12345678XY"
+   },
+   {
+    "j": "MO",
+    "v": "123456789X"
+   },
+   {
+    "j": "MT",
+    "v": "1234567890123"
+   },
+   {
+    "j": "MT",
+    "v": "123456789"
+   },
+   {
+    "j": "NE",
+    "v": "A12345678"
+   },
+   {
+    "j": "NV",
+    "v": "1234567890"
+   },
+   {
+    "j": "NV",
+    "v": "123456789012"
+   },
+   {
+    "j": "NV",
+    "v": "X12345678"
+   },
+   {
+    "j": "NH",
+    "v": "NHL12345678"
+   },
+   {
+    "j": "NH",
+    "v": "12ABC34567"
+   },
+   {
+    "j": "NJ",
+    "v": "A12345678901234"
+   },
+   {
+    "j": "NJ",
+    "v": "A1234 56789 01234"
+   },
+   {
+    "j": "NM",
+    "v": "123456789"
+   },
+   {
+    "j": "NY",
+    "v": "123456789"
+   },
+   {
+    "j": "NY",
+    "v": "A1234567"
+   },
+   {
+    "j": "NC",
+    "v": "000123456789"
+   },
+   {
+    "j": "ND",
+    "v": "ABC123456"
+   },
+   {
+    "j": "ND",
+    "v": "123456789"
+   },
+   {
+    "j": "OH",
+    "v": "AB123456"
+   },
+   {
+    "j": "OH",
+    "v": "A1234567"
+   },
+   {
+    "j": "OH",
+    "v": "12345678"
+   },
+   {
+    "j": "OK",
+    "v": "A123456789"
+   },
+   {
+    "j": "OR",
+    "v": "1234567"
+   },
+   {
+    "j": "PA",
+    "v": "12345678"
+   },
+   {
+    "j": "RI",
+    "v": "1234567"
+   },
+   {
+    "j": "RI",
+    "v": "A123456"
+   },
+   {
+    "j": "SC",
+    "v": "12345678"
+   },
+   {
+    "j": "SD",
+    "v": "123456789"
+   },
+   {
+    "j": "SD",
+    "v": "123456789012"
+   },
+   {
+    "j": "TN",
+    "v": "123456789"
+   },
+   {
+    "j": "TX",
+    "v": "12345678"
+   },
+   {
+    "j": "UT",
+    "v": "1234567890"
+   },
+   {
+    "j": "VT",
+    "v": "12345678"
+   },
+   {
+    "j": "VT",
+    "v": "1234567A"
+   },
+   {
+    "j": "VA",
+    "v": "T12345678"
+   },
+   {
+    "j": "VA",
+    "v": "T12345678901"
+   },
+   {
+    "j": "WA",
+    "v": "WDLABCD1234X"
+   },
+   {
+    "j": "WA",
+    "v": "SMITHJ*123AB"
+   },
+   {
+    "j": "WV",
+    "v": "1234567"
+   },
+   {
+    "j": "WV",
+    "v": "AB12345"
+   },
+   {
+    "j": "WI",
+    "v": "A1234567890123"
+   },
+   {
+    "j": "WI",
+    "v": "A123-4567-8901-23"
+   },
+   {
+    "j": "WY",
+    "v": "123456789"
+   },
+   {
+    "j": "WY",
+    "v": "123456-789"
+   },
+   {
+    "j": "AB",
+    "v": "123456-789"
+   },
+   {
+    "j": "AB",
+    "v": "123456789"
+   },
+   {
+    "j": "BC",
+    "v": "1234567"
+   },
+   {
+    "j": "BC",
+    "v": "01234567"
+   },
+   {
+    "j": "MB",
+    "v": "SMITHJA123BC"
+   },
+   {
+    "j": "MB",
+    "v": "SM-IT-HJ-A123BC"
+   },
+   {
+    "j": "NB",
+    "v": "1234567"
+   },
+   {
+    "j": "NL",
+    "v": "A123456789"
+   },
+   {
+    "j": "NS",
+    "v": "SMITH101123456"
+   },
+   {
+    "j": "NS",
+    "v": "SMITH-101123456"
+   },
+   {
+    "j": "ON",
+    "v": "A1234-56789-01234"
+   },
+   {
+    "j": "ON",
+    "v": "A12345678901234"
+   },
+   {
+    "j": "PE",
+    "v": "123456"
+   },
+   {
+    "j": "QC",
+    "v": "A1234-123456-12"
+   },
+   {
+    "j": "QC",
+    "v": "A123412345612"
+   },
+   {
+    "j": "SK",
+    "v": "12345678"
+   }
+  ],
+  "labels": [
+   "driver_license={v}",
+   "Driver License: {v}",
+   "DRIVER LICENSE NO {v}",
+   "driversLicense=\"{v}\"",
+   "driver's license number {v}",
+   "DL# {v}",
+   "DL No.: {v}",
+   "DLN: {v}",
+   "dl_number={v}",
+   "operator license {v}",
+   "OLN: {v}",
+   "Drivers Lic: {v}",
+   "drv_lic={v}",
+   "permis de conduire: {v}",
+   "numéro de permis: {v}",
+   "<DriverLicenseNumber>{v}</DriverLicenseNumber>"
+  ],
+  "labels_short": [
+   "DL {v}",
+   "DL: {v}",
+   "D/L {v}",
+   "DL (CA): {v}",
+   "DL: CA {v}",
+   "dl: {v}",
+   "dlNumber={v}",
+   "DL -> {v}",
+   "DL | {v}"
+  ],
+  "labels_licence_short": [
+   "License #: {v}",
+   "Lic# {v}",
+   "License No. {v}",
+   "lic {v}"
+  ],
+  "bare_strict": [
+   "A123-456-78-901-0",
+   "A123-4567-8901",
+   "A123-4567-8901-23",
+   "M-123-456-789-012",
+   "A123-456-789-012",
+   "A1234 56789 01234",
+   "A1234-56789-01234",
+   "A1234-123456-12",
+   "SMITH-101123456",
+   "SM-IT-HJ-A123BC",
+   "WDLABCD1234X",
+   "NHL12345678"
+  ],
+  "bare_loose": [
+   "CA1111111",
+   "CAA1234567",
+   "TX12345678",
+   "B12345678",
+   "A1234567",
+   "H12345678",
+   "AB123456X",
+   "A12345678901",
+   "A123456789",
+   "123AB4567",
+   "K12345678",
+   "A123456789012",
+   "S12345678",
+   "SA1234567",
+   "123A456789",
+   "A123456R",
+   "12345678XY",
+   "123456789X",
+   "NHL12345678",
+   "12ABC34567",
+   "A12345678901234",
+   "ABC123456",
+   "AB123456",
+   "T12345678901",
+   "SMITHJ*123AB",
+   "SMITHJA123BC",
+   "SMITH101123456",
+   "A1234567890123",
+   "1234567A",
+   "12-345-6789",
+   "123456-789"
+  ]
+ },
+ "plate": {
+  "shapes": [
+   {
+    "j": "AL",
+    "v": "1A2345B"
+   },
+   {
+    "j": "AL",
+    "v": "1AB2345"
+   },
+   {
+    "j": "AL",
+    "v": "1A12B34"
+   },
+   {
+    "j": "AK",
+    "v": "ABC 123"
+   },
+   {
+    "j": "AZ",
+    "v": "ABC1DE"
+   },
+   {
+    "j": "AZ",
+    "v": "ABC1234"
+   },
+   {
+    "j": "AZ",
+    "v": "123ABC"
+   },
+   {
+    "j": "AR",
+    "v": "ABC 12D"
+   },
+   {
+    "j": "CA",
+    "v": "123ABC1"
+   },
+   {
+    "j": "CA",
+    "v": "8ABC123"
+   },
+   {
+    "j": "CO",
+    "v": "ABCD12"
+   },
+   {
+    "j": "CO",
+    "v": "ABC-123"
+   },
+   {
+    "j": "CT",
+    "v": "AB·12345"
+   },
+   {
+    "j": "CT",
+    "v": "AB12345"
+   },
+   {
+    "j": "CT",
+    "v": "123·ABC4"
+   },
+   {
+    "j": "FL",
+    "v": "ABC 123"
+   },
+   {
+    "j": "FL",
+    "v": "12ABCD"
+   },
+   {
+    "j": "FL",
+    "v": "A1B2CD"
+   },
+   {
+    "j": "FL",
+    "v": "A12 BCD"
+   },
+   {
+    "j": "GA",
+    "v": "ABC1234"
+   },
+   {
+    "j": "GA",
+    "v": "ABC1DE"
+   },
+   {
+    "j": "GA",
+    "v": "AB1CDE"
+   },
+   {
+    "j": "HI",
+    "v": "ABC 123"
+   },
+   {
+    "j": "ID",
+    "v": "A1234U"
+   },
+   {
+    "j": "IL",
+    "v": "AB 12345"
+   },
+   {
+    "j": "IN",
+    "v": "123ABC"
+   },
+   {
+    "j": "IA",
+    "v": "ABC 123"
+   },
+   {
+    "j": "KS",
+    "v": "1234ABC"
+   },
+   {
+    "j": "KY",
+    "v": "A1B234"
+   },
+   {
+    "j": "LA",
+    "v": "123 ABC"
+   },
+   {
+    "j": "ME",
+    "v": "123.ABC"
+   },
+   {
+    "j": "ME",
+    "v": "1234AB"
+   },
+   {
+    "j": "MD",
+    "v": "1AB2345"
+   },
+   {
+    "j": "MA",
+    "v": "1AB 234"
+   },
+   {
+    "j": "MA",
+    "v": "12AB 34"
+   },
+   {
+    "j": "MI",
+    "v": "ABC 1234"
+   },
+   {
+    "j": "MN",
+    "v": "ABC-123"
+   },
+   {
+    "j": "MS",
+    "v": "ABC 1234"
+   },
+   {
+    "j": "MO",
+    "v": "AB1 C2D"
+   },
+   {
+    "j": "MO",
+    "v": "AB1C2D"
+   },
+   {
+    "j": "MT",
+    "v": "12-3456A"
+   },
+   {
+    "j": "MT",
+    "v": "12-A3456"
+   },
+   {
+    "j": "NE",
+    "v": "3-A1234"
+   },
+   {
+    "j": "NV",
+    "v": "123-A45"
+   },
+   {
+    "j": "NV",
+    "v": "123.ABC"
+   },
+   {
+    "j": "NJ",
+    "v": "A12-BCD"
+   },
+   {
+    "j": "NJ",
+    "v": "AB-123C"
+   },
+   {
+    "j": "NM",
+    "v": "123-ABC"
+   },
+   {
+    "j": "NY",
+    "v": "ABC-1234"
+   },
+   {
+    "j": "NC",
+    "v": "ABC-1234"
+   },
+   {
+    "j": "ND",
+    "v": "123 ABC"
+   },
+   {
+    "j": "OH",
+    "v": "ABC 1234"
+   },
+   {
+    "j": "OH",
+    "v": "AB12CD"
+   },
+   {
+    "j": "OK",
+    "v": "ABC-123"
+   },
+   {
+    "j": "OR",
+    "v": "123 ABC"
+   },
+   {
+    "j": "PA",
+    "v": "ABC-1234"
+   },
+   {
+    "j": "RI",
+    "v": "1AB 234"
+   },
+   {
+    "j": "SC",
+    "v": "123ABC"
+   },
+   {
+    "j": "SD",
+    "v": "1A1 234"
+   },
+   {
+    "j": "SD",
+    "v": "1AB 123"
+   },
+   {
+    "j": "TN",
+    "v": "ABC-1234"
+   },
+   {
+    "j": "TX",
+    "v": "ABC-1234"
+   },
+   {
+    "j": "TX",
+    "v": "ABC-12D"
+   },
+   {
+    "j": "UT",
+    "v": "A12 3BC"
+   },
+   {
+    "j": "VT",
+    "v": "ABC 123"
+   },
+   {
+    "j": "VA",
+    "v": "ABC-1234"
+   },
+   {
+    "j": "WA",
+    "v": "ABC1234"
+   },
+   {
+    "j": "WV",
+    "v": "A12 345B"
+   },
+   {
+    "j": "WI",
+    "v": "ABC-1234"
+   },
+   {
+    "j": "WY",
+    "v": "1A-123A"
+   },
+   {
+    "j": "ON",
+    "v": "ABCD 123"
+   },
+   {
+    "j": "ON",
+    "v": "123-ABC"
+   },
+   {
+    "j": "AB",
+    "v": "ABC-1234"
+   },
+   {
+    "j": "BC",
+    "v": "A12 3BC"
+   },
+   {
+    "j": "BC",
+    "v": "AB1 23C"
+   },
+   {
+    "j": "MB",
+    "v": "ABC 123"
+   },
+   {
+    "j": "SK",
+    "v": "123 ABC"
+   },
+   {
+    "j": "NB",
+    "v": "ABC 123"
+   },
+   {
+    "j": "NS",
+    "v": "ABC 123"
+   },
+   {
+    "j": "NL",
+    "v": "ABC 123"
+   },
+   {
+    "j": "PE",
+    "v": "123 ABC"
+   },
+   {
+    "j": "PE",
+    "v": "12 3AB"
+   },
+   {
+    "j": "PE",
+    "v": "A1 23B"
+   },
+   {
+    "j": "QC",
+    "v": "ABC 12D"
+   },
+   {
+    "j": "QC",
+    "v": "12A BCD"
+   },
+   {
+    "j": "QC",
+    "v": "B12 CDE"
+   }
+  ],
+  "label_only": [
+   {
+    "j": "DC",
+    "v": "AB-1234"
+   },
+   {
+    "j": "IL",
+    "v": "A12 3456"
+   },
+   {
+    "j": "WY",
+    "v": "1-12345"
+   },
+   {
+    "j": "MA",
+    "v": "1234 AB"
+   },
+   {
+    "j": "RI",
+    "v": "AB-123"
+   },
+   {
+    "j": "DE",
+    "v": "123456"
+   },
+   {
+    "j": "NH",
+    "v": "123 4567"
+   },
+   {
+    "j": "NH",
+    "v": "12345"
+   },
+   {
+    "j": "RI",
+    "v": "123456"
+   },
+   {
+    "j": "vanity",
+    "v": "GOBLUE"
+   },
+   {
+    "j": "vanity",
+    "v": "LUV2SKI"
+   }
+  ],
+  "labels": [
+   "license_plate: {v}",
+   "License Plate {v}",
+   "LICENSE PLATE NO. {v}",
+   "plate_number=\"{v}\"",
+   "Plate #{v}",
+   "vehicle plate: {v}",
+   "Veh. Tag: {v}",
+   "reg plate {v}",
+   "number plate {v}",
+   "plaque d'immatriculation: {v}",
+   "<LicensePlate>{v}</LicensePlate>",
+   "License Plate: TX {v}"
+  ],
+  "labels_short": [
+   "plate={v}",
+   "plate {v}",
+   "plate read {v}",
+   "LPR read {v}",
+   "ALPR: {v}",
+   "LP: {v}",
+   "tag: {v}",
+   "Tag #{v}",
+   "registration: {v}",
+   "Reg #: {v}",
+   "Plate: TX {v}",
+   "Rego: {v}"
+  ]
+ },
+ "negatives_strict": [
+  "Sep 27 10:00:01 srv-app-01 dl-worker[2231]: download complete 1532 bytes in 12ms",
+  "GET /downloads/dl?id=12345678 HTTP/1.1 200",
+  "template: ABC1234 rendered for tenant 4411",
+  "boilerplate header v2 applied",
+  "plate reader service started on port 8443",
+  "tagged release v1.2.3 build 20260927",
+  "docker tag api:1.2.3 registry.example.test/api:1.2.3",
+  "license key accepted for seat 42; license expires 2027-01-01",
+  "EventID=4624 LogonType=10 IpAddress=10.20.7.31",
+  "The DL team meeting moved to 3pm",
+  "rpm -q openssl-3.0.7-27.el9 kernel-5.14.0-427.el9",
+  "DL: 150.2 Mbps UL: 50.1 Mbps",
+  "DL throughput 150 Mbps",
+  "DL EARFCN 1300",
+  "DL 20 files from mirror",
+  "DL 3/10",
+  "D/L 45MB complete",
+  "Total DL: 1.2GB",
+  "DL: 0",
+  "DL No. 7 released",
+  "DL #3 of 10",
+  "DAQ0001 initialized",
+  "DAQ1234: sampling at 1kHz",
+  "DAQCARD6024E detected",
+  "VRM: OK",
+  "VRM FAULT on CPU1",
+  "ANPR ERROR",
+  "VRM 12 phases",
+  "LPR queue 2 stalled",
+  "LPR: printer lp0 offline",
+  "LPN 5 received at dock",
+  "VRN: 0x12",
+  "Asset Tag #: 12345",
+  "RFID tag #: E2003412",
+  "Operator license: 5 seats remaining",
+  "Operator License 2025 edition",
+  "plate: 96-well",
+  "Plate ID: 42",
+  "plate=2 temp=350F",
+  "hot plate: 350F",
+  "Plate: OK",
+  "plaque 3 found in artery",
+  "Immatriculation: 832 456 789",
+  "dl_id=123456",
+  "DL: team42@corp.com",
+  "permis de conduire 3 points",
+  "feat(evals): tag 12 HIGH-tier skills",
+  "verbatim_source_text: TAG CVR 8.3 out of 10",
+  "TAG Q4 2025 and Q4 2024 quarter",
+  "Vehicle Registration: 12 months",
+  "Plate: P0012 loaded",
+  "NHL20240101 run",
+  "SKU A123-4567-8901 in stock",
+  "order B123-4567-8901-23 placed",
+  "case R1234-567890-12 opened",
+  "Tag: v1.2.3",
+  "git tag v2.0",
+  "HPE ProLiant DL380 Gen10",
+  "license ABC12345 activated",
+  "dl: 20 files",
+  "Tag: 12 HIGH-tier skills",
+  "DL: 1234567 bytes received"
+ ],
+ "negatives_loose": [
+  "TLS handshake ok cipher=TLS_AES_256_GCM_SHA384 sig=RSA-PSS SHA256 AES256 RSA2048",
+  "see RFC1918 and RFC 5737, ISO8601 timestamps, CVE-2024-3094 patched, CWE-79",
+  "Windows update KB5034441 installed; build 10.0.22631",
+  "jwt alg HS256 RS256 ES384 kid k1",
+  "HTTP 404 on /api/v2/orders?page=3 port 8443 PID 4412",
+  "Sep 27 10:00:01 srv-app-01 sshd[1122]: Accepted publickey for alice from 10.20.4.15 port 51522 ssh2",
+  "{\"EventID\":4688,\"Computer\":\"DC01.corp.example.test\",\"CommandLine\":\"cmd.exe /c whoami\"}",
+  "sha256=9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
+  "pod api-gateway-7d9f8b6c5d-x2kqz restarted in namespace payments",
+  "HTTP 404 NOT FOUND after GET 200; PUT 204 at 1159 PM PST, SEP 2026 rollup, 2026 MAY build",
+  "UTF8 decode ok, IPv6 enabled, MD5 disabled, UEFI 2.9",
+  "CIP-007 R2 and SOP-013 and TAG-001 and GTG-1002 and SD-1584 and DO-326A",
+  "FY2025 FY2026 budget, IBM 2025 report, USA 2026",
+  "IMO 2021 and EO 14028 and PEP 508 and CFR 170",
+  "84M ROI and 40M ARR and 000 DIB and EUR 10M",
+  "ruff BLE001 PLC0415 PLR0915 PTH118 TS2307",
+  "2700MW plant, 90.8KB file, 25.6MB log, 275PB lake",
+  "/search?q=%20SBOM%20MASA",
+  "issue 338-URL and 500-HMI",
+  "ref 34-96034",
+  "San Francisco, CA 94105 and New York, NY 10001",
+  "USD 1500 charged, PR 1234 merged, flight UA1234",
+  "OPS-1234 resolved, JIRA ABC-1234",
+  "U+\\U00010000 and \\U0010FFFF escapes",
+  "fsck 3155650C FCCFCAE270AB",
+  "Gartner G00846158 and K000162605 and NBK585114 and SP800161",
+  "build 240115-001",
+  "UNC3944 and AS19318 and IF10834 and IR7864",
+  "DAQ1234 model XPS9530 RAM4096",
+  "trial NCT03540043 and ISRCTN12345678",
+  "run IN2024010112 at CA20260927"
+ ]
+}

@@ -266,7 +266,10 @@ function applyConfig(c) {
     c.rules.forEach((r) => { if (!r || seen.has(r.id)) return; if (L.getBuiltinRule(r.id)) { st.rules.push({ id: r.id, enabled: r.enabled !== false, kind: 'builtin' }); seen.add(r.id); } else if (st.custom[r.id]) { st.rules.push({ id: r.id, enabled: r.enabled !== false, kind: 'custom' }); seen.add(r.id); } });
     L.builtinRuleIds.forEach((id) => { if (!seen.has(id)) st.rules.push({ id, enabled: true, kind: 'builtin' }); });
   }
-  Object.keys(st.custom).forEach((id) => { if (!st.rules.some((r) => r.id === id)) st.rules.push({ id, enabled: true, kind: 'custom' }); });
+  // A seed missing from a configuration saved by another build is new to this reader:
+  // refreshSeeded places it at its declared position, so it is not appended here.
+  const fromOtherBuild = c.seedVersion !== SEED_VERSION && Array.isArray(c.rules) && c.rules.length;
+  Object.keys(st.custom).forEach((id) => { if (fromOtherBuild && SEEDED_IDS.includes(id)) return; if (!st.rules.some((r) => r.id === id)) st.rules.push({ id, enabled: true, kind: 'custom' }); });
   st.aggressive = Boolean(c.aggressive); st.json = c.json === 'off' ? 'off' : 'auto'; st.keyEncoding = c.keyEncoding === 'utf8' ? 'utf8' : 'hex';
   if (c.alwaysRedact) st.always = Object.assign(st.always, { values: (c.alwaysRedact.values || []).map(String), patterns: (c.alwaysRedact.patterns || []).map(String), token: c.alwaysRedact.token || 'CUSTOM', mode: c.alwaysRedact.mode === 'mask' ? 'mask' : 'pseudo' });
   if (c.neverRedact) st.never = Object.assign(st.never, { values: (c.neverRedact.values || []).map(String), patterns: (c.neverRedact.patterns || []).map(String), byRule: (c.neverRedact.byRule || []).filter((e) => e && e.ruleId).map((e) => ({ ruleId: e.ruleId, values: (e.values || []).map(String) })) });
@@ -299,7 +302,15 @@ function refreshSeeded() {
   const wasSeeded = (id) => RETIRED_SEED_IDS.includes(id);
   state.rules = state.rules.filter((r) => shipped.has(r.id) || !wasSeeded(r.id) || r.kind === 'builtin');
   Object.keys(state.custom).forEach((id) => { if (wasSeeded(id) && !shipped.has(id)) delete state.custom[id]; });
-  SEEDED_IDS.forEach((id) => { if (!state.rules.some((r) => r.id === id)) state.rules.unshift({ id, enabled: true, kind: 'custom' }); });
+  // A seed new to this reader goes where DEFAULT_ORDER puts it, ahead of the next rule in that
+  // order the reader still has, so it runs with the precedence it was tested at. A seed with no
+  // declared place goes first, as before.
+  SEEDED_IDS.forEach((id) => {
+    if (state.rules.some((r) => r.id === id)) return;
+    const next = DEFAULT_ORDER.slice(DEFAULT_ORDER.indexOf(id) + 1).find((n) => state.rules.some((r) => r.id === n));
+    const at = DEFAULT_ORDER.includes(id) && next ? state.rules.findIndex((r) => r.id === next) : 0;
+    state.rules.splice(at, 0, { id, enabled: true, kind: 'custom' });
+  });
   if (kept.length) toast('Shipped rules updated. Your edited copy is kept, switched off: ' + kept.join(', '));
 }
 function restore() {

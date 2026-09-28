@@ -4,7 +4,7 @@ const L = window.LogTotalSanitizer;
 const LIB = { name: '@socprime/logtotal-sanitizer', version: '0.2.0-beta.3', published: '2026-09-23' };
 // This page's own version, independent of the library it bundles. update-page.mjs swaps the
 // library and never touches this, so the two are compared separately and can differ legitimately.
-const PAGE = { version: '1.2.2' };
+const PAGE = { version: '1.3.0' };
 const STORE = 'logtotal-sanitizer-ui.v1';
 const $ = (s, r) => (r || document).querySelector(s);
 const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
@@ -36,6 +36,12 @@ const NOTES = {
 // in the build record's rules-expansion-2026-09-23/SPEC.md. Chains follow the CoinGecko
 // top 20 by market cap read 2026-09-23T20:12Z. ICAP is left out: an IBAN-shaped ICAP is
 // claimed and rejected by the payment rule before this rule runs.
+// Driver's licence and plate formats for the 50 states, DC and the 10 provinces were read
+// 2026-09-27 from DMV and provincial pages, AAMVA-derived format tables and the Wikipedia
+// plate articles; every format, its source and its confidence are in
+// build/fixtures/id-formats.json. Each rule has two tiers: patterns (strict, always on) need a
+// label or a printed format no other value shares; aggressivePatterns (loose) match the bare
+// shapes. An all-digit licence or plate is never matched without a label.
 const SEEDED_RULES = [
   {
     "id": "agent_apis",
@@ -145,6 +151,93 @@ const SEEDED_RULES = [
       "ens_name",
       "ln_invoice"
     ]
+  },
+  {
+    "id": "drivers_license",
+    "label": "Driver's licenses",
+    "description": "Driver's license numbers for all 50 US states, DC and the 10 Canadian provinces. Always on: a number of 4 or more characters after a label such as Driver's License, DLN or OLN, the AAMVA field DAQ, and printed formats no other value shares, such as Florida A123-456-78-901-0. Aggressive mode adds bare letter-and-digit formats, such as California A1234567 or CA1111111. All-digit numbers need a label.",
+    "mode": "pseudo",
+    "token": "DLN",
+    "patterns": [
+      "(?:\\b(?:driver|Driver|DRIVER)(?:'?[Ss]|\\u2019[Ss])?[ _-]?(?:(?:[Ll]icen[cs]e|LICEN[CS]E)|[Ll]ic(?![a-z])\\.?|LIC\\b)(?:[ _-]?(?:(?:number|Number|NUMBER)|(?:num|Num|NUM)|(?:nbr|Nbr|NBR)|(?:no|No|NO)\\.?|#))?|\\b(?:[Dd]rv|DRV)[ _-]?(?:[Ll]ic|LIC)(?![a-z])|\\b(?:operator|Operator|OPERATOR)(?:'?[Ss])?[ _-]?(?:[Ll]icen[cs]e|LICEN[CS]E)(?:[ _-]?(?:(?:number|Number|NUMBER)|(?:num|Num|NUM)|(?:nbr|Nbr|NBR)|(?:no|No|NO)\\.?|#))?|\\bOLN\\b|\\bDLN\\b|\\bDL[ _-]?(?:No\\.?|NO\\.?|Num(?:ber)?|NUM(?:BER)?|Nbr|#)|\\bdl[ _-]?(?:no|num|number)\\b|\\b[Pp]ermis de conduire(?:\\s+(?:no|n\\u00b0|num[\\u00e9e]ro))?|\\b(?:[Nn]um[\\u00e9e]ro|[Nn]o\\.?|[Nn]\\u00b0)\\s+de\\s+permis)(?:\\s*\\([A-Z]{2}\\))?(?:\\s*[:=#>]\\s*|\\s+|(?<=#))[\"']?(?:\\(?[A-Z]{2}\\)?[ :-]\\s*)?(?=((?!(?:19|20)\\d\\d(?![A-Za-z0-9]))(?!0x)(?=[A-Za-z0-9*]{0,19}[ -]?\\d)(?=[A-Za-z0-9*]{4}|[A-Za-z0-9]{1,3}-\\d{3})[A-Za-z0-9*]{1,19}(?:-\\d{1,6}| \\d{2,6}){0,4}))\\1(?![A-Za-z0-9*]|[.,/:x\\u00b0]\\d|[@%\\u00b0]|[.-][a-z]|\\s*(?:%|[KMGT]i?B\\b|[KMG]?bps\\b|[mun]?s\\b|[MG]Hz\\b|mm\\b|cm\\b|bytes?\\b|files?\\b|samples\\b|days?\\b|hours?\\b|weeks?\\b|months?\\b|years?\\b|minutes?\\b|seconds?\\b|points?\\b|seats?\\b|attempts?\\b|items?\\b|records?\\b|rows?\\b|jobs?\\b|phases?\\b|of\\s+\\d))",
+      "(?:\\bDL(?![A-Za-z0-9])|\\bD/L\\b|\\bdl\"?(?=\\s*[:=])|\\bdl[ _-]?(?:[Nn]o|[Nn]um(?:ber)?)(?![a-z]))(?:\\s*\\([A-Z]{2}\\))?(?:\\s*(?:[:=#|.]|=>|->|-)\\s*|\\s+)[\"']?(?:\\(?[A-Z]{2}\\)?[ :-]\\s*)?(?=((?!0x)(?=[A-Za-z]{0,3}\\d{5}|[A-Z][A-Z*]{4,6}\\d{3})[A-Za-z0-9*]{1,19}(?:-\\d{1,6}| \\d{2,6}){0,4}))\\1(?![A-Za-z0-9*]|[.,/:x\\u00b0]\\d|[@%\\u00b0]|[.-][a-z]|\\s*(?:%|[KMGT]i?B\\b|[KMG]?bps\\b|[mun]?s\\b|[MG]Hz\\b|mm\\b|cm\\b|bytes?\\b|files?\\b|samples\\b|days?\\b|hours?\\b|weeks?\\b|months?\\b|years?\\b|minutes?\\b|seconds?\\b|points?\\b|seats?\\b|attempts?\\b|items?\\b|records?\\b|rows?\\b|jobs?\\b|phases?\\b|of\\s+\\d))",
+      "(?:\\b(?:(?:[Ll]icen[cs]e|LICEN[CS]E)|[Ll]ic\\.?|LIC)\\s*(?:#|(?:no|No|NO)\\.?|(?:number|Number|NUMBER))|\\b(?:[Ll]ic|LIC)\\.?(?![A-Za-z]))(?:\\s*[:=#>]\\s*|\\s+|(?<=#))[\"']?(?:\\(?[A-Z]{2}\\)?[ :-]\\s*)?(?=((?=[A-Za-z]{1,3}\\d{5})[A-Za-z0-9*]{1,19}(?:-\\d{1,6}| \\d{2,6}){0,4}))\\1(?![A-Za-z0-9*]|[.,/:x\\u00b0]\\d|[@%\\u00b0]|[.-][a-z]|\\s*(?:%|[KMGT]i?B\\b|[KMG]?bps\\b|[mun]?s\\b|[MG]Hz\\b|mm\\b|cm\\b|bytes?\\b|files?\\b|samples\\b|days?\\b|hours?\\b|weeks?\\b|months?\\b|years?\\b|minutes?\\b|seconds?\\b|points?\\b|seats?\\b|attempts?\\b|items?\\b|records?\\b|rows?\\b|jobs?\\b|phases?\\b|of\\s+\\d))",
+      "(?:^|(?<=DL|[\\r\\n\\u001e]))DAQ([A-Z0-9]{4,25})(?=[\\r\\n\\u001e]|$|D[A-Z]{2}[A-Z0-9])",
+      "(?<=\\bD[A-Z]{2}[A-Z0-9]*\\s)DAQ([A-Z0-9]{4,25})(?![A-Za-z0-9])",
+      "(?<![A-Za-z0-9*-])(?<!(?:SKU|[Pp]art|PART|[Oo]rder|ORDER|[Rr]ef|REF|[Ii]tem|ITEM|[Tt]racking|[Cc]ase|CASE|[Ii]nvoice|[Tt]icket|[Ss]erial|[Mm]odel|[Pp]roduct|[Ll]ot|LOT|[Bb]atch|[Aa]rticle|[Ii]d|ID|PO|[Aa]sset|EIN|FEIN|TIN|ITIN|SSN|[Pp]hone|[Tt]el|[Ff]ax)[ #:=]{1,3})[A-Z]\\d{3}-\\d{3}-\\d{2}-\\d{3}-\\d(?![A-Za-z0-9*]|-[A-Za-z0-9])",
+      "(?<![A-Za-z0-9*-])(?<!(?:SKU|[Pp]art|PART|[Oo]rder|ORDER|[Rr]ef|REF|[Ii]tem|ITEM|[Tt]racking|[Cc]ase|CASE|[Ii]nvoice|[Tt]icket|[Ss]erial|[Mm]odel|[Pp]roduct|[Ll]ot|LOT|[Bb]atch|[Aa]rticle|[Ii]d|ID|PO|[Aa]sset|EIN|FEIN|TIN|ITIN|SSN|[Pp]hone|[Tt]el|[Ff]ax)[ #:=]{1,3})[A-Z]\\d{3} \\d{3} \\d{2} \\d{3} \\d(?![A-Za-z0-9*]|-[A-Za-z0-9])",
+      "(?<![A-Za-z0-9*-])(?<!(?:SKU|[Pp]art|PART|[Oo]rder|ORDER|[Rr]ef|REF|[Ii]tem|ITEM|[Tt]racking|[Cc]ase|CASE|[Ii]nvoice|[Tt]icket|[Ss]erial|[Mm]odel|[Pp]roduct|[Ll]ot|LOT|[Bb]atch|[Aa]rticle|[Ii]d|ID|PO|[Aa]sset|EIN|FEIN|TIN|ITIN|SSN|[Pp]hone|[Tt]el|[Ff]ax)[ #:=]{1,3})[A-Z]\\d{3}-\\d{4}-\\d{4}(?:-\\d{2})?(?![A-Za-z0-9*]|-[A-Za-z0-9])",
+      "(?<![A-Za-z0-9*-])(?<!(?:SKU|[Pp]art|PART|[Oo]rder|ORDER|[Rr]ef|REF|[Ii]tem|ITEM|[Tt]racking|[Cc]ase|CASE|[Ii]nvoice|[Tt]icket|[Ss]erial|[Mm]odel|[Pp]roduct|[Ll]ot|LOT|[Bb]atch|[Aa]rticle|[Ii]d|ID|PO|[Aa]sset|EIN|FEIN|TIN|ITIN|SSN|[Pp]hone|[Tt]el|[Ff]ax)[ #:=]{1,3})[A-Z]\\d{3} \\d{4} \\d{4}(?: \\d{2})?(?![A-Za-z0-9*]|-[A-Za-z0-9])",
+      "(?<![A-Za-z0-9*-])(?<!(?:SKU|[Pp]art|PART|[Oo]rder|ORDER|[Rr]ef|REF|[Ii]tem|ITEM|[Tt]racking|[Cc]ase|CASE|[Ii]nvoice|[Tt]icket|[Ss]erial|[Mm]odel|[Pp]roduct|[Ll]ot|LOT|[Bb]atch|[Aa]rticle|[Ii]d|ID|PO|[Aa]sset|EIN|FEIN|TIN|ITIN|SSN|[Pp]hone|[Tt]el|[Ff]ax)[ #:=]{1,3})[A-Z]-?\\d{3}-\\d{3}-\\d{3}-\\d{3}(?![A-Za-z0-9*]|-[A-Za-z0-9])",
+      "(?<![A-Za-z0-9*-])(?<!(?:SKU|[Pp]art|PART|[Oo]rder|ORDER|[Rr]ef|REF|[Ii]tem|ITEM|[Tt]racking|[Cc]ase|CASE|[Ii]nvoice|[Tt]icket|[Ss]erial|[Mm]odel|[Pp]roduct|[Ll]ot|LOT|[Bb]atch|[Aa]rticle|[Ii]d|ID|PO|[Aa]sset|EIN|FEIN|TIN|ITIN|SSN|[Pp]hone|[Tt]el|[Ff]ax)[ #:=]{1,3})[A-Z] ?\\d{3} \\d{3} \\d{3} \\d{3}(?![A-Za-z0-9*]|-[A-Za-z0-9])",
+      "(?<![A-Za-z0-9*-])(?<!(?:SKU|[Pp]art|PART|[Oo]rder|ORDER|[Rr]ef|REF|[Ii]tem|ITEM|[Tt]racking|[Cc]ase|CASE|[Ii]nvoice|[Tt]icket|[Ss]erial|[Mm]odel|[Pp]roduct|[Ll]ot|LOT|[Bb]atch|[Aa]rticle|[Ii]d|ID|PO|[Aa]sset|EIN|FEIN|TIN|ITIN|SSN|[Pp]hone|[Tt]el|[Ff]ax)[ #:=]{1,3})[A-Z]\\d{4} \\d{5} \\d{5}(?![A-Za-z0-9*]|-[A-Za-z0-9])",
+      "(?<![A-Za-z0-9*-])(?<!(?:SKU|[Pp]art|PART|[Oo]rder|ORDER|[Rr]ef|REF|[Ii]tem|ITEM|[Tt]racking|[Cc]ase|CASE|[Ii]nvoice|[Tt]icket|[Ss]erial|[Mm]odel|[Pp]roduct|[Ll]ot|LOT|[Bb]atch|[Aa]rticle|[Ii]d|ID|PO|[Aa]sset|EIN|FEIN|TIN|ITIN|SSN|[Pp]hone|[Tt]el|[Ff]ax)[ #:=]{1,3})[A-Z]\\d{4}-\\d{5}-\\d{5}(?![A-Za-z0-9*]|-[A-Za-z0-9])",
+      "(?<![A-Za-z0-9*-])(?<!(?:SKU|[Pp]art|PART|[Oo]rder|ORDER|[Rr]ef|REF|[Ii]tem|ITEM|[Tt]racking|[Cc]ase|CASE|[Ii]nvoice|[Tt]icket|[Ss]erial|[Mm]odel|[Pp]roduct|[Ll]ot|LOT|[Bb]atch|[Aa]rticle|[Ii]d|ID|PO|[Aa]sset|EIN|FEIN|TIN|ITIN|SSN|[Pp]hone|[Tt]el|[Ff]ax)[ #:=]{1,3})[A-Z]\\d{4}[- ]\\d{6}[- ]\\d{2}(?![A-Za-z0-9*]|-[A-Za-z0-9])",
+      "(?<![A-Za-z0-9*-])(?<!(?:SKU|[Pp]art|PART|[Oo]rder|ORDER|[Rr]ef|REF|[Ii]tem|ITEM|[Tt]racking|[Cc]ase|CASE|[Ii]nvoice|[Tt]icket|[Ss]erial|[Mm]odel|[Pp]roduct|[Ll]ot|LOT|[Bb]atch|[Aa]rticle|[Ii]d|ID|PO|[Aa]sset|EIN|FEIN|TIN|ITIN|SSN|[Pp]hone|[Tt]el|[Ff]ax)[ #:=]{1,3})[A-Z]{5}-[0-3]\\d[01]\\d{6}(?![A-Za-z0-9*]|-[A-Za-z0-9])",
+      "(?<![A-Za-z0-9*-])(?<!(?:SKU|[Pp]art|PART|[Oo]rder|ORDER|[Rr]ef|REF|[Ii]tem|ITEM|[Tt]racking|[Cc]ase|CASE|[Ii]nvoice|[Tt]icket|[Ss]erial|[Mm]odel|[Pp]roduct|[Ll]ot|LOT|[Bb]atch|[Aa]rticle|[Ii]d|ID|PO|[Aa]sset|EIN|FEIN|TIN|ITIN|SSN|[Pp]hone|[Tt]el|[Ff]ax)[ #:=]{1,3})[A-Z]{2}-[A-Z]{2}-[A-Z]{2}-[A-Z]\\d{3}[A-Z]{2}(?![A-Za-z0-9*]|-[A-Za-z0-9])",
+      "\\bWDL(?=[A-Z0-9]{0,8}\\d)[A-Z0-9]{9}\\b",
+      "\\bNH[LNV](?!(?:19|20)\\d\\d(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\\d|3[01]))\\d{8}\\b"
+    ],
+    "aggressivePatterns": [
+      "(?<![A-Za-z0-9_\\\\/.:#@%-])(?!(?:SP|NBK|PMC|PMID|RFC|ISO|CVE|KB|DOI|ISBN|RES|REF|INV|PO|SO|INC|ORD|SKU|ASIN|NCT|ISRCTN|EUCTR)\\d)[A-Z](?!00)\\d{7,14}\\b",
+      "(?<![A-Za-z0-9_\\\\/.:#@%-])(?!(?:SP|NBK|PMC|PMID|RFC|ISO|CVE|KB|DOI|ISBN|RES|REF|INV|PO|SO|INC|ORD|SKU|ASIN|NCT|ISRCTN|EUCTR)\\d)[A-Z]{2}\\d{6}[A-Z]?\\b",
+      "\\bSA\\d{7}\\b",
+      "(?<![A-Za-z0-9_\\\\/.:#@%-])(?!(?:SP|NBK|PMC|PMID|RFC|ISO|CVE|KB|DOI|ISBN|RES|REF|INV|PO|SO|INC|ORD|SKU|ASIN|NCT|ISRCTN|EUCTR)\\d)(?!NCT)(?:AL|AK|AZ|AR|CA|CO|CT|DE|DC|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|AB|BC|MB|NB|NL|NS|ON|PE|QC|SK)[A-Z]?(?!00|(?:19|20)\\d\\d(?:0[1-9]|1[0-2]))\\d{7,14}\\b",
+      "(?<![A-Za-z0-9_\\\\/.:#@%-])(?!(?:SP|NBK|PMC|PMID|RFC|ISO|CVE|KB|DOI|ISBN|RES|REF|INV|PO|SO|INC|ORD|SKU|ASIN|NCT|ISRCTN|EUCTR)\\d)[A-Z]{3}\\d{6}\\b",
+      "\\b\\d{3}[A-Z]{2}\\d{4}\\b",
+      "\\b\\d{2}[A-Z]{3}\\d{5}\\b",
+      "\\b\\d{3}[A-Z]\\d{6}\\b",
+      "\\b[A-Z]\\d{6}R\\b",
+      "\\b\\d{8}(?![A-F]{2}\\b)[A-Z]{2}\\b",
+      "\\b\\d{7}[AV]\\b",
+      "\\b\\d{9}(?![A-F]\\b)[A-Z]\\b",
+      "\\b[A-Z]{5}[0-3]\\d[01]\\d{6}\\b",
+      "(?<![A-Za-z0-9*\\\\])(?![0-9A-F*]{12}(?![A-Za-z0-9*]))[A-Z][A-Z*]{6}(?!00)\\d{3}[A-Z]{2}(?![A-Za-z0-9*])",
+      "(?<![A-Za-z0-9*-])(?<!(?:SKU|[Pp]art|PART|[Oo]rder|ORDER|[Rr]ef|REF|[Ii]tem|ITEM|[Tt]racking|[Cc]ase|CASE|[Ii]nvoice|[Tt]icket|[Ss]erial|[Mm]odel|[Pp]roduct|[Ll]ot|LOT|[Bb]atch|[Aa]rticle|[Ii]d|ID|PO|[Aa]sset|EIN|FEIN|TIN|ITIN|SSN|[Pp]hone|[Tt]el|[Ff]ax)[ #:=]{1,3})\\d{2}-\\d{3}-\\d{4}(?![A-Za-z0-9*]|-[A-Za-z0-9])",
+      "(?<![A-Za-z0-9*-])(?<!(?:SKU|[Pp]art|PART|[Oo]rder|ORDER|[Rr]ef|REF|[Ii]tem|ITEM|[Tt]racking|[Cc]ase|CASE|[Ii]nvoice|[Tt]icket|[Ss]erial|[Mm]odel|[Pp]roduct|[Ll]ot|LOT|[Bb]atch|[Aa]rticle|[Ii]d|ID|PO|[Aa]sset|EIN|FEIN|TIN|ITIN|SSN|[Pp]hone|[Tt]el|[Ff]ax)[ #:=]{1,3})(?!\\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\\d|3[01])-)\\d{6}-\\d{3}(?![A-Za-z0-9*]|-[A-Za-z0-9])"
+    ],
+    "jsonKeyContains": [
+      "driverlicense",
+      "driverslicense",
+      "driverlicence",
+      "driverslicence",
+      "dlnumber",
+      "dlnum",
+      "operatorlicense",
+      "permisdeconduire"
+    ]
+  },
+  {
+    "id": "license_plates",
+    "label": "License plates",
+    "description": "License plates for all 50 US states, DC and the 10 Canadian provinces. Always on: any value after a label such as License Plate or Plate Number, and a 4 to 8 character capital-letter-and-digit value after a short label such as Plate or LPR. Aggressive mode adds bare passenger serials, such as 8ABC123 or ABC1234. A plate written with a space or hyphen, all-digit plates and vanity plates need a label.",
+    "mode": "pseudo",
+    "token": "PLATE",
+    "patterns": [
+      "(?:\\b(?:[Ll]icen[cs]e|LICEN[CS]E)[ _-]?(?:[Pp]late|PLATE)[Ss]?(?:[ _-]?(?:(?:number|Number|NUMBER)|(?:num|Num|NUM)|(?:nbr|Nbr|NBR)|(?:no|No|NO)\\.?|#))?|\\b(?:[Ll]ic|LIC)\\.?[ _-]?(?:[Pp]late|PLATE)(?:[ _-]?(?:(?:number|Number|NUMBER)|(?:num|Num|NUM)|(?:nbr|Nbr|NBR)|(?:no|No|NO)\\.?|#))?|\\b(?:[Pp]late|PLATE)[ _-]?(?:(?:number|Number|NUMBER)|(?:num|Num|NUM)|(?:nbr|Nbr|NBR)|(?:no|No|NO)\\.?|(?:text|Text|TEXT)|#)|\\b(?:[Nn]umber|NUMBER)[ _-]?(?:[Pp]late|PLATE)|\\b(?:[Rr]eg(?:istration)?|REG(?:ISTRATION)?)[ _-]?(?:[Pp]late|PLATE)|\\b(?:[Vv]eh(?:icle)?|VEH(?:ICLE)?)\\.?[ _-]?(?:[Pp]late|PLATE|[Rr]egistration|REGISTRATION|[Tt]ag|TAG|[Rr]eg|REG)(?:[ _-]?(?:(?:number|Number|NUMBER)|(?:num|Num|NUM)|(?:nbr|Nbr|NBR)|(?:no|No|NO)\\.?|#))?|\\b[Pp]laque d'immatriculation|\\b(?:[Nn]um[\\u00e9e]ro|[Nn]o\\.?|[Nn]\\u00b0)\\s+de\\s+plaque)(?:\\s*[:=#>]\\s*|\\s+|(?<=#))[\"']?(?=((?!0x)(?!(?:OK|PASS(?:ED)?|FAIL(?:ED)?|ERROR|FAULT|NONE|NULL|N/?A|TRUE|FALSE|UNKNOWN|PENDING|HOT|WARN(?:ING)?|YES|NO|ON|OFF|EMPTY|MISSING|INVALID|READ|DONE|IDLE)(?![A-Za-z0-9]))(?=[A-Za-z0-9]{0,8}(?:[ .\\u00b7-][A-Za-z0-9]{1,7}){0,2}\\d|[A-Z]{2,8}(?![A-Za-z0-9]))(?=[A-Za-z0-9][ .\\u00b7-]?[A-Za-z0-9])[A-Za-z0-9]{1,8}(?:[ .\\u00b7-][A-Z0-9]{1,7}){0,2}))\\1(?![A-Za-z0-9*]|[.,/:x\\u00b0]\\d|[@%\\u00b0]|[.-][a-z]|\\s*(?:%|[KMGT]i?B\\b|[KMG]?bps\\b|[mun]?s\\b|[MG]Hz\\b|mm\\b|cm\\b|bytes?\\b|files?\\b|samples\\b|days?\\b|hours?\\b|weeks?\\b|months?\\b|years?\\b|minutes?\\b|seconds?\\b|points?\\b|seats?\\b|attempts?\\b|items?\\b|records?\\b|rows?\\b|jobs?\\b|phases?\\b|of\\s+\\d))",
+      "(?:\\b(?<!(?:[Hh]ot|[Cc]opper|[Ss]teel|[Bb]ase|[Mm]icro|[Ww]ell|[Nn]ame|[Hh]eat|[Cc]ulture|[Aa]gar|[Pp]etri|[Aa]ssay|[Bb]ottom|[Tt]op)[ _-]?)(?:[Pp]late|PLATE)(?:\\s+(?:read|seen|captured))?|\\b(?:LPR|ALPR|ANPR|VRM|VRN|LPN)(?![A-Za-z0-9])(?:\\s+(?:read|hit|match(?:ed)?|captured?))?|\\bLP(?=\\s*[:#])|\\b(?<!(?:[Aa]sset|ASSET|[Ss]ervice|SERVICE|RFID|NFC|[Pp]rice|PRICE|[Ii]nventory|[Bb]aggage|[Ll]uggage|[Ee]ar|[Pp]roperty)[ _-]?)(?:[Tt]ag|TAG)(?:[ _-]?(?:(?:number|Number|NUMBER)|(?:num|Num|NUM)|(?:nbr|Nbr|NBR)|(?:no|No|NO)\\.?|#))?(?=\\s*[:=#])|\\b(?:[Rr]eg(?:istration)?|REG(?:ISTRATION)?|[Rr]ego|REGO)(?:[ _-]?(?:(?:number|Number|NUMBER)|(?:num|Num|NUM)|(?:nbr|Nbr|NBR)|(?:no|No|NO)\\.?|#))?(?=\\s*[:=#]))(?:\\s*[:=#>]\\s*|\\s+|(?<=#))[\"']?(?:\\(?[A-Z]{2}\\)?[ :-]\\s*)?(?=((?!0x)(?![A-Z]{1,3}00)(?!(?:OK|PASS(?:ED)?|FAIL(?:ED)?|ERROR|FAULT|NONE|NULL|N/?A|TRUE|FALSE|UNKNOWN|PENDING|HOT|WARN(?:ING)?|YES|NO|ON|OFF|EMPTY|MISSING|INVALID|READ|DONE|IDLE)(?![A-Za-z0-9]))(?=[A-Z0-9]{0,7}[ .\\u00b7-]?[A-Z0-9]{0,7}[A-Z])(?=[A-Z0-9]{0,7}[ .\\u00b7-]?[A-Z0-9]{0,7}\\d)(?=(?:[A-Z0-9][ .\\u00b7-]?){3,7}[A-Z0-9](?![A-Za-z0-9]))[A-Z0-9]{1,8}(?:[ .\\u00b7-][A-Z0-9]{1,7}){0,2}))\\1(?![A-Za-z0-9*]|[.,/:x\\u00b0]\\d|[@%\\u00b0]|[.-][a-z]|\\s*(?:%|[KMGT]i?B\\b|[KMG]?bps\\b|[mun]?s\\b|[MG]Hz\\b|mm\\b|cm\\b|bytes?\\b|files?\\b|samples\\b|days?\\b|hours?\\b|weeks?\\b|months?\\b|years?\\b|minutes?\\b|seconds?\\b|points?\\b|seats?\\b|attempts?\\b|items?\\b|records?\\b|rows?\\b|jobs?\\b|phases?\\b|of\\s+\\d))"
+    ],
+    "aggressivePatterns": [
+      "(?<![A-Za-z0-9_./:#@%\\\\-])(?!(?:SHA|AES|RSA|DES|RC|MD|HS|RS|ES|PS|EC|RFC|ISO|IEC|CVE|CWE|CAPEC|UTF|TLS|SSL|HTTP|TCP|UDP|IPV|PID|TID|UID|GID|KB|MS|WIN|NT|SMB|CPU|GPU|USB|DDR|PCI|API|AWS|GCP|ERR|ERROR|CODE|EVT|EVENT|REQ|VER|VLAN|ETH|PORT|NIST|SOC|GPT|CRC|ASN|IEEE|ANSI|ECMA|SP|FIPS|CIS|PAN|LAN|WAN|DNS|SIP|RTP|DOS|PHP|JDK|JRE|SDK|UEFI|CIP|SOP|EO|USC|CFR|PEP|IMO|MSC|DO|SD|DS|BLE|PLC|TAG|KQL|FDA|USA|EUR|USD|GBP|CAD|MDR|PMC|NBK|SKU|INC|CHG|PRB|RITM|TASK|PLR|PLC|PLE|PLW|PTH|RUF|SIM|ANN|ARG|FBT|TRY|PERF|TS|AS|IF|IR|UNC|APT|TA|FIN|IBM|SPDX|MACH|ASN|CAT|SIL|RTX|GTX|IPHONE|XPS|DAQ|RAM|ROM|QTY)[ .\\u00b7-]?\\d)(?!(?:GET|PUT|POST|HEAD|PATCH|NOT|AND|THE|FOR|ACK|SYN|FIN|RST|UTC|GMT|PST|PDT|EST|EDT|CST|CDT|MST|MDT|CET|BST|IST|AM|PM|OK|ON|OFF|IN|OUT|SRC|DST|DPT|SPT|LEN|TTL|KB|MB|GB|TB|MS|SEC|MIN|HRS|DAY|DAYS|JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC|MON|TUE|WED|THU|FRI|SAT|SUN)[ .\\u00b7-]?\\d|\\d{1,4}[ .\\u00b7-]?(?:GET|PUT|POST|HEAD|PATCH|NOT|AND|THE|FOR|ACK|SYN|FIN|RST|UTC|GMT|PST|PDT|EST|EDT|CST|CDT|MST|MDT|CET|BST|IST|AM|PM|OK|ON|OFF|IN|OUT|SRC|DST|DPT|SPT|LEN|TTL|KB|MB|GB|TB|MS|SEC|MIN|HRS|DAY|DAYS|JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC|MON|TUE|WED|THU|FRI|SAT|SUN)(?![A-Z0-9]))(?![A-Z]{1,3}\\u00b7?(?:19|20)\\d\\d(?!\\d)|(?:19|20)\\d\\d[.\\u00b7-]?[A-Z]{2,3}(?![A-Za-z0-9]))(?![A-Z]{1,4}\\u00b7?00|00)(?!\\d{1,5}(?:KB|MB|GB|TB|PB|KW|MW|GW|KV|MHZ|GHZ|KM|MPH|FPS|DPI|BPS|MS|NS|US)(?![A-Za-z0-9]))(?:[A-Z]{3}\\u00b7?\\d{4}|[A-Z]{3}\\u00b7?\\d{3}|\\d{3}\\u00b7?[A-Z]{3}|\\d[A-Z]{3}\\d{3}|\\d{3}\\u00b7?[A-Z]{3}\\d|[A-FHJ-NPRSTV-Z]{4}\\u00b7?\\d{3}|\\d[A-Z]{2}\\u00b7?\\d{3}|\\d[A-Z]{2}\\d{4}|[A-Z]{2}\\u00b7?\\d{5}|[A-Z]\\d{2}\\u00b7?[A-Z]{3}|[A-Z]{3}\\u00b7?\\d{2}[A-Z]|[A-Z]\\d{2}\\u00b7?\\d[A-Z]{2}|[A-Z]{2}\\d\\u00b7?\\d{2}[A-Z]|[A-Z]{3}\\u00b7?\\d[A-Z]{2}|[A-Z]{2}\\d[A-Z]{3}|\\d[A-Z]\\d{4}[A-Z]|\\d[A-Z]\\d{2}[A-Z]\\d{2}|[A-Z]{2}\\d\\u00b7?[A-Z]\\d[A-Z]|[A-Z]\\d[A-Z]\\d{3}|\\d{4}[A-Z]{3}|\\d{4}[A-Z]{2}|\\d{2}\\u00b7?[A-Z]{2}\\u00b7?\\d{2}|[A-Z]{4}\\d{2}|[A-Z]{2}\\d{2}[A-Z]{2}|[A-Z]\\d{4}[A-Z]|[A-Z]\\d[A-Z]\\d[A-Z]{2}|\\d{2}[A-Z]{4}|\\d{3}\\u00b7?[A-Z]\\d{2}|\\d{2}\\u00b7?\\d[A-Z]{2}|[A-Z]\\d\\u00b7?\\d{2}[A-Z]|\\d[A-Z]\\d\\u00b7?\\d{3}|\\d[A-Z]-\\d{3}[A-Z]|\\d{2}[A-Z]\\u00b7?[A-Z]{3}|[A-Z]\\d{2}\\u00b7?\\d{3}[A-Z]|[A-Z]{2}\\u00b7?\\d{3}[A-Z]|\\d-\\d{4}[A-Z]|\\d{2}-\\d{4}[A-Z]|\\d-[A-Z]\\d{4}|\\d{2}-[A-Z]\\d{4})(?![A-Za-z0-9_]|[./:@\\\\-][A-Za-z0-9])"
+    ],
+    "jsonKeys": [
+      "plate",
+      "lpn",
+      "vrm",
+      "vrn",
+      "tag_number"
+    ],
+    "jsonKeyContains": [
+      "licenseplate",
+      "licenceplate",
+      "platenumber",
+      "plateno",
+      "platenum",
+      "platetext",
+      "vehicleplate",
+      "vehicleregistration",
+      "plaque"
+    ]
   }
 ];
 // A content hash of the stored form of a seed, so any change to a shipped rule refreshes a
@@ -166,7 +259,7 @@ const SHIPPED_SEED_HASHES = ['9236c193', '4857a8a5', '2031fe49', '27fc3acf', '34
 // rule id so it works for a builtin too, and kept out of the rule itself so an export
 // and re-import cannot lose it.
 const CHIP_LABELS = { agent_apis: 'keys', healthInfo: 'PHI', paymentInfo: 'PMT', paths: 'users', govIds: 'GOV', secrets: 'token', sessionCookies: 'cookie' };
-const DEFAULT_ORDER = ["ips", "geoLocation", "paths", "secrets", "hosts", "sessionCookies", "users", "healthInfo", "paymentInfo", "crypto_addresses", "govIds", "phoneNumbers", "agent_apis"];
+const DEFAULT_ORDER = ["ips", "geoLocation", "paths", "secrets", "hosts", "sessionCookies", "users", "healthInfo", "drivers_license", "license_plates", "paymentInfo", "crypto_addresses", "govIds", "phoneNumbers", "agent_apis"];
 const SEEDED_IDS = SEEDED_RULES.map((d) => d.id);
 function defineSeeded() {
   SEEDED_RULES.forEach((d) => { try { L.defineRule(d); } catch (e) { /* a bad seed must not stop the page */ } });
