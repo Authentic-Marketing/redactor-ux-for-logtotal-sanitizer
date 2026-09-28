@@ -1,7 +1,7 @@
 (function () {
 'use strict';
 const L = window.LogTotalSanitizer;
-const LIB = { name: '@socprime/logtotal-sanitizer', version: '0.2.0-beta.2', published: '2026-09-21' };
+const LIB = { name: '@socprime/logtotal-sanitizer', version: '0.2.0-beta.3', published: '2026-09-23' };
 // This page's own version, independent of the library it bundles. update-page.mjs swaps the
 // library and never touches this, so the two are compared separately and can differ legitimately.
 const PAGE = { version: '1.2.1' };
