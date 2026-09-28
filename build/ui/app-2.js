@@ -251,7 +251,7 @@ function renderOutput() {
 
 // ---------- configuration, import, export ----------
 function configOf(st) {
-  return { rules: st.rules.map((r) => ({ id: r.id, enabled: r.enabled, kind: r.kind })), customRules: Object.values(st.custom).map(materialize), aggressive: st.aggressive, json: st.json, keyEncoding: st.keyEncoding, alwaysRedact: st.always, neverRedact: st.never, report: st.report, lines: st.lines, ci: st.ci, engine: st.engine, bridgeUrl: st.bridgeUrl };
+  return { rules: st.rules.map((r) => Object.assign({ id: r.id, enabled: r.enabled, kind: r.kind }, looseOn(r) ? { loose: true } : {})), customRules: Object.values(st.custom).map(materialize), aggressive: st.aggressive, json: st.json, keyEncoding: st.keyEncoding, alwaysRedact: st.always, neverRedact: st.never, report: st.report, lines: st.lines, ci: st.ci, engine: st.engine, bridgeUrl: st.bridgeUrl };
 }
 function configObject(withKey) {
   const c = Object.assign({ logtotalSanitizerUi: 1, library: LIB, exportedAt: new Date().toISOString() }, configOf(state));
@@ -263,7 +263,7 @@ function applyConfig(c) {
   (c.customRules || []).forEach((d) => { try { L.defineRule(d); st.custom[d.id] = Object.assign({ aggressivePatterns: [], jsonKeys: [], jsonKeyContains: [], token: '' }, d); } catch (e) { toast('Skipped custom rule ' + (d && d.id) + ': ' + errMessage(e)); } });
   if (Array.isArray(c.rules) && c.rules.length) {
     const seen = new Set(); st.rules = [];
-    c.rules.forEach((r) => { if (!r || seen.has(r.id)) return; if (L.getBuiltinRule(r.id)) { st.rules.push({ id: r.id, enabled: r.enabled !== false, kind: 'builtin' }); seen.add(r.id); } else if (st.custom[r.id]) { st.rules.push({ id: r.id, enabled: r.enabled !== false, kind: 'custom' }); seen.add(r.id); } });
+    c.rules.forEach((r) => { if (!r || seen.has(r.id)) return; if (L.getBuiltinRule(r.id)) { st.rules.push({ id: r.id, enabled: r.enabled !== false, kind: 'builtin' }); seen.add(r.id); } else if (st.custom[r.id]) { st.rules.push(Object.assign({ id: r.id, enabled: r.enabled !== false, kind: 'custom' }, r.loose === true && LOOSE_IDS.includes(r.id) ? { loose: true } : {})); seen.add(r.id); } });
     L.builtinRuleIds.forEach((id) => { if (!seen.has(id)) st.rules.push({ id, enabled: true, kind: 'builtin' }); });
   }
   // A seed missing from a configuration saved by another build is new to this reader:

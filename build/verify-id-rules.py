@@ -243,6 +243,64 @@ with sync_playwright() as p:
         got[at: at + len(want)] if at >= 0 else got[:6],
     )
 
+    # The per-rule Loose switch, added 2026-09-28. It must reach only its own rule, survive a reload
+    # and an import, and reach the exported rules file and the generated recipes, so the same
+    # configuration gives the same tokens everywhere.
+    page.evaluate("() => localStorage.clear()")
+    page.reload()
+    page.wait_for_selector("#stats:not([hidden])", timeout=10000)
+    SW = "[...document.querySelectorAll('#ruleList [data-act=loose]')].map((b) => b.closest('.rule').dataset.id)"
+    check("the Loose switch sits on the licence and plate rows only", sorted(page.evaluate(SW)) == ["drivers_license", "license_plates"], page.evaluate(SW))
+    page.evaluate("() => { document.querySelector('#sampleSel').value = 'ids'; document.querySelector('#loadSample').click(); }")
+    page.wait_for_timeout(700)
+    OUT = "() => document.querySelector('#outPre').textContent"
+    o = page.evaluate(OUT)
+    check(
+        "the identity sample fires both rules strict and leaves bare values and lookalikes alone",
+        o.count("<DLN:") >= 3 and o.count("<PLATE:") >= 2
+        and all(v in o for v in ("6DEF456", "B7654321", "OPS-1234", "DL: 150.2 Mbps", "VRM: OK")),
+        o[-400:],
+    )
+    page.evaluate("() => document.querySelector('.rule[data-id=\"drivers_license\"] [data-act=loose]').click()")
+    page.wait_for_timeout(700)
+    o = page.evaluate(OUT)
+    agg = page.evaluate("(l) => window.LogTotalSanitizerUi.sanitizeAsPage(l)", "ref 1234567890 end")
+    check(
+        "Loose on the licence row catches its bare value and nothing else turns loose",
+        "B7654321" not in o and "6DEF456" in o and "1234567890" in agg
+        and all(v in o for v in ("OPS-1234", "DL: 150.2 Mbps", "VRM: OK")),
+        o[-300:],
+    )
+    LOOSE_PAT = "\\bSA\\d{7}\\b"
+    ex = page.evaluate("() => window.LogTotalSanitizerUi.exportedRules().find((d) => d.id === 'drivers_license').patterns")
+    rec = page.evaluate("() => window.LogTotalSanitizerUi.recipeSource()")
+    check("the exported rules file carries the loose patterns", LOOSE_PAT in ex, len(ex))
+    # The recipe also lists the rule's aggressivePatterns, so the loose pattern must appear twice:
+    # once there and once folded into patterns.
+    n = rec.count(LOOSE_PAT.replace("\\", "\\\\"))
+    check("the generated recipe carries the loose patterns", n == 2, "%d occurrences" % n)
+    page.reload()
+    page.wait_for_selector("#stats:not([hidden])", timeout=10000)
+    page.wait_for_timeout(300)
+    PRESSED = "[...document.querySelectorAll('#ruleList [data-act=loose]')].map((b) => [b.closest('.rule').dataset.id, b.getAttribute('aria-pressed')])"
+    after_reload = dict(page.evaluate(PRESSED))
+    exported = page.evaluate("() => JSON.parse(localStorage.getItem('logtotal-sanitizer-ui.v1'))")
+    page.evaluate("() => localStorage.clear()")
+    page.reload()
+    page.wait_for_selector("#stats:not([hidden])", timeout=10000)
+    page.set_input_files("#importFile", {"name": "sanitizer-config.json", "mimeType": "application/json", "buffer": json.dumps(exported).encode()})
+    page.wait_for_timeout(600)
+    after_import = dict(page.evaluate(PRESSED))
+    check(
+        "the Loose setting survives a reload and an import",
+        after_reload == {"drivers_license": "true", "license_plates": "false"} and after_import == after_reload,
+        [after_reload, after_import],
+    )
+    page.evaluate("() => { const a = document.querySelector('#aggressive'); a.checked = true; a.dispatchEvent(new Event('change', { bubbles: true })); }")
+    page.wait_for_timeout(300)
+    btn = page.evaluate("[...document.querySelectorAll('#ruleList [data-act=loose]')].map((b) => [b.getAttribute('aria-pressed'), b.disabled])")
+    check("with Aggressive on, both switches read Loose and are held", btn == [["true", True], ["true", True]], btn)
+
     check("no page errors", not errors, errors[:3])
     check("no non-file network requests", not reqs, reqs[:3])
     b.close()

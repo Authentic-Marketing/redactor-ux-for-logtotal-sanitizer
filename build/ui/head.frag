@@ -330,6 +330,10 @@ body[data-view="sanitize"] .main>.card.integrate{display:none}
    prefix the output actually carries for a pseudo-mode one. */
 .rule-kind{display:inline-block;flex:0 0 auto;box-sizing:border-box;min-width:2.6rem;max-width:6rem;height:20px;padding:0 5px;border:1px solid var(--hairline);border-radius:var(--r-sm);background:transparent;font-family:var(--font-mono);font-size:.72rem;line-height:18px;text-align:center;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rule-acts{display:flex;align-items:center}
+.rule-meta .btn.tier{flex:0 0 auto;min-height:44px;padding:0 6px;border:0;border-radius:0;background:transparent;font-family:var(--font-mono);font-size:.72rem;color:var(--mut)}
+.rule-meta .btn.tier:hover{color:var(--fg);background:var(--surface-2)}
+.rule-meta .btn.tier[aria-pressed="true"]{color:var(--accent-text);box-shadow:inset 0 -2px 0 var(--accent)}
+.rule-meta .btn.tier[disabled]{opacity:1;cursor:default}
 .rule-acts .btn{width:44px;min-height:44px;padding:0;border:0;border-radius:0;background:transparent;color:var(--mut)}
 .rule-acts .btn:hover{color:var(--fg);background:var(--surface-2)}
 /* A half-opacity chevron is a second stroke weight in the same row, which is one of the

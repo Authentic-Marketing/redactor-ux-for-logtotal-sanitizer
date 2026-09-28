@@ -78,6 +78,32 @@ LEGS = [
         ),
         "a returning reader gets both rules, on, between the health rule and the payment rule",
     ),
+    (
+        "one row's Loose switch turns the other row loose too",
+        swap(
+            "function looseOn(r) { return Boolean(r && r.loose && LOOSE_IDS.includes(r.id)); }",
+            "function looseOn(r) { return Boolean(r && LOOSE_IDS.includes(r.id) && state.rules.some((x) => x.loose)); }",
+        ),
+        "Loose on the licence row catches its bare value and nothing else turns loose",
+    ),
+    (
+        "the Loose setting is not saved",
+        swap("looseOn(r) ? { loose: true } : {})),", "{})),"),
+        "the Loose setting survives a reload and an import",
+    ),
+    (
+        "the exported rules file drops the loose patterns",
+        swap(
+            "function enabledCustom() { return state.rules.filter((r) => r.enabled && r.kind === 'custom').map(ruleDef); }",
+            "function enabledCustom() { return state.rules.filter((r) => r.enabled && r.kind === 'custom').map((r) => materialize(state.custom[r.id])); }",
+        ),
+        "the exported rules file carries the loose patterns",
+    ),
+    (
+        "the generated recipe drops the loose patterns",
+        swap("(withCustomConsts ? r.id : js(ruleDef(r))));", "(withCustomConsts ? r.id : js(materialize(state.custom[r.id]))));"),
+        "the generated recipe carries the loose patterns",
+    ),
 ]
 
 
