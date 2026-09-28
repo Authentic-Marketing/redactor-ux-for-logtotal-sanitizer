@@ -6,7 +6,7 @@
 <meta name="artifact-class" content="deliverable">
 <meta name="color-scheme" content="dark light">
 <meta name="description" content="Redact secrets, identifiers and PII from logs in your browser tab. Built by Authentic Marketing on SOC Prime's open-source LogTotal Sanitizer library. Nothing leaves the page.">
-<title>Sanitizer UI for LogTotal Sanitizer, by Authentic Marketing</title>
+<title>Redactor UX for LogTotal Sanitizer, by Authentic Marketing</title>
 <link rel="icon" type="image/png" href="__FAVICON__">
 <!--
   Self-contained page. It bundles the published npm package @socprime/logtotal-sanitizer

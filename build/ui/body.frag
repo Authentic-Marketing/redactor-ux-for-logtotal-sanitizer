@@ -1,7 +1,7 @@
 <body data-view="sanitize">
 <header class="topbar">
   <div class="brand">
-    <h1 class="title" title="Sanitizer UI for LogTotal Sanitizer, by Authentic Marketing">Sanitizer UI for LogTotal Sanitizer, by Authentic Marketing</h1>
+    <h1 class="title" title="Redactor UX for LogTotal Sanitizer, by Authentic Marketing">Redactor UX for LogTotal Sanitizer, by Authentic Marketing</h1>
     <code class="pkg" title="npm package name">@socprime/logtotal-sanitizer</code>
   </div>
   <div class="topbar-right">
