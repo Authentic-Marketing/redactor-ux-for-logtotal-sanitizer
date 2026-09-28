@@ -16,6 +16,7 @@ One HTML file that runs [`@socprime/logtotal-sanitizer`](https://github.com/socp
 - CI mode: fail on match, or report only
 - Import and export of config, rules file, list file, key, output and report, in the CLI's file formats
 - Recipes for the CLI, Node, the browser, GitHub Actions, pre-commit and the local bridge, generated from the live configuration
+- A How it works tab: a plain-language walk-through of the page with a diagram of its pipeline
 
 ## Driver's licenses and license plates
 
@@ -25,7 +26,7 @@ Each rule has two tiers. The strict tier is always on. It catches a value after 
 
 The loose tier adds bare letter-and-digit license formats, such as California `A1234567` and `CA1111111`, and bare plate serials such as `8ABC123`. Aggressive mode runs every loose tier and also switches on the built-in rules' aggressive patterns.
 
-Each of the two rows has a Strict/Loose button in the rule list. Loose turns on that rule's loose tier alone, without Aggressive mode and without the built-in rules' aggressive patterns. It folds the rule's loose patterns into its always-on patterns. The saved configuration, exports, the exported rules file and every generated recipe (CLI, Node, GitHub Actions, pre-commit) carry the same setting and give the same tokens. With Aggressive mode on, both buttons show Loose and are held. Built-in rules keep only the Aggressive switch.
+On the two ID rows, the chip slot holds a Strict | Loose switch. It reads Strict or Loose, outlined when Strict and filled when Loose, and keeps one width in both states so the row never shifts. Each row's detail panel, which the info button opens, names its `DLN` or `PLATE` token. Driver's licenses starts on Loose and License plates starts on Strict. A reader's own choice is saved and kept, including in exports, imports and an edited copy of a seed. Loose turns on that rule's loose tier alone, without Aggressive mode and without the built-in rules' aggressive patterns. It folds the rule's loose patterns into its always-on patterns. The saved configuration, exports, the exported rules file and every generated recipe (CLI, Node, GitHub Actions, pre-commit) carry the same setting and give the same tokens. With Aggressive mode on, both switches read Loose and are held, and their hover text gives the reason. Built-in rules keep only the Aggressive switch.
 
 The "Identity and vehicle records" sample shows both tiers on synthetic lines. It has labelled values for the strict tier, a printed Florida number, a plate in a JSON field and an AAMVA DAQ field, bare values that only Loose catches, and lookalikes that stay untouched: `OPS-1234`, `DL: 150.2 Mbps` and `VRM: OK`.
 
@@ -35,7 +36,7 @@ Every format, its source URLs and a confidence grade are in `build/fixtures/id-f
 
 Known limits:
 
-- The loose tier cannot be free of false positives. `ABC1234` is both a New York plate and a build ID. Leave Aggressive off and both rows on Strict unless recall matters more than precision.
+- The loose tier cannot be free of false positives. `ABC1234` is both a New York plate and a build ID. Keep License plates on Strict and Aggressive off unless recall matters more than precision.
 - The loose tier skips bare Missouri numbers that end in A to F, which read as hex. They still match after a label.
 - Plate formats rest on each jurisdiction's Wikipedia article, MEDIUM confidence at best. Unresolved source conflicts sit in `id-formats.json` with their confidence.
 - Fields named `dl`, `tag` or `registration` are not keyed on. They usually hold download counts and version tags.
@@ -139,7 +140,7 @@ cd bridge && npm install @socprime/logtotal-sanitizer@0.2.0-beta.2 && cd ..
 python3 verify-bridge.py
 ```
 
-`verify-id-rules.py` runs 32 checks on the driver's license and license plate rules. `redleg-id-rules.py` proves those checks can fail: it breaks eleven mechanisms one at a time, from a printed format to the saved Loose setting, and requires the matching check to go red while the control stays green.
+`verify-id-rules.py` runs 41 checks on the driver's license and license plate rules. `redleg-id-rules.py` proves those checks can fail: it breaks nineteen mechanisms one at a time, from a printed format to the saved Loose setting, and requires the matching check to go red while the control stays green.
 
 `verify.py` runs 51 behavior checks against `../index.html` from `file://`. `verify-bridge.py` starts the bridge and runs 36 checks, including four proving the page refuses a bridge address that is not loopback and nine covering the bridge's own allowlist and request cap. `redleg-bridge.py` proves those last checks can fail, by starting the bridge with the guards widened and showing the refusals stop. Both verifiers write screenshots to `build/shots/`.
 

@@ -131,7 +131,10 @@ function updateInputMeta() {
 
 // ---------- results ----------
 let origToToken = new Map();
+// Counts finished runs, so a caller can wait for the result of a change instead of guessing.
+let resultSeq = 0;
 function renderResults() {
+  resultSeq += 1;
   const has = Boolean(last);
   $('#empty').hidden = has; $('#stats').hidden = !has; $('#resultTabs').hidden = !has;
   ['#panelBA', '#panelReport', '#panelOutput'].forEach((s) => { $(s).hidden = true; });
@@ -251,7 +254,7 @@ function renderOutput() {
 
 // ---------- configuration, import, export ----------
 function configOf(st) {
-  return { rules: st.rules.map((r) => Object.assign({ id: r.id, enabled: r.enabled, kind: r.kind }, looseOn(r) ? { loose: true } : {})), customRules: Object.values(st.custom).map(materialize), aggressive: st.aggressive, json: st.json, keyEncoding: st.keyEncoding, alwaysRedact: st.always, neverRedact: st.never, report: st.report, lines: st.lines, ci: st.ci, engine: st.engine, bridgeUrl: st.bridgeUrl };
+  return { rules: st.rules.map((r) => Object.assign({ id: r.id, enabled: r.enabled, kind: r.kind }, looseCapable(r.id, st.custom) ? { loose: looseOn(r, st.custom) } : {})), customRules: Object.values(st.custom).map(materialize), aggressive: st.aggressive, json: st.json, keyEncoding: st.keyEncoding, alwaysRedact: st.always, neverRedact: st.never, report: st.report, lines: st.lines, ci: st.ci, engine: st.engine, bridgeUrl: st.bridgeUrl };
 }
 function configObject(withKey) {
   const c = Object.assign({ logtotalSanitizerUi: 1, library: LIB, exportedAt: new Date().toISOString() }, configOf(state));
@@ -260,15 +263,17 @@ function configObject(withKey) {
 }
 function applyConfig(c) {
   const st = defaultState();
-  (c.customRules || []).forEach((d) => { try { L.defineRule(d); st.custom[d.id] = Object.assign({ aggressivePatterns: [], jsonKeys: [], jsonKeyContains: [], token: '' }, d); } catch (e) { toast('Skipped custom rule ' + (d && d.id) + ': ' + errMessage(e)); } });
+  const folded = new Set();
+  (c.customRules || []).forEach((d) => { try { L.defineRule(d); d = Object.assign({}, d); if (unfold(d)) folded.add(d.id); st.custom[d.id] = Object.assign({ aggressivePatterns: [], jsonKeys: [], jsonKeyContains: [], token: '' }, d); } catch (e) { toast('Skipped custom rule ' + (d && d.id) + ': ' + errMessage(e)); } });
   if (Array.isArray(c.rules) && c.rules.length) {
     const seen = new Set(); st.rules = [];
-    c.rules.forEach((r) => { if (!r || seen.has(r.id)) return; if (L.getBuiltinRule(r.id)) { st.rules.push({ id: r.id, enabled: r.enabled !== false, kind: 'builtin' }); seen.add(r.id); } else if (st.custom[r.id]) { st.rules.push(Object.assign({ id: r.id, enabled: r.enabled !== false, kind: 'custom' }, r.loose === true && LOOSE_IDS.includes(r.id) ? { loose: true } : {})); seen.add(r.id); } });
+    c.rules.forEach((r) => { if (!r || seen.has(r.id)) return; if (L.getBuiltinRule(r.id)) { st.rules.push({ id: r.id, enabled: r.enabled !== false, kind: 'builtin' }); seen.add(r.id); } else if (st.custom[r.id]) { st.rules.push(Object.assign({ id: r.id, enabled: r.enabled !== false, kind: 'custom' }, typeof r.loose === 'boolean' ? { loose: r.loose } : {})); seen.add(r.id); } });
     L.builtinRuleIds.forEach((id) => { if (!seen.has(id)) st.rules.push({ id, enabled: true, kind: 'builtin' }); });
   }
   // A seed missing from a configuration saved by another build is new to this reader:
   // refreshSeeded places it at its declared position, so it is not appended here.
   const fromOtherBuild = c.seedVersion !== SEED_VERSION && Array.isArray(c.rules) && c.rules.length;
+  st.rules.forEach((r) => { if (folded.has(r.id)) r.loose = true; });
   Object.keys(st.custom).forEach((id) => { if (fromOtherBuild && SEEDED_IDS.includes(id)) return; if (!st.rules.some((r) => r.id === id)) st.rules.push({ id, enabled: true, kind: 'custom' }); });
   st.aggressive = Boolean(c.aggressive); st.json = c.json === 'off' ? 'off' : 'auto'; st.keyEncoding = c.keyEncoding === 'utf8' ? 'utf8' : 'hex';
   if (c.alwaysRedact) st.always = Object.assign(st.always, { values: (c.alwaysRedact.values || []).map(String), patterns: (c.alwaysRedact.patterns || []).map(String), token: c.alwaysRedact.token || 'CUSTOM', mode: c.alwaysRedact.mode === 'mask' ? 'mask' : 'pseudo' });
@@ -294,7 +299,8 @@ function refreshSeeded() {
     let copy = id + '_custom'; while (state.custom[copy]) copy += '_';
     state.custom[copy] = Object.assign({}, stored, { id: copy, label: (stored.label || id) + ' (your edit)' });
     const at = state.rules.findIndex((r) => r.id === id);
-    state.rules.splice(at < 0 ? state.rules.length : at + 1, 0, { id: copy, enabled: false, kind: 'custom' });
+    const was = state.rules[at] || {};
+    state.rules.splice(at < 0 ? state.rules.length : at + 1, 0, Object.assign({ id: copy, enabled: false, kind: 'custom' }, typeof was.loose === 'boolean' ? { loose: was.loose } : {}));
     kept.push(copy);
   });
   SEEDED_RULES.forEach((d) => { try { L.defineRule(d); state.custom[d.id] = Object.assign({ aggressivePatterns: [], jsonKeys: [], jsonKeyContains: [], token: '' }, d); } catch (e) { /* a bad seed must not stop the page */ } });
@@ -352,7 +358,13 @@ async function importFile(file) {
       const list = Array.isArray(parsed) ? parsed : (parsed ? [parsed] : []);
       if (list.length && list.every((d) => d && typeof d === 'object' && typeof d.id === 'string' && Array.isArray(d.patterns))) {
         let n = 0;
-        list.forEach((d) => { try { L.defineRule(d); state.custom[d.id] = Object.assign({ aggressivePatterns: [], jsonKeys: [], jsonKeyContains: [], token: '' }, d); if (!state.rules.some((r) => r.id === d.id)) state.rules.push({ id: d.id, enabled: true, kind: 'custom' }); n += 1; } catch (e) { toast('Skipped a rule: ' + errMessage(e)); } });
+        list.forEach((d) => { try {
+          L.defineRule(d); d = Object.assign({}, d); const wasFolded = unfold(d);
+          state.custom[d.id] = Object.assign({ aggressivePatterns: [], jsonKeys: [], jsonKeyContains: [], token: '' }, d);
+          let row = state.rules.find((r) => r.id === d.id); if (!row) { row = { id: d.id, enabled: true, kind: 'custom' }; state.rules.push(row); }
+          if (wasFolded) row.loose = true;
+          n += 1; } catch (e) { toast('Skipped a rule: ' + errMessage(e)); } });
+        renderRules();
         syncControls(); changed(); return toast(n + ' custom rule' + (n === 1 ? '' : 's') + ' imported from ' + file.name);
       }
     }

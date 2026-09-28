@@ -244,16 +244,86 @@ with sync_playwright() as p:
     )
 
     # The per-rule Loose switch, added 2026-09-28. It must reach only its own rule, survive a reload
-    # and an import, and reach the exported rules file and the generated recipes, so the same
-    # configuration gives the same tokens everywhere.
-    page.evaluate("() => localStorage.clear()")
-    page.reload()
-    page.wait_for_selector("#stats:not([hidden])", timeout=10000)
+    # and an import, reach the exported rules file, the generated recipes and the editor's Test, and
+    # never run a loose pattern twice. Every wait is on a finished run, never a fixed sleep.
+    SEQ = "() => window.LogTotalSanitizerUi.resultSeq()"
+
+    def settle(action):
+        before = page.evaluate(SEQ)
+        page.evaluate(action)
+        page.wait_for_function("(n) => window.LogTotalSanitizerUi.resultSeq() > n", arg=before, timeout=15000)
+
+    def fresh():
+        page.evaluate("() => localStorage.clear()")
+        page.reload()
+        page.wait_for_selector("#stats:not([hidden])", timeout=10000)
+
+    def load_ids():
+        settle("() => { document.querySelector('#sampleSel').value = 'ids'; document.querySelector('#loadSample').click(); }")
+
+    def press(rid):
+        settle("() => document.querySelector('.rule[data-id=\"" + rid + "\"] [data-act=loose]').click()")
+
+    def set_tier(rid, loose):
+        now = page.evaluate("(i) => document.querySelector('.rule[data-id=\"' + i + '\"] [data-act=loose]').getAttribute('aria-checked')", rid)
+        if now != ("true" if loose else "false"):
+            press(rid)
+
+    def import_json(name, obj):
+        before = page.evaluate(SEQ)
+        page.set_input_files("#importFile", {"name": name, "mimeType": "application/json", "buffer": json.dumps(obj).encode()})
+        page.wait_for_function("(n) => window.LogTotalSanitizerUi.resultSeq() > n", arg=before, timeout=15000)
+
+    # The recipe as the Node integration writes it: the drivers_license definition, parsed.
+    def recipe_rule(rid):
+        rec = page.evaluate("() => window.LogTotalSanitizerUi.recipeSource()")
+        at = rec.index('"id": "' + rid + '"')
+        i = rec.rindex("{", 0, at)
+        depth = 0
+        for j in range(i, len(rec)):
+            depth += {"{": 1, "}": -1}.get(rec[j], 0)
+            if depth == 0:
+                return json.loads(rec[i: j + 1])
+
+    OUT = "() => document.querySelector('#outPre').textContent"
+    PRESSED = "[...document.querySelectorAll('#ruleList [data-act=loose]')].map((b) => [b.closest('.rule').dataset.id, b.getAttribute('aria-checked')])"
+    LOOSE_PAT = "\\bSA\\d{7}\\b"
+
+    fresh()
     SW = "[...document.querySelectorAll('#ruleList [data-act=loose]')].map((b) => b.closest('.rule').dataset.id)"
     check("the Loose switch sits on the licence and plate rows only", sorted(page.evaluate(SW)) == ["drivers_license", "license_plates"], page.evaluate(SW))
-    page.evaluate("() => { document.querySelector('#sampleSel').value = 'ids'; document.querySelector('#loadSample').click(); }")
-    page.wait_for_timeout(700)
-    OUT = "() => document.querySelector('#outPre').textContent"
+    check(
+        "by default licences start Loose and plates Strict (JJ, 2026-09-28)",
+        dict(page.evaluate(PRESSED)) == {"drivers_license": "true", "license_plates": "false"},
+        page.evaluate(PRESSED),
+    )
+    # The switch sits in the chip slot, so the two rows stay one line, as tall as their
+    # neighbours. It is what a pointer hits, 44 px or more, and the rule name never runs under it,
+    # at phone and desktop widths.
+    GEOM = """() => { const q = (id) => document.querySelector('.rule[data-id="' + id + '"]');
+      q('drivers_license').scrollIntoView({ block: 'center' });
+      const hs = ['drivers_license', 'license_plates', 'paymentInfo', 'phoneNumbers'].map((id) => Math.round(q(id).getBoundingClientRect().height));
+      const hit = ['drivers_license', 'license_plates'].map((id) => { const b = q(id).querySelector('[data-act=loose]'); const r = b.getBoundingClientRect(); const n = q(id).querySelector('.rule-name').getBoundingClientRect();
+        return b.contains(document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2)) && r.height >= 44 && r.width >= 44 && n.right <= r.left + 0.5; });
+      return { heights: hs, hit }; }"""
+    geo = []
+    for w in (390, 1400):
+        page.set_viewport_size({"width": w, "height": 900})
+        page.click('.viewtabs [data-view="configure"]')
+        geo.append([w, page.evaluate(GEOM)])
+    page.set_viewport_size({"width": 1280, "height": 720})
+    check(
+        "the licence and plate rows are as tall as their neighbours",
+        all(len(set(g["heights"])) == 1 for _, g in geo),
+        [[w, g["heights"]] for w, g in geo],
+    )
+    check(
+        "a click on either switch lands on it and the rule name stays clear of it, at 390 and 1400 px",
+        all(g["hit"] == [True, True] for _, g in geo),
+        geo,
+    )
+    set_tier("drivers_license", False)
+    load_ids()
     o = page.evaluate(OUT)
     check(
         "the identity sample fires both rules strict and leaves bare values and lookalikes alone",
@@ -261,8 +331,7 @@ with sync_playwright() as p:
         and all(v in o for v in ("6DEF456", "B7654321", "OPS-1234", "DL: 150.2 Mbps", "VRM: OK")),
         o[-400:],
     )
-    page.evaluate("() => document.querySelector('.rule[data-id=\"drivers_license\"] [data-act=loose]').click()")
-    page.wait_for_timeout(700)
+    press("drivers_license")
     o = page.evaluate(OUT)
     agg = page.evaluate("(l) => window.LogTotalSanitizerUi.sanitizeAsPage(l)", "ref 1234567890 end")
     check(
@@ -271,35 +340,122 @@ with sync_playwright() as p:
         and all(v in o for v in ("OPS-1234", "DL: 150.2 Mbps", "VRM: OK")),
         o[-300:],
     )
-    LOOSE_PAT = "\\bSA\\d{7}\\b"
-    ex = page.evaluate("() => window.LogTotalSanitizerUi.exportedRules().find((d) => d.id === 'drivers_license').patterns")
-    rec = page.evaluate("() => window.LogTotalSanitizerUi.recipeSource()")
-    check("the exported rules file carries the loose patterns", LOOSE_PAT in ex, len(ex))
-    # The recipe also lists the rule's aggressivePatterns, so the loose pattern must appear twice:
-    # once there and once folded into patterns.
-    n = rec.count(LOOSE_PAT.replace("\\", "\\\\"))
-    check("the generated recipe carries the loose patterns", n == 2, "%d occurrences" % n)
+    ex = page.evaluate("() => window.LogTotalSanitizerUi.exportedRules().find((d) => d.id === 'drivers_license')")
+    check("the exported rules file carries the loose patterns", LOOSE_PAT in ex["patterns"], len(ex["patterns"]))
+    rr = recipe_rule("drivers_license")
+    check(
+        "the generated recipe carries the loose patterns once, folded into patterns",
+        LOOSE_PAT in rr["patterns"] and "aggressivePatterns" not in rr and rr["patterns"].count(LOOSE_PAT) == 1,
+        sorted(rr),
+    )
+
+    # The editor's Test counts what the page runs: more with the row on Loose than on Strict.
+    TEST = """() => { const li = document.querySelector('.rule[data-id="drivers_license"]'); li.querySelector('[data-act=edit]').click();
+      document.querySelector('#rf-test').click(); const t = document.querySelector('#rf-testOut').textContent;
+      document.querySelector('#rf-cancel').click(); return parseInt(t, 10); }"""
+    loose_n = page.evaluate(TEST)
+    press("drivers_license")
+    strict_n = page.evaluate(TEST)
+    check("the editor's Test counts the loose tier when the row is Loose", loose_n > strict_n, [loose_n, strict_n])
+    # A state that differs from the defaults (plates start Strict), so a lost setting shows.
+    set_tier("drivers_license", True)
+    set_tier("license_plates", True)
+
     page.reload()
     page.wait_for_selector("#stats:not([hidden])", timeout=10000)
-    page.wait_for_timeout(300)
-    PRESSED = "[...document.querySelectorAll('#ruleList [data-act=loose]')].map((b) => [b.closest('.rule').dataset.id, b.getAttribute('aria-pressed')])"
     after_reload = dict(page.evaluate(PRESSED))
     exported = page.evaluate("() => JSON.parse(localStorage.getItem('logtotal-sanitizer-ui.v1'))")
-    page.evaluate("() => localStorage.clear()")
-    page.reload()
-    page.wait_for_selector("#stats:not([hidden])", timeout=10000)
-    page.set_input_files("#importFile", {"name": "sanitizer-config.json", "mimeType": "application/json", "buffer": json.dumps(exported).encode()})
-    page.wait_for_timeout(600)
+    rules_file = page.evaluate("() => window.LogTotalSanitizerUi.exportedRules()")
+    fresh()
+    import_json("sanitizer-config.json", exported)
     after_import = dict(page.evaluate(PRESSED))
     check(
         "the Loose setting survives a reload and an import",
-        after_reload == {"drivers_license": "true", "license_plates": "false"} and after_import == after_reload,
+        after_reload == {"drivers_license": "true", "license_plates": "true"} and after_import == after_reload,
         [after_reload, after_import],
     )
-    page.evaluate("() => { const a = document.querySelector('#aggressive'); a.checked = true; a.dispatchEvent(new Event('change', { bubbles: true })); }")
-    page.wait_for_timeout(300)
-    btn = page.evaluate("[...document.querySelectorAll('#ruleList [data-act=loose]')].map((b) => [b.getAttribute('aria-pressed'), b.disabled])")
-    check("with Aggressive on, both switches read Loose and are held", btn == [["true", True], ["true", True]], btn)
+
+    # A rules file exported with the row on Loose carries the loose tier folded into patterns. Its
+    # import must split it back out and set the row Loose, so Strict still turns the tier off.
+    fresh()
+    import_json("custom-rules.json", rules_file)
+    imported = dict(page.evaluate(PRESSED))
+    load_ids()
+    # A missing switch is a failure of this check, not a crash of the suite.
+    if "drivers_license" in imported:
+        press("drivers_license")
+    o = page.evaluate(OUT)
+    check(
+        "a rules file exported on Loose imports as Loose and Strict still turns the tier off",
+        imported.get("drivers_license") == "true" and "B7654321" in o,
+        [imported, o[-160:]],
+    )
+
+    # Aggressive on with a row on Loose: every loose pattern runs once, and the switches are held.
+    fresh()
+    set_tier("drivers_license", True)
+    settle("() => { const a = document.querySelector('#aggressive'); a.checked = true; a.dispatchEvent(new Event('change', { bubbles: true })); }")
+    btn = page.evaluate("[...document.querySelectorAll('#ruleList [data-act=loose]')].map((b) => [b.getAttribute('aria-checked'), b.getAttribute('aria-disabled')])")
+    check("with Aggressive on, both switches read Loose and are held", btn == [["true", "true"], ["true", "true"]], btn)
+    ex = page.evaluate("() => window.LogTotalSanitizerUi.exportedRules().find((d) => d.id === 'drivers_license')")
+    check(
+        "with Aggressive and Loose both on, no loose pattern is listed twice",
+        ex["patterns"].count(LOOSE_PAT) == 1 and LOOSE_PAT not in (ex.get("aggressivePatterns") or []),
+        sorted(ex),
+    )
+
+    # A reader's edit to a seed, set Loose, is kept as a copy with its switch and its setting when a
+    # later build replaces the seed.
+    fresh()
+    edited = page.evaluate("() => window.LogTotalSanitizerUi.seededRule('drivers_license')")
+    edited["patterns"] = edited["patterns"] + ["\\bMYDL-[0-9]{6}\\b"]
+    olds = [page.evaluate("(i) => window.LogTotalSanitizerUi.seededRule(i)", i) for i in ("agent_apis", "crypto_addresses", "license_plates")]
+    page.evaluate(
+        "(c) => localStorage.setItem('logtotal-sanitizer-ui.v1', JSON.stringify(c))",
+        {
+            "logtotalSanitizerUi": 1,
+            "seedVersion": "an-older-build",
+            "customRules": olds + [edited],
+            "rules": [{"id": i, "enabled": True, "kind": "custom"} for i in ("agent_apis", "crypto_addresses", "license_plates")]
+            + [{"id": "drivers_license", "enabled": True, "kind": "custom", "loose": False}],
+        },
+    )
+    page.reload()
+    page.wait_for_selector("#stats:not([hidden])", timeout=10000)
+    pressed = dict(page.evaluate(PRESSED))
+    check(
+        "an edited seed kept as a copy keeps its Loose switch and setting",
+        # Strict, the opposite of the licence default, so a dropped setting shows.
+        pressed.get("drivers_license_custom") == "false" and pressed.get("drivers_license") == "false",
+        pressed,
+    )
+    # The How it works view, handed over in #soc-prime post 1597 on 2026-09-28: the tab copy, the
+    # diagram between the copy's second and third paragraphs, and labels that stay legible
+    # without the page scrolling sideways.
+    page.set_viewport_size({"width": 1400, "height": 900})
+    page.click('.viewtabs [data-view="how"]')
+    how = page.evaluate("""() => { const c = document.querySelector('#howCard .how-body'); const kids = [...c.children].map((e) => e.tagName + ':' + e.textContent.trim().slice(0, 24));
+      const svg = c.querySelector('svg.hiw-diagram'); return { kids: kids.slice(0, 5), boxes: svg ? svg.querySelectorAll('.box').length : 0, arrows: svg ? svg.querySelectorAll('.flow').length : 0,
+        shown: [...document.querySelectorAll('.main > .card')].filter((x) => x.offsetParent).map((x) => x.id) }; }""")
+    check(
+        "the How it works view shows the tab copy with the diagram between its second and third paragraphs",
+        len(how["kids"]) == 5
+        and all(k.startswith(e) for k, e in zip(how["kids"], ["H2:How it works", "P:Redactor UX runs", "P:Three requests stay off", "FIGURE:", "H3:Rules scan each line"]))
+        and how["boxes"] == 9 and how["arrows"] == 11 and how["shown"] == ["howCard"],
+        how,
+    )
+    legible = []
+    for w in (390, 1400):
+        page.set_viewport_size({"width": w, "height": 900})
+        page.click('.viewtabs [data-view="how"]')
+        legible.append([w, page.evaluate("""() => ({ label: Math.min(...[...document.querySelectorAll('#howCard .hiw-diagram .lbl')].map((t) => t.getBoundingClientRect().height)),
+          overflow: document.documentElement.scrollWidth > innerWidth })""")])
+    page.set_viewport_size({"width": 1280, "height": 720})
+    check(
+        "the diagram labels render 11 px or taller and the page never scrolls sideways, at 390 and 1400 px",
+        all(m["label"] >= 11 and not m["overflow"] for _, m in legible),
+        legible,
+    )
 
     check("no page errors", not errors, errors[:3])
     check("no non-file network requests", not reqs, reqs[:3])

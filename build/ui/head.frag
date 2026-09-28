@@ -146,7 +146,7 @@ a.btn{text-decoration:none}
 #themeBtn::after{content:"";position:absolute;left:7px;top:16px;width:12px;height:12px;background-color:var(--bg);-webkit-mask:var(--ico-moon) center/12px 12px no-repeat;mask:var(--ico-moon) center/12px 12px no-repeat;transition:background-color var(--dur) ease}
 :root[data-theme="light"] #themeBtn::after{transform:translateX(18px);-webkit-mask-image:var(--ico-sun);mask-image:var(--ico-sun)}
 .viewtabs{display:none;position:sticky;top:var(--topbar-h);z-index:15;border-bottom:1px solid var(--hairline);background:var(--surface)}
-.viewtabs button{flex:1;min-height:48px;padding:0 8px;border:0;background:transparent;font-weight:600;font-size:.85rem;color:var(--mut);border-bottom:2px solid transparent}
+.viewtabs button{flex:1;min-height:48px;padding:0 4px;white-space:nowrap;border:0;background:transparent;font-weight:600;font-size:.85rem;color:var(--mut);border-bottom:2px solid transparent}
 .viewtabs button[aria-pressed="true"]{color:var(--fg);border-bottom-color:var(--accent)}
 /* Below 1080 the three destinations stay the tab strip above, unchanged. The rail and
    its glyphs exist only above 1080. */
@@ -164,9 +164,32 @@ a.btn{text-decoration:none}
 .workspace{display:grid;grid-template-columns:340px minmax(0,1fr);align-items:start}
 /* One destination at a time, at every width. These are the show and hide rules that used
    to sit in the phone block below; the layout half of that block stays where it is. */
-body[data-view="sanitize"] .rail,body[data-view="integrate"] .rail{display:none}
-body[data-view="configure"] .main,body[data-view="integrate"] .main>.card:not(.integrate){display:none}
-body[data-view="sanitize"] .main>.card.integrate{display:none}
+body[data-view="sanitize"] .rail,body[data-view="integrate"] .rail,body[data-view="how"] .rail{display:none}
+body[data-view="configure"] .main,body[data-view="integrate"] .main>.card:not(.integrate),body[data-view="how"] .main>.card:not(.how){display:none}
+body[data-view="sanitize"] .main>.card.integrate,body:not([data-view="how"]) .main>.card.how{display:none}
+/* How it works. The copy keeps a reading measure. The drawing keeps the spec layout and never
+   renders below 1000 px wide, so its labels stay legible: narrower screens scroll it inside
+   its own frame. */
+.how-body{padding:20px 24px 28px}
+.how-body>:not(figure){max-width:72ch}
+.how-body h2{margin:0 0 12px;font-size:1.25rem}
+.how-body h3{margin:24px 0 6px;font-size:1rem}
+.how-body p,.how-body li{line-height:1.6}
+.how-body p{margin:0 0 10px}
+.how-body ul{padding-left:1.2em}
+.how-body code{font-family:var(--font-mono);font-size:.85em}
+.how .hiw{margin:20px 0}
+.hiw-scroll{overflow-x:auto;border:1px solid var(--hairline);border-radius:var(--r-md);background:var(--bg)}
+.hiw-diagram{display:block;width:75%;min-width:750px;height:auto;margin:0 auto}
+.hiw-diagram .box rect{fill:var(--surface);stroke:var(--line);stroke-width:1.25}
+.hiw-diagram .box.key rect{fill:var(--tint);stroke:var(--accent)}
+.hiw-diagram .box text{fill:var(--fg);font:600 15px var(--font-sans);text-anchor:middle;dominant-baseline:central}
+.hiw-diagram .flow{fill:none;stroke:var(--accent);stroke-width:1.6}
+.hiw-diagram .lbl{fill:var(--mut);font:400 15px var(--font-sans)}
+.hiw-diagram .mid{text-anchor:middle}
+.hiw-diagram .end{text-anchor:end}
+.hiw-diagram marker path{fill:var(--accent)}
+.how figcaption{margin-top:8px;font-size:.85rem;color:var(--mut)}
 @media (min-width:1081px){
   /* The rail is fixed, so the work column and the footer carry its width as an inset. The
      destination line that used to sit above the workspace is gone, so both start directly
@@ -201,6 +224,8 @@ body[data-view="sanitize"] .main>.card.integrate{display:none}
 .sec>summary::before{content:"";width:16px;height:16px;flex:0 0 auto;background-color:currentColor;-webkit-mask:var(--ico-chev) center/16px 16px no-repeat;mask:var(--ico-chev) center/16px 16px no-repeat;transition:transform var(--dur) ease}
 .sec[open]>summary::before{transform:rotate(90deg)}
 .sec>summary:hover{color:var(--fg)}
+/* A switch inside a section title, beside the title word, set in the body type not the caps label. */
+.sec>summary .switch{margin-left:4px;text-transform:none;letter-spacing:0;font-weight:400;color:var(--fg)}
 .sec>summary .count{margin-left:auto}
 /* Engine loads collapsed, so its header carries the engine the page is actually running. The
    value is read from the radio the page's JS keeps checked, never written by us. Both labels
@@ -248,6 +273,17 @@ body[data-view="sanitize"] .main>.card.integrate{display:none}
    done here is subordinate it: the picker's own 44 px height, no gap at all against the
    picker, a muted label that lifts to full weight only on hover, and 16 px of air after it
    that tells the eye where the pair ends and the file actions begin. */
+/* Sanitize sits at the far end of the header row, filled, so it stays the page's one primary action. */
+#inputCard .card-head #runBtn{margin-left:8px;padding:0 16px;background:var(--btn-fill);color:var(--btn-label);font-weight:600}
+#inputCard .card-head #runBtn:hover{background:var(--btn-fill);box-shadow:inset 0 0 0 100px rgba(0,0,0,.08)}
+/* Sanitize holds the header's top-right corner at every width. The header keeps room for it, so
+   when the row of controls wraps it wraps under the title, never under the button. */
+#inputCard .card-head{position:relative;padding-right:124px}
+#inputCard .card-head #runBtn{position:absolute;top:8px;right:16px;margin:0}
+@media (max-width:760px){
+  #inputCard .card-head h2{flex:1 0 100%;display:flex;align-items:center;min-height:44px}
+}
+
 #inputCard .card-head #loadSample{margin:0 20px 0 -2px;padding:0 8px;color:var(--mut)}
 #inputCard .card-head #loadSample:hover{color:var(--fg)}
 #inputCard .card-head #loadSample .ico{color:inherit}
@@ -261,7 +297,11 @@ body[data-view="sanitize"] .main>.card.integrate{display:none}
    of the card's 16 px axis that the Sanitize button, the paste box and the pane count all sit
    on. The last button in each head gives that padding back as a negative margin: the label
    lands on the axis and the 44 px target and hover fill keep their size (wave 2 smoothing). */
-#inputCard .card-head #clearInput{margin-right:-10px}
+/* Clear sits at the end of the line count row, under the text box, away from Sanitize. */
+.input-foot{display:flex;align-items:center;gap:12px}
+.input-foot #clearInput{margin-left:auto;display:inline-flex;align-items:center;gap:6px;background:transparent;border-color:var(--btn-fill);color:var(--btn-fill)}
+.input-foot #clearInput:hover{background:var(--surface-2)}
+.input-foot #clearInput .ico{display:block;width:16px;height:16px;flex:0 0 auto;color:inherit}
 /* Above the rail's own breakpoint the row is wide enough to hold every control on one
    line, so wrapping is switched off there and left on below it, where the phone needs it. */
 @media (min-width:1081px){
@@ -330,10 +370,12 @@ body[data-view="sanitize"] .main>.card.integrate{display:none}
    prefix the output actually carries for a pseudo-mode one. */
 .rule-kind{display:inline-block;flex:0 0 auto;box-sizing:border-box;min-width:2.6rem;max-width:6rem;height:20px;padding:0 5px;border:1px solid var(--hairline);border-radius:var(--r-sm);background:transparent;font-family:var(--font-mono);font-size:.72rem;line-height:18px;text-align:center;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rule-acts{display:flex;align-items:center}
-.rule-meta .btn.tier{flex:0 0 auto;min-height:44px;padding:0 6px;border:0;border-radius:0;background:transparent;font-family:var(--font-mono);font-size:.72rem;color:var(--mut)}
-.rule-meta .btn.tier:hover{color:var(--fg);background:var(--surface-2)}
-.rule-meta .btn.tier[aria-pressed="true"]{color:var(--accent-text);box-shadow:inset 0 -2px 0 var(--accent)}
-.rule-meta .btn.tier[disabled]{opacity:1;cursor:default}
+.rule-meta .btn.tier{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:44px;padding:0;border:0;border-radius:0;background:transparent;cursor:pointer}
+.rule-meta .btn.tier .rule-kind{min-width:3.25rem;padding:0 4px}
+.rule-meta .btn.tier:hover .rule-kind{border-color:var(--accent);color:var(--fg)}
+.rule-meta .btn.tier[aria-checked="true"] .rule-kind{background:var(--btn-fill);border-color:var(--btn-fill);color:var(--btn-label)}
+.rule-meta .btn.tier[aria-disabled="true"]{cursor:default}
+.rule-meta .btn.tier[aria-disabled="true"] .rule-kind{border-style:dashed;background:var(--tint);border-color:var(--btn-fill);color:var(--fg)}
 .rule-acts .btn{width:44px;min-height:44px;padding:0;border:0;border-radius:0;background:transparent;color:var(--mut)}
 .rule-acts .btn:hover{color:var(--fg);background:var(--surface-2)}
 /* A half-opacity chevron is a second stroke weight in the same row, which is one of the

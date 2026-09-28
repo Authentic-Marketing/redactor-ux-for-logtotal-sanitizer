@@ -81,14 +81,14 @@ LEGS = [
     (
         "one row's Loose switch turns the other row loose too",
         swap(
-            "function looseOn(r) { return Boolean(r && r.loose && LOOSE_IDS.includes(r.id)); }",
-            "function looseOn(r) { return Boolean(r && LOOSE_IDS.includes(r.id) && state.rules.some((x) => x.loose)); }",
+            "  return typeof r.loose === 'boolean' ? r.loose : LOOSE_BY_DEFAULT.includes(String(r.id).replace(/_custom_*$/, ''));",
+            "  return state.rules.some((x) => x.loose === true && x.id !== r.id) || (typeof r.loose === 'boolean' ? r.loose : LOOSE_BY_DEFAULT.includes(String(r.id).replace(/_custom_*$/, '')));",
         ),
         "Loose on the licence row catches its bare value and nothing else turns loose",
     ),
     (
         "the Loose setting is not saved",
-        swap("looseOn(r) ? { loose: true } : {})),", "{})),"),
+        swap("looseCapable(r.id, st.custom) ? { loose: looseOn(r, st.custom) } : {})),", "{})),"),
         "the Loose setting survives a reload and an import",
     ),
     (
@@ -102,7 +102,53 @@ LEGS = [
     (
         "the generated recipe drops the loose patterns",
         swap("(withCustomConsts ? r.id : js(ruleDef(r))));", "(withCustomConsts ? r.id : js(materialize(state.custom[r.id]))));"),
-        "the generated recipe carries the loose patterns",
+        "the generated recipe carries the loose patterns once, folded into patterns",
+    ),
+    (
+        "an imported rules file keeps its loose tier folded in",
+        swap("function unfold(d) {", "function unfold(d) { return false;"),
+        "a rules file exported on Loose imports as Loose and Strict still turns the tier off",
+    ),
+    (
+        "the editor's Test ignores the Loose switch",
+        swap(
+            "const rule = L.defineRule(fold(materialize(def), looseOn(row, Object.assign({}, state.custom, { [def.id]: def }))));",
+            "const rule = L.defineRule(materialize(def));",
+        ),
+        "the editor's Test counts the loose tier when the row is Loose",
+    ),
+    (
+        "folding leaves the loose patterns in aggressivePatterns too",
+        swap("delete d.aggressivePatterns; ", ""),
+        "with Aggressive and Loose both on, no loose pattern is listed twice",
+    ),
+    (
+        "an edited seed's copy loses the Loose setting",
+        swap(
+            "Object.assign({ id: copy, enabled: false, kind: 'custom' }, typeof was.loose === 'boolean' ? { loose: was.loose } : {})",
+            "{ id: copy, enabled: false, kind: 'custom' }",
+        ),
+        "an edited seed kept as a copy keeps its Loose switch and setting",
+    ),
+    (
+        "the control goes back to a second line under the name",
+        lambda src: swap("          '</div></div></div>' +", "          '</div></div></div>' + (looseCapable(r.id) ? '<div class=\"rule-tier\" style=\"height:44px\"></div>' : '') +")(src),
+        "the licence and plate rows are as tall as their neighbours",
+    ),
+    (
+        "plates start Loose too",
+        swap("const LOOSE_BY_DEFAULT = ['drivers_license'];", "const LOOSE_BY_DEFAULT = ['drivers_license', 'license_plates'];"),
+        "by default licences start Loose and plates Strict (JJ, 2026-09-28)",
+    ),
+    (
+        "the switch widens and the rule name runs under it",
+        swap(".rule-meta .btn.tier .rule-kind{min-width:3.25rem;padding:0 4px}", ".rule-meta .btn.tier .rule-kind{min-width:4.5rem;padding:0 4px}"),
+        "a click on either switch lands on it and the rule name stays clear of it, at 390 and 1400 px",
+    ),
+    (
+        "the diagram shrinks to fit a phone",
+        swap("width:75%;min-width:750px;height:auto;margin:0 auto}", "width:75%;height:auto;margin:0 auto}"),
+        "the diagram labels render 11 px or taller and the page never scrolls sideways, at 390 and 1400 px",
     ),
 ]
 

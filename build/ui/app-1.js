@@ -155,7 +155,7 @@ const SEEDED_RULES = [
   {
     "id": "drivers_license",
     "label": "Driver's licenses",
-    "description": "Driver's license numbers for all 50 US states, DC and the 10 Canadian provinces. Always on: a number of 4 or more characters after a label such as Driver's License, DLN or OLN, the AAMVA field DAQ, and printed formats no other value shares, such as Florida A123-456-78-901-0. Aggressive mode adds bare letter-and-digit formats, such as California A1234567 or CA1111111. All-digit numbers need a label.",
+    "description": "Driver's license numbers for all 50 US states, DC and the 10 Canadian provinces. Always on: a number of 4 or more characters after a label such as Driver's License, DLN or OLN, the AAMVA field DAQ, and printed formats no other value shares, such as Florida A123-456-78-901-0. The Loose button or Aggressive mode adds bare letter-and-digit formats, such as California A1234567 or CA1111111. All-digit numbers need a label.",
     "mode": "pseudo",
     "token": "DLN",
     "patterns": [
@@ -210,7 +210,7 @@ const SEEDED_RULES = [
   {
     "id": "license_plates",
     "label": "License plates",
-    "description": "License plates for all 50 US states, DC and the 10 Canadian provinces. Always on: any value after a label such as License Plate or Plate Number, and a 4 to 8 character capital-letter-and-digit value after a short label such as Plate or LPR. Aggressive mode adds bare passenger serials, such as 8ABC123 or ABC1234. A plate written with a space or hyphen, all-digit plates and vanity plates need a label.",
+    "description": "License plates for all 50 US states, DC and the 10 Canadian provinces. Always on: any value after a label such as License Plate or Plate Number, and a 4 to 8 character capital-letter-and-digit value after a short label such as Plate or LPR. The Loose button or Aggressive mode adds bare passenger serials, such as 8ABC123 or ABC1234. A plate written with a space or hyphen, all-digit plates and vanity plates need a label.",
     "mode": "pseudo",
     "token": "PLATE",
     "patterns": [
@@ -253,7 +253,7 @@ const SEED_VERSION = SEEDED_RULES.map((d) => d.id + ':' + seedHash(d)).join('|')
 const RETIRED_SEED_IDS = ['crypto_bitcoin', 'crypto_evm', 'crypto_tron', 'crypto_xrp', 'crypto_solana', 'crypto_dogecoin', 'crypto_cardano', 'crypto_litecoin', 'crypto_ton', 'crypto_monero', 'stablecoins'];
 // seedHash of every seed definition in every shipped version (28 versions in git history,
 // read 2026-09-23). A stored seed matching none of these was edited by the reader.
-const SHIPPED_SEED_HASHES = ['9236c193', '4857a8a5', '2031fe49', '27fc3acf', '34758dc3', 'bc200c61', 'df1ccb90', '6f9c7e5b', '63d4a3bc', 'a72116e0', '91204586', '9872ce54', 'b432cafa', '9968abe3', '95b32ec7', '28a1a862', '9b7f244e', '868ccfeb'];
+const SHIPPED_SEED_HASHES = ['9236c193', '4857a8a5', '2031fe49', '27fc3acf', '34758dc3', 'bc200c61', 'df1ccb90', '6f9c7e5b', '63d4a3bc', 'a72116e0', '91204586', '9872ce54', 'b432cafa', '9968abe3', '95b32ec7', '28a1a862', '9b7f244e', '868ccfeb', '7ae88286', '33a12bc3'];
 // What a masked rule shows in its chip. Plain 'mask' says only how the value is replaced,
 // not what was replaced, which is the thing a reader scanning the list wants. Keyed by
 // rule id so it works for a builtin too, and kept out of the rule itself so an export
@@ -336,12 +336,35 @@ function ruleInfo(r) {
 // its effect on every built-in. Loose folds the rule's aggressivePatterns into its patterns, so
 // the engine, the exported rules file and every generated recipe all run the same thing.
 const LOOSE_IDS = ['drivers_license', 'license_plates'];
+// Where a row starts until the reader switches it (JJ, 2026-09-28): licences Loose, plates Strict.
+const LOOSE_BY_DEFAULT = ['drivers_license'];
 const UX = {"btn_strict": "Strict", "btn_loose": "Loose", "title_strict": "Strict: matches labelled values and unique formats. Press to also match bare values for this rule.", "title_loose": "Loose: also matching bare values, which can catch lookalikes such as build IDs. Press to go strict.", "title_aggressive": "Aggressive mode is on, so the loose tier already runs for every rule.", "detail": "The strict tier needs a label, such as DLN or plate number, except for printed formats no other value shares, and the loose tier matches bare values too. Formats and sources are in build/fixtures/id-formats.json.", "toast_loose": "{label} set to loose", "toast_strict": "{label} set to strict"};
-function looseOn(r) { return Boolean(r && r.loose && LOOSE_IDS.includes(r.id)); }
-function ruleDef(r) {
-  const d = materialize(state.custom[r.id]);
-  if (looseOn(r) && d.aggressivePatterns) d.patterns = d.patterns.concat(d.aggressivePatterns);
+// A reader's edited copy of one of these seeds (drivers_license_custom) keeps the switch.
+function looseCapable(id, custom) {
+  const d = (custom || state.custom)[id];
+  return LOOSE_IDS.includes(String(id).replace(/_custom_*$/, '')) && Boolean(d && d.aggressivePatterns && d.aggressivePatterns.length);
+}
+function looseOn(r, custom) {
+  if (!r || !looseCapable(r.id, custom)) return false;
+  return typeof r.loose === 'boolean' ? r.loose : LOOSE_BY_DEFAULT.includes(String(r.id).replace(/_custom_*$/, ''));
+}
+// The one place Loose is applied: the loose patterns move into patterns and leave
+// aggressivePatterns, so Aggressive mode never runs them twice and every output carries one copy.
+function fold(d, loose) {
+  if (loose && d.aggressivePatterns && d.aggressivePatterns.length) { d.patterns = d.patterns.concat(d.aggressivePatterns); delete d.aggressivePatterns; }
   return d;
+}
+function ruleDef(r) { return fold(materialize(state.custom[r.id]), looseOn(r)); }
+// A definition that arrives with its loose tier already folded into patterns (a rules file
+// exported with the row on Loose) is split back into the two tiers, so the row's switch, and
+// not the stored patterns, decides what runs. Returns whether it was folded.
+function unfold(d) {
+  const seed = SEEDED_RULES.find((s) => s.id === String(d.id).replace(/_custom_*$/, ''));
+  if (!seed || !LOOSE_IDS.includes(seed.id) || (d.aggressivePatterns && d.aggressivePatterns.length) || !Array.isArray(d.patterns)) return false;
+  const agg = seed.aggressivePatterns || [];
+  if (!agg.length || !agg.every((p) => d.patterns.includes(p))) return false;
+  d.patterns = d.patterns.filter((p) => !agg.includes(p)); d.aggressivePatterns = agg.slice();
+  return d.patterns.length > 0;
 }
 function materialize(def) {
   const out = { id: def.id, label: def.label || def.id, description: def.description || def.label || def.id, mode: def.mode || 'pseudo', patterns: def.patterns.slice() };
@@ -397,8 +420,7 @@ function renderRules() {
         '<label class="switch"><input type="checkbox" data-act="toggle" aria-label="' + esc(info.label) + '"' + (r.enabled ? ' checked' : '') + '><span class="sw"></span>' +
           '<span class="rule-name" title="' + esc(info.label) + '">' + esc(info.label) + '</span></label>' +
         '<div class="rule-meta">' +
-          (LOOSE_IDS.includes(r.id) && info.custom ? tierButton(r) : '') +
-          '<span class="rule-kind" title="' + (info.mode === 'mask' ? 'mask mode: neutral R prefix' : 'pseudo mode: type prefix kept') + '">' + esc(info.mode === 'mask' ? (CHIP_LABELS[r.id] || 'mask') : info.token) + '</span>' +
+          (looseCapable(r.id) ? tierButton(r) : '<span class="rule-kind" title="' + (info.mode === 'mask' ? 'mask mode: neutral R prefix' : 'pseudo mode: type prefix kept') + '">' + esc(info.mode === 'mask' ? (CHIP_LABELS[r.id] || 'mask') : info.token) + '</span>') +
           '<div class="rule-acts">' +
             '<button class="btn" type="button" data-act="up" aria-label="Move up"' + (i === 0 ? ' disabled' : '') + '>' + ruleGlyph('up') + '</button>' +
             '<button class="btn" type="button" data-act="down" aria-label="Move down"' + (i === state.rules.length - 1 ? ' disabled' : '') + '>' + ruleGlyph('down') + '</button>' +
@@ -406,7 +428,7 @@ function renderRules() {
           '</div></div></div>' +
       '<div class="rule-detail" hidden>' +
         '<p>' + esc(info.note || 'No description.') + '</p>' +
-        (LOOSE_IDS.includes(r.id) && info.custom ? '<p class="small">' + esc(UX.detail) + '</p>' : '') +
+        (looseCapable(r.id) ? '<p class="small">' + esc(UX.detail) + '</p>' : '') +
         '<p class="small mut">Priority ' + (i + 1) + ' of ' + state.rules.length + '. Mode <b>' + info.mode + '</b>. Token <code>&lt;' + esc(info.mode === 'mask' ? 'R' : info.token) + ':&hellip;&gt;</code>. Rule id <code>' + esc(r.id) + '</code>.' + (info.custom ? ' Custom rule.' : '') + '</p>' +
         (info.keys.length ? '<p class="keys">JSON keys: ' + esc(info.keys.join(', ')) + '</p>' : '') +
         (info.custom ? '<div class="acts"><button class="btn sm" type="button" data-act="edit">Edit</button><button class="btn sm ghost" type="button" data-act="delete">Delete</button></div>' : '') +
@@ -416,10 +438,26 @@ function renderRules() {
   $('#rulesOn').textContent = state.rules.filter((r) => r.enabled).length;
   renderNeverRuleSelect();
 }
-function tierButton(r) {
+function tierState(r) {
   const all = state.aggressive; const on = all || looseOn(r);
-  return '<button class="btn tier" type="button" data-act="loose" aria-pressed="' + on + '"' + (all ? ' disabled' : '') +
-    ' title="' + esc(all ? UX.title_aggressive : on ? UX.title_loose : UX.title_strict) + '">' + esc(on ? UX.btn_loose : UX.btn_strict) + '</button>';
+  return { all, on, text: on ? UX.btn_loose : UX.btn_strict, title: all ? UX.title_aggressive : on ? UX.title_loose : UX.title_strict };
+}
+// The row's chip slot holds the switch for these two rules: it reads Strict or Loose and fills
+// when Loose, so the row stays one line. The token (DLN, PLATE) is named in the detail panel.
+// Held on by Aggressive mode it stays focusable, with aria-disabled and the reason in its
+// description.
+function tierButton(r) {
+  const t = tierState(r); const label = ruleInfo(r).label;
+  return '<button class="btn tier" type="button" role="switch" data-act="loose" aria-checked="' + t.on + '"' + (t.all ? ' aria-disabled="true"' : '') +
+    ' aria-label="' + esc('Loose matching, ' + label) + '" aria-description="' + esc(t.title) + '" title="' + esc(t.title) + '"><span class="rule-kind">' + esc(t.text) + '</span></button>';
+}
+// Update the switches in place, so an open detail panel stays open.
+function syncTierButtons() {
+  $$('#ruleList [data-act="loose"]').forEach((b) => {
+    const r = state.rules.find((x) => x.id === b.closest('.rule').dataset.id); if (!r) return;
+    const t = tierState(r); b.firstElementChild.textContent = t.text; b.title = t.title; b.setAttribute('aria-description', t.title);
+    b.setAttribute('aria-checked', String(t.on)); if (t.all) b.setAttribute('aria-disabled', 'true'); else b.removeAttribute('aria-disabled');
+  });
 }
 function moveRule(id, delta) {
   const i = state.rules.findIndex((r) => r.id === id); const j = i + delta;
@@ -448,9 +486,9 @@ function wireRules() {
     if (act === 'up') moveRule(id, -1);
     else if (act === 'down') moveRule(id, 1);
     else if (act === 'loose') {
+      if (btn.getAttribute('aria-disabled') === 'true') return;
       const r = state.rules.find((x) => x.id === id); r.loose = !looseOn(r);
-      renderRules(); changed(); toast((r.loose ? UX.toast_loose : UX.toast_strict).replace('{label}', ruleInfo(r).label));
-      const again = $('.rule[data-id="' + id + '"] [data-act="loose"]'); if (again) again.focus();
+      syncTierButtons(); changed(); toast((r.loose ? UX.toast_loose : UX.toast_strict).replace('{label}', ruleInfo(r).label));
     }
     else if (act === 'info') { const d = $('.rule-detail', li); d.hidden = !d.hidden; btn.setAttribute('aria-expanded', String(!d.hidden)); }
     else if (act === 'edit') openEditor(id);
@@ -476,6 +514,8 @@ function wireRules() {
 // ---------- custom rule editor ----------
 function openEditor(id) {
   const f = $('#ruleEditor'); f.hidden = false; editingId = id || null;
+  // The editor starts collapsed; Add rule and Edit open it.
+  f.closest('details').open = true;
   const d = id ? state.custom[id] : { id: '', label: '', description: '', mode: 'pseudo', token: '', patterns: [], aggressivePatterns: [], jsonKeys: [], jsonKeyContains: [] };
   $('#rf-title').textContent = id ? 'Edit custom rule' : 'New custom rule';
   $('#rf-id').value = d.id; $('#rf-id').disabled = Boolean(id);
@@ -513,7 +553,9 @@ function wireEditor() {
   $('#rf-test').addEventListener('click', () => {
     const def = readEditor(); const out = $('#rf-testOut');
     try {
-      const rule = validateDef(def);
+      validateDef(def);
+      const row = state.rules.find((x) => x.id === def.id);
+      const rule = L.defineRule(fold(materialize(def), looseOn(row, Object.assign({}, state.custom, { [def.id]: def }))));
       const text = srcFile ? '' : $('#inputText').value;
       if (!text) { out.textContent = 'Paste or load a log first.'; return; }
       const r = L.createSanitizer({ key, keyEncoding: state.keyEncoding, rules: [rule], aggressive: state.aggressive, report: { previewBytes: 0 } }).sanitizeText(text);
@@ -549,7 +591,7 @@ function updateCounts() {
 }
 function wireControls() {
   const on = (sel, ev, fn) => $(sel).addEventListener(ev, fn);
-  on('#aggressive', 'change', (e) => { state.aggressive = e.target.checked; renderRules(); changed(); });
+  on('#aggressive', 'change', (e) => { state.aggressive = e.target.checked; syncTierButtons(); changed(); });
   on('#jsonMode', 'change', (e) => { state.json = e.target.value; changed(); });
   on('#keyInput', 'input', (e) => { key = e.target.value.trim(); showErr($('#keyErr'), ''); changed(); });
   on('#keyEnc', 'change', (e) => { state.keyEncoding = e.target.value; changed(); });
