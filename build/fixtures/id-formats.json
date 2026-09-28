@@ -1,0 +1,1466 @@
+{
+ "read": "2026-09-27",
+ "note": "Formats as read by five research passes on 2026-09-27. Plate formats come from the Wikipedia article for each jurisdiction, a single source, so none is above MEDIUM. Vanity rules were not recoverable for most jurisdictions and are not encoded: vanity and all-digit plates are caught only next to a label.",
+ "jurisdictions": {
+  "AL": {
+   "name": "Alabama",
+   "license": {
+    "formats": [
+     "7 or 8 digits"
+    ],
+    "sources": [
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "1A2345B",
+     "1AB2345",
+     "1A12B34"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Alabama"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "AK": {
+   "name": "Alaska",
+   "license": {
+    "formats": [
+     "1 to 7 digits"
+    ],
+    "sources": [
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "ABC 123"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Alaska"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "AZ": {
+   "name": "Arizona",
+   "license": {
+    "formats": [
+     "1 letter + 8 digits",
+     "9 digits"
+    ],
+    "sources": [
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/"
+    ],
+    "confidence": "HIGH"
+   },
+   "plate": {
+    "formats": [
+     "ABC1DE",
+     "ABC1234",
+     "123ABC"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Arizona"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "AR": {
+   "name": "Arkansas",
+   "license": {
+    "formats": [
+     "4 to 9 digits"
+    ],
+    "sources": [
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "ABC 12D",
+     "123 ABC"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Arkansas"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "CA": {
+   "name": "California",
+   "license": {
+    "formats": [
+     "1 letter + 7 digits"
+    ],
+    "sources": [
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/"
+    ],
+    "confidence": "HIGH"
+   },
+   "plate": {
+    "formats": [
+     "123ABC1",
+     "1ABC123"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_California"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "CO": {
+   "name": "Colorado",
+   "license": {
+    "formats": [
+     "9 digits, printed 2-3-4",
+     "1-2 letters + 3-6 digits (older)"
+    ],
+    "sources": [
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "ABCD12",
+     "ABC-123",
+     "123-ABC"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Colorado"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "CT": {
+   "name": "Connecticut",
+   "license": {
+    "formats": [
+     "9 digits"
+    ],
+    "sources": [
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/"
+    ],
+    "confidence": "HIGH"
+   },
+   "plate": {
+    "formats": [
+     "AB·12345",
+     "123·ABC4"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Connecticut"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "DE": {
+   "name": "Delaware",
+   "license": {
+    "formats": [
+     "1 to 7 digits"
+    ],
+    "sources": [
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "1 to 6 digits"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Delaware"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "DC": {
+   "name": "Washington, D.C.",
+   "license": {
+    "formats": [
+     "7 digits",
+     "9 digits"
+    ],
+    "sources": [
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "AB-1234"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Washington,_D.C."
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "FL": {
+   "name": "Florida",
+   "license": {
+    "formats": [
+     "1 letter + 12 digits, printed A123-456-78-901-0"
+    ],
+    "sources": [
+     "https://www.flhsmv.gov/pdf/newdl/retailguide_aug2020.pdf",
+     "https://www.citrustc.us/important-update-new-id-driver-license-credential-number-format/",
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779"
+    ],
+    "confidence": "HIGH"
+   },
+   "plate": {
+    "formats": [
+     "ABC 123",
+     "12ABCD",
+     "A1B 2CD",
+     "A12 BCD"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Florida"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "GA": {
+   "name": "Georgia",
+   "license": {
+    "formats": [
+     "7 to 9 digits"
+    ],
+    "sources": [
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "ABC1234",
+     "ABC1DE",
+     "AB1CDE"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Georgia_(U.S._state)"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "HI": {
+   "name": "Hawaii",
+   "license": {
+    "formats": [
+     "H + 8 digits",
+     "9 digits"
+    ],
+    "sources": [
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/"
+    ],
+    "confidence": "HIGH"
+   },
+   "plate": {
+    "formats": [
+     "ABC 123"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Hawaii"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "ID": {
+   "name": "Idaho",
+   "license": {
+    "formats": [
+     "2 letters + 6 digits + 1 letter",
+     "9 digits"
+    ],
+    "sources": [
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779",
+     "https://legalclarity.org/where-to-find-your-idaho-drivers-license-number/",
+     "https://www.e-verify.gov/sites/default/files/everify/factsheets/IdahoRIDEFactSheet.pdf"
+    ],
+    "confidence": "HIGH"
+   },
+   "plate": {
+    "formats": [
+     "A1234U, after a county code"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Idaho"
+    ],
+    "confidence": "LOW"
+   }
+  },
+  "IL": {
+   "name": "Illinois",
+   "license": {
+    "formats": [
+     "1 letter + 11 digits, printed A123-4567-8901"
+    ],
+    "sources": [
+     "https://isp.illinois.gov/LawEnforcement/GetFile/de672e4e-5074-484d-a82f-cbfc20145c54",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/",
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779"
+    ],
+    "confidence": "HIGH"
+   },
+   "plate": {
+    "formats": [
+     "AB 12345",
+     "A12 3456"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Illinois"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "IN": {
+   "name": "Indiana",
+   "license": {
+    "formats": [
+     "10 digits",
+     "1 letter + 9 digits (older)",
+     "9 digits (older)"
+    ],
+    "sources": [
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779",
+     "https://www.wndu.com/content/news/New-Indiana-drivers-license-format-revealed-511207151.html",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "123ABC"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Indiana"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "IA": {
+   "name": "Iowa",
+   "license": {
+    "formats": [
+     "9 digits",
+     "3 digits + 2 letters + 4 digits"
+    ],
+    "sources": [
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779"
+    ],
+    "confidence": "HIGH"
+   },
+   "plate": {
+    "formats": [
+     "ABC 123",
+     "123 ABC"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Iowa"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "KS": {
+   "name": "Kansas",
+   "license": {
+    "formats": [
+     "K + 8 digits",
+     "9 digits",
+     "letter-digit-letter-digit-letter (older)"
+    ],
+    "sources": [
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779",
+     "https://www.ksrevenue.gov/pdf/readingdmvreport.pdf"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "1234ABC",
+     "123 ABC"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Kansas"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "KY": {
+   "name": "Kentucky",
+   "license": {
+    "formats": [
+     "1 letter + 8 or 9 digits",
+     "9 digits"
+    ],
+    "sources": [
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "A1B234",
+     "ABC123",
+     "123 ABC"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Kentucky"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "LA": {
+   "name": "Louisiana",
+   "license": {
+    "formats": [
+     "9 digits"
+    ],
+    "sources": [
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/"
+    ],
+    "confidence": "HIGH"
+   },
+   "plate": {
+    "formats": [
+     "123 ABC",
+     "ABC 123"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Louisiana"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "ME": {
+   "name": "Maine",
+   "license": {
+    "formats": [
+     "7 digits",
+     "7 digits + 1 letter",
+     "8 digits"
+    ],
+    "sources": [
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "123·ABC",
+     "1234AB"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Maine"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "MD": {
+   "name": "Maryland",
+   "license": {
+    "formats": [
+     "1 letter + 12 digits, printed M-123-456-789-012"
+    ],
+    "sources": [
+     "http://www.highprogrammer.com/cgi-bin/uniqueid/dl_md",
+     "https://www.huffinsurance.com/blog/maryland-drivers-license-number-format-change/",
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779"
+    ],
+    "confidence": "HIGH"
+   },
+   "plate": {
+    "formats": [
+     "1AB2345"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Maryland"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "MA": {
+   "name": "Massachusetts",
+   "license": {
+    "formats": [
+     "S + 8 digits",
+     "SA + 7 digits (since 2018-11-13)"
+    ],
+    "sources": [
+     "http://www.tarrtalk.com/2018/11/new-mass-license-and-id-format-change.html",
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/"
+    ],
+    "confidence": "HIGH"
+   },
+   "plate": {
+    "formats": [
+     "1AB 234",
+     "1234 AB",
+     "12AB 34"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Massachusetts"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "MI": {
+   "name": "Michigan",
+   "license": {
+    "formats": [
+     "1 letter + 12 digits, printed A123-456-789-012"
+    ],
+    "sources": [
+     "http://www.highprogrammer.com/alan/numbers/dl_us_shared_mmm.html",
+     "https://www.michiganada.org/new-michigan-drivers-license-and-state-id/"
+    ],
+    "confidence": "HIGH"
+   },
+   "plate": {
+    "formats": [
+     "ABC 1234"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Michigan"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "MN": {
+   "name": "Minnesota",
+   "license": {
+    "formats": [
+     "1 letter + 12 digits"
+    ],
+    "sources": [
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "ABC-123",
+     "123-ABC"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Minnesota"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "MS": {
+   "name": "Mississippi",
+   "license": {
+    "formats": [
+     "9 digits"
+    ],
+    "sources": [
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/"
+    ],
+    "confidence": "HIGH"
+   },
+   "plate": {
+    "formats": [
+     "ABC 123",
+     "ABC 1234"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Mississippi"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "MO": {
+   "name": "Missouri",
+   "license": {
+    "formats": [
+     "1 letter + 5 to 9 digits",
+     "3 digits + 1 letter + 6 digits",
+     "1 letter + 6 digits + R",
+     "8 digits + 2 letters",
+     "9 digits + optional letter"
+    ],
+    "sources": [
+     "https://dor.mo.gov/forms/5443.pdf",
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "AB1 C2D",
+     "123 ABC"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Missouri"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "MT": {
+   "name": "Montana",
+   "license": {
+    "formats": [
+     "13 digits",
+     "9 digits (older)"
+    ],
+    "sources": [
+     "https://secure.driversalert.com/live/docs/pdf/State_DLFormats.pdf",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "12-3456A",
+     "12-A3456"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Montana"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "NE": {
+   "name": "Nebraska",
+   "license": {
+    "formats": [
+     "1 letter + 8 digits"
+    ],
+    "sources": [
+     "https://www.e-verify.gov/sites/default/files/everify/factsheets/factsheetsArchive/NebraskaRIDEFactSheet.pdf",
+     "https://legalclarity.org/drivers-license-number-format-by-state-all-types/"
+    ],
+    "confidence": "HIGH"
+   },
+   "plate": {
+    "formats": [
+     "ABC 123",
+     "3-A1234"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Nebraska"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "NV": {
+   "name": "Nevada",
+   "license": {
+    "formats": [
+     "9, 10 or 12 digits",
+     "X + 8 digits"
+    ],
+    "sources": [
+     "https://secure.driversalert.com/live/docs/pdf/State_DLFormats.pdf",
+     "https://ntsi.com/drivers-license-format/",
+     "http://www.highprogrammer.com/alan/numbers/dl_us_nv98.html"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "123·ABC",
+     "123·A45"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Nevada"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "NH": {
+   "name": "New Hampshire",
+   "license": {
+    "formats": [
+     "NHL, NHN or NHV + 8 digits (since 2017-10-11)",
+     "2 digits + 3 letters + 5 digits (older)"
+    ],
+    "sources": [
+     "https://www.concordmonitor.com/license-number-change-14152882",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "123 4567",
+     "1 to 5 digits"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_New_Hampshire"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "NJ": {
+   "name": "New Jersey",
+   "license": {
+    "formats": [
+     "1 letter + 14 digits, printed A1234 56789 01234"
+    ],
+    "sources": [
+     "http://www.highprogrammer.com/alan/numbers/dl_us_nj.html",
+     "https://secure.driversalert.com/live/docs/pdf/State_DLFormats.pdf",
+     "https://ntsi.com/drivers-license-format/"
+    ],
+    "confidence": "HIGH"
+   },
+   "plate": {
+    "formats": [
+     "A12-BCD",
+     "AB-123C"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_New_Jersey"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "NM": {
+   "name": "New Mexico",
+   "license": {
+    "formats": [
+     "9 digits",
+     "8 digits (older)"
+    ],
+    "sources": [
+     "https://secure.driversalert.com/live/docs/pdf/State_DLFormats.pdf",
+     "https://legalclarity.org/drivers-license-number-format-by-state-all-types/"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "123-ABC",
+     "ABC-123"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_New_Mexico"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "NY": {
+   "name": "New York",
+   "license": {
+    "formats": [
+     "9 digits",
+     "1 letter + 7 digits, 8 digits, 8 letters (legacy)"
+    ],
+    "sources": [
+     "https://dmv.ny.gov/transaction-message/information-about-transaction-entries",
+     "https://secure.driversalert.com/live/docs/pdf/State_DLFormats.pdf"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "ABC-1234",
+     "ABC 123"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_New_York"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "NC": {
+   "name": "North Carolina",
+   "license": {
+    "formats": [
+     "1 to 12 digits"
+    ],
+    "sources": [
+     "https://secure.driversalert.com/live/docs/pdf/State_DLFormats.pdf",
+     "https://legalclarity.org/drivers-license-number-format-by-state-all-types/",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "ABC-1234"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_North_Carolina"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "ND": {
+   "name": "North Dakota",
+   "license": {
+    "formats": [
+     "3 letters + 6 digits",
+     "9 digits"
+    ],
+    "sources": [
+     "https://secure.driversalert.com/live/docs/pdf/State_DLFormats.pdf",
+     "https://verifyi9.com/wp-content/uploads/NorthDakota_RIDE-FactSheet.pdf",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/"
+    ],
+    "confidence": "HIGH"
+   },
+   "plate": {
+    "formats": [
+     "123 ABC",
+     "ABC 123"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_North_Dakota"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "OH": {
+   "name": "Ohio",
+   "license": {
+    "formats": [
+     "2 letters + 6 digits",
+     "1 letter + 4 to 8 digits (older)",
+     "8 digits (older)"
+    ],
+    "sources": [
+     "https://legalclarity.org/ohio-drivers-license-format-number-layout-markings/",
+     "https://secure.driversalert.com/live/docs/pdf/State_DLFormats.pdf",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "ABC 1234",
+     "AB12CD",
+     "ABC 123"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Ohio"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "OK": {
+   "name": "Oklahoma",
+   "license": {
+    "formats": [
+     "1 letter + 9 digits",
+     "9 digits"
+    ],
+    "sources": [
+     "https://secure.driversalert.com/live/docs/pdf/State_DLFormats.pdf",
+     "https://ntsi.com/drivers-license-format/",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/",
+     "https://legalclarity.org/drivers-license-number-format-by-state-all-types/"
+    ],
+    "confidence": "HIGH"
+   },
+   "plate": {
+    "formats": [
+     "ABC-123",
+     "123ABC"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Oklahoma"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "OR": {
+   "name": "Oregon",
+   "license": {
+    "formats": [
+     "1 to 9 digits"
+    ],
+    "sources": [
+     "https://secure.driversalert.com/live/docs/pdf/State_DLFormats.pdf",
+     "https://www.oregon.gov/odot/dmv/pages/driverid/samplecards.aspx"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "123 ABC",
+     "ABC 123"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Oregon"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "PA": {
+   "name": "Pennsylvania",
+   "license": {
+    "formats": [
+     "8 digits"
+    ],
+    "sources": [
+     "https://www.pa.gov/agencies/dmv/faqs/driver-licensing-faqs/find-your-drivers-license-photo-id-number",
+     "https://secure.driversalert.com/live/docs/pdf/State_DLFormats.pdf",
+     "https://legalclarity.org/drivers-license-number-format-by-state-all-types/"
+    ],
+    "confidence": "HIGH"
+   },
+   "plate": {
+    "formats": [
+     "ABC-1234"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Pennsylvania"
+    ],
+    "confidence": "LOW"
+   }
+  },
+  "RI": {
+   "name": "Rhode Island",
+   "license": {
+    "formats": [
+     "7 digits",
+     "1 letter + 6 digits (older)",
+     "8 digits (reported)"
+    ],
+    "sources": [
+     "https://secure.driversalert.com/live/docs/pdf/State_DLFormats.pdf",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/"
+    ],
+    "confidence": "LOW"
+   },
+   "plate": {
+    "formats": [
+     "1AB 234",
+     "AB-123",
+     "1 to 6 digits"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Rhode_Island"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "SC": {
+   "name": "South Carolina",
+   "license": {
+    "formats": [
+     "5 to 11 digits"
+    ],
+    "sources": [
+     "https://secure.driversalert.com/live/docs/pdf/State_DLFormats.pdf",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "123ABC",
+     "ABC 123",
+     "123 ABC"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_South_Carolina"
+    ],
+    "confidence": "LOW"
+   }
+  },
+  "SD": {
+   "name": "South Dakota",
+   "license": {
+    "formats": [
+     "6 to 10 digits",
+     "12 digits"
+    ],
+    "sources": [
+     "https://secure.driversalert.com/live/docs/pdf/State_DLFormats.pdf",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/",
+     "https://legalclarity.org/drivers-license-number-format-by-state-all-types/"
+    ],
+    "confidence": "LOW"
+   },
+   "plate": {
+    "formats": [
+     "1A1 234",
+     "1AB 123"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_South_Dakota"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "TN": {
+   "name": "Tennessee",
+   "license": {
+    "formats": [
+     "7 to 9 digits"
+    ],
+    "sources": [
+     "https://secure.driversalert.com/live/docs/pdf/State_DLFormats.pdf",
+     "https://legalclarity.org/drivers-license-number-format-by-state-all-types/",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "ABC-1234",
+     "123-ABC",
+     "ABC 123"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Tennessee"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "TX": {
+   "name": "Texas",
+   "license": {
+    "formats": [
+     "8 digits",
+     "7 digits (older)"
+    ],
+    "sources": [
+     "https://www.dps.texas.gov/apps/driverlicense/dlsearch/dlstatus.aspx",
+     "https://secure.driversalert.com/live/docs/pdf/State_DLFormats.pdf"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "ABC-1234",
+     "ABC-12D"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Texas"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "UT": {
+   "name": "Utah",
+   "license": {
+    "formats": [
+     "4 to 10 digits"
+    ],
+    "sources": [
+     "https://secure.driversalert.com/live/docs/pdf/State_DLFormats.pdf",
+     "https://ntsi.com/drivers-license-format/"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "A12 3BC",
+     "ABC 123"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Utah"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "VT": {
+   "name": "Vermont",
+   "license": {
+    "formats": [
+     "8 digits",
+     "7 digits + A",
+     "7 digits + V (digit count inferred)"
+    ],
+    "sources": [
+     "https://dmv.vermont.gov/bulletin/new-license-number-format-including-v",
+     "https://secure.driversalert.com/live/docs/pdf/State_DLFormats.pdf"
+    ],
+    "confidence": "LOW"
+   },
+   "plate": {
+    "formats": [
+     "ABC 123"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Vermont"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "VA": {
+   "name": "Virginia",
+   "license": {
+    "formats": [
+     "1 letter + 8 to 11 digits",
+     "9 digits"
+    ],
+    "sources": [
+     "https://legalclarity.org/where-is-your-virginia-drivers-license-number/",
+     "https://secure.driversalert.com/live/docs/pdf/State_DLFormats.pdf",
+     "https://www.dmv.virginia.gov/sites/default/files/documents/VA-DMV-DL-ID-AAMVA.pdf"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "ABC-1234",
+     "ABC-123"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Virginia"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "WA": {
+   "name": "Washington",
+   "license": {
+    "formats": [
+     "WDL + 9 letters or digits (since 2018-09-04)",
+     "12 characters from surname, initials, asterisks, digits (before 2018)"
+    ],
+    "sources": [
+     "https://www.king5.com/article/news/local/washington-drivers-license-numbers-to-change-in-september/281-587296223",
+     "https://secure.driversalert.com/live/docs/pdf/State_DLFormats.pdf",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/"
+    ],
+    "confidence": "HIGH"
+   },
+   "plate": {
+    "formats": [
+     "ABC1234",
+     "123-ABC"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Washington_(state)"
+    ],
+    "confidence": "LOW"
+   }
+  },
+  "WV": {
+   "name": "West Virginia",
+   "license": {
+    "formats": [
+     "7 digits",
+     "1-2 letters + 5-6 digits"
+    ],
+    "sources": [
+     "https://secure.driversalert.com/live/docs/pdf/State_DLFormats.pdf",
+     "https://www.driverslicenseguide.com/check-west-virginia-id.html"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "A12 345B"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_West_Virginia"
+    ],
+    "confidence": "LOW"
+   }
+  },
+  "WI": {
+   "name": "Wisconsin",
+   "license": {
+    "formats": [
+     "1 letter + 13 digits, printed A123-4567-8901-23"
+    ],
+    "sources": [
+     "https://ntsi.com/drivers-license-format/",
+     "https://secure.driversalert.com/live/docs/pdf/State_DLFormats.pdf",
+     "https://www.e-verify.gov/sites/default/files/everify/factsheets/factsheetsArchive/WisconsinRIDEFactSheet.pdf"
+    ],
+    "confidence": "HIGH"
+   },
+   "plate": {
+    "formats": [
+     "ABC-1234",
+     "123-ABC",
+     "ABC-123"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Wisconsin"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "WY": {
+   "name": "Wyoming",
+   "license": {
+    "formats": [
+     "9 to 10 digits, sometimes printed 6-3"
+    ],
+    "sources": [
+     "https://secure.driversalert.com/live/docs/pdf/State_DLFormats.pdf",
+     "https://www.starpointscreening.com/blog/drivers-license-format-by-state/",
+     "https://legalclarity.org/drivers-license-number-format-by-state-all-types/"
+    ],
+    "confidence": "HIGH"
+   },
+   "plate": {
+    "formats": [
+     "1A-123A",
+     "1-12345"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Wyoming"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "AB": {
+   "name": "Alberta",
+   "license": {
+    "formats": [
+     "5 to 9 digits",
+     "6 digits - 3 digits (older)"
+    ],
+    "sources": [
+     "https://learn.microsoft.com/en-us/purview/sit-defn-canada-drivers-license-number",
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "ABC-1234"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Alberta"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "BC": {
+   "name": "British Columbia",
+   "license": {
+    "formats": [
+     "8 digits (since 2023-07-24)",
+     "7 digits (older)"
+    ],
+    "sources": [
+     "https://icbc.com/about-icbc/newsroom/2023-feb06-DLnumbers",
+     "https://learn.microsoft.com/en-us/purview/sit-defn-canada-drivers-license-number"
+    ],
+    "confidence": "HIGH"
+   },
+   "plate": {
+    "formats": [
+     "A12 3BC",
+     "AB1 23C",
+     "123 ABC"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_British_Columbia"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "MB": {
+   "name": "Manitoba",
+   "license": {
+    "formats": [
+     "12 characters from the name: 7 letters or asterisks + 3 digits + 2 letters, printed in pairs"
+    ],
+    "sources": [
+     "https://learn.microsoft.com/en-us/purview/sit-defn-canada-drivers-license-number",
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779",
+     "https://apps.mpi.mb.ca/wtp/help/rtlHelpCustDocNo.aspx"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "ABC 123"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Manitoba"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "NB": {
+   "name": "New Brunswick",
+   "license": {
+    "formats": [
+     "5 to 7 digits"
+    ],
+    "sources": [
+     "https://learn.microsoft.com/en-us/purview/sit-defn-canada-drivers-license-number",
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "ABC 123"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_New_Brunswick"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "NL": {
+   "name": "Newfoundland and Labrador",
+   "license": {
+    "formats": [
+     "1 letter + 9 digits"
+    ],
+    "sources": [
+     "https://learn.microsoft.com/en-us/purview/sit-defn-canada-drivers-license-number",
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "ABC 123"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Newfoundland_and_Labrador"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "NS": {
+   "name": "Nova Scotia",
+   "license": {
+    "formats": [
+     "5 letters + 9 digits, birth-date digits constrained"
+    ],
+    "sources": [
+     "https://learn.microsoft.com/en-us/purview/sit-defn-canada-drivers-license-number",
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779"
+    ],
+    "confidence": "HIGH"
+   },
+   "plate": {
+    "formats": [
+     "ABC 123"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Nova_Scotia"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "ON": {
+   "name": "Ontario",
+   "license": {
+    "formats": [
+     "1 letter + 14 digits, printed A1234-56789-01234"
+    ],
+    "sources": [
+     "https://learn.microsoft.com/en-us/purview/sit-defn-canada-drivers-license-number",
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779"
+    ],
+    "confidence": "HIGH"
+   },
+   "plate": {
+    "formats": [
+     "ABCD 123",
+     "123-ABC"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Ontario"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "PE": {
+   "name": "Prince Edward Island",
+   "license": {
+    "formats": [
+     "5 to 6 digits"
+    ],
+    "sources": [
+     "https://learn.microsoft.com/en-us/purview/sit-defn-canada-drivers-license-number",
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "123 ABC",
+     "12 3AB",
+     "A1 23B"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Prince_Edward_Island"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "QC": {
+   "name": "Quebec",
+   "license": {
+    "formats": [
+     "1 letter + 12 digits, printed A1234-123456-12"
+    ],
+    "sources": [
+     "https://learn.microsoft.com/en-us/purview/sit-defn-canada-drivers-license-number",
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779",
+     "https://github.com/LexMajor/permisdeconduireqc"
+    ],
+    "confidence": "HIGH"
+   },
+   "plate": {
+    "formats": [
+     "ABC 12D",
+     "12A BCD",
+     "B12 CDE"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Quebec"
+    ],
+    "confidence": "MEDIUM"
+   }
+  },
+  "SK": {
+   "name": "Saskatchewan",
+   "license": {
+    "formats": [
+     "8 digits"
+    ],
+    "sources": [
+     "https://learn.microsoft.com/en-us/purview/sit-defn-canada-drivers-license-number",
+     "https://gist.github.com/lipe-dev/4468b0fcc4c85acaa7bca9db534a9779"
+    ],
+    "confidence": "MEDIUM"
+   },
+   "plate": {
+    "formats": [
+     "123 ABC",
+     "ABC 123"
+    ],
+    "sources": [
+     "https://en.wikipedia.org/wiki/Vehicle_registration_plates_of_Saskatchewan"
+    ],
+    "confidence": "MEDIUM"
+   }
+  }
+ }
+}

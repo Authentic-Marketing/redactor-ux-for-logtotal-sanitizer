@@ -15,6 +15,9 @@ Run everything from this directory.
 | `verify-update-check.py` | 40 checks on the optional check when the page opens. The version URL is served by `page.route()` in every case, so the suite never touches the live network. |
 | `redleg-update-check.py` | Breaks the comparator, the off switch and the daily window in turn and requires the matching assertion to go red. A leg that stays green means that assertion is decorative. |
 | `redleg-bridge.py` | Starts the bridge with its guards widened and shows the refusals stop, which is what makes the checks above worth trusting. |
+| `verify-id-rules.py` | 25 checks on the driver's license and license plate rules. |
+| `redleg-id-rules.py` | Breaks seven mechanisms in turn (a printed format, the short-label ID shape, the unit guard, the atomic value capture, the technical-token list, the rule order, the returning-reader placement) and requires the named check to go red. The control stays green. |
+| `fixtures/id-formats.json`, `fixtures/id-vectors.json` | `id-formats.json` holds every license and plate format for 61 jurisdictions, with its source URLs and a confidence grade. `id-vectors.json` holds the synthetic values the checks run, and every false positive found while the rules were built, pinned as a line that must stay untouched. |
 
 ```
 python3 assemble.py ../index.html --public --version-json ../version.json
