@@ -23,7 +23,11 @@ Two rules ship in the page, on by default: Driver's licenses (token `DLN`) and L
 
 Each rule has two tiers. The strict tier is always on. It catches a value after a label that names the document, such as `driver's license`, `OLN` or `plate number`. After a short label such as `DL` or `tag:`, it takes only an ID-shaped value. It also catches printed license formats no other value shares, such as Florida `A123-456-78-901-0`.
 
-The loose tier runs only in Aggressive mode, which also switches on the built-in rules' aggressive patterns. It adds bare letter-and-digit license formats, such as California `A1234567` and `CA1111111`, and bare plate serials such as `8ABC123`.
+The loose tier adds bare letter-and-digit license formats, such as California `A1234567` and `CA1111111`, and bare plate serials such as `8ABC123`. Aggressive mode runs every loose tier and also switches on the built-in rules' aggressive patterns.
+
+Each of the two rows has a Strict/Loose button in the rule list. Loose turns on that rule's loose tier alone, without Aggressive mode and without the built-in rules' aggressive patterns. It folds the rule's loose patterns into its always-on patterns. The saved configuration, exports, the exported rules file and every generated recipe (CLI, Node, GitHub Actions, pre-commit) carry the same setting and give the same tokens. With Aggressive mode on, both buttons show Loose and are held. Built-in rules keep only the Aggressive switch.
+
+The "Identity and vehicle records" sample shows both tiers on synthetic lines. It has labelled values for the strict tier, a printed Florida number, a plate in a JSON field and an AAMVA DAQ field, bare values that only Loose catches, and lookalikes that stay untouched: `OPS-1234`, `DL: 150.2 Mbps` and `VRM: OK`.
 
 Some values match only after a label: all-digit licenses (Texas, Pennsylvania, New York and more than 20 others), all-digit plates (Delaware, New Hampshire, Rhode Island), vanity plates, and plates written with a space or hyphen, such as `ABC-1234`. Ticket keys, issue numbers and prose are written the same way. Vanity plate rules could not be verified for most jurisdictions and are not encoded.
 
@@ -31,7 +35,7 @@ Every format, its source URLs and a confidence grade are in `build/fixtures/id-f
 
 Known limits:
 
-- The loose tier cannot be free of false positives. `ABC1234` is both a New York plate and a build ID. Leave Aggressive off unless recall matters more than precision.
+- The loose tier cannot be free of false positives. `ABC1234` is both a New York plate and a build ID. Leave Aggressive off and both rows on Strict unless recall matters more than precision.
 - The loose tier skips bare Missouri numbers that end in A to F, which read as hex. They still match after a label.
 - Plate formats rest on each jurisdiction's Wikipedia article, MEDIUM confidence at best. Unresolved source conflicts sit in `id-formats.json` with their confidence.
 - Fields named `dl`, `tag` or `registration` are not keyed on. They usually hold download counts and version tags.
@@ -135,7 +139,7 @@ cd bridge && npm install @socprime/logtotal-sanitizer@0.2.0-beta.2 && cd ..
 python3 verify-bridge.py
 ```
 
-`verify-id-rules.py` runs 25 checks on the driver's license and license plate rules. `redleg-id-rules.py` proves those checks can fail: it breaks seven mechanisms one at a time, from a printed format to the rule order, and requires the matching check to go red while the control stays green.
+`verify-id-rules.py` runs 32 checks on the driver's license and license plate rules. `redleg-id-rules.py` proves those checks can fail: it breaks eleven mechanisms one at a time, from a printed format to the saved Loose setting, and requires the matching check to go red while the control stays green.
 
 `verify.py` runs 51 behavior checks against `../index.html` from `file://`. `verify-bridge.py` starts the bridge and runs 36 checks, including four proving the page refuses a bridge address that is not loopback and nine covering the bridge's own allowlist and request cap. `redleg-bridge.py` proves those last checks can fail, by starting the bridge with the guards widened and showing the refusals stop. Both verifiers write screenshots to `build/shots/`.
 

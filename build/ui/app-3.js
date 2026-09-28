@@ -88,6 +88,7 @@ window.LogTotalSanitizerUi = {
   seedHash, ruleIds: () => state.rules.map((r) => ({ id: r.id, enabled: r.enabled, hash: r.kind === 'custom' ? seedHash(state.custom[r.id]) : null })),
   sanitizeAsPage: (text) => L.createSanitizer(Object.assign(buildOptions(), { report: { previewBytes: 0 } })).sanitizeText(text).output,
   declaredOrder: () => DEFAULT_ORDER.slice(),
+  exportedRules: () => enabledCustom(), recipeSource: () => optionsSource(false),
   builtinCount: () => L.builtinRuleIds.length, updateCmd, cmpVer };
 function wireEngine() {
   $('#bundledVersion').textContent = LIB.version + ', ' + LIB.published;
@@ -109,7 +110,7 @@ function wireEngine() {
 }
 
 // ---------- integrations ----------
-function enabledCustom() { return state.rules.filter((r) => r.enabled && r.kind === 'custom').map((r) => materialize(state.custom[r.id])); }
+function enabledCustom() { return state.rules.filter((r) => r.enabled && r.kind === 'custom').map(ruleDef); }
 function enabledBuiltin() { return state.rules.filter((r) => r.enabled && r.kind === 'builtin').map((r) => r.id); }
 function isDefaultRules() { return enabledBuiltin().join(',') === L.builtinRuleIds.join(',') && !enabledCustom().length; }
 function js(v) { return JSON.stringify(v, null, 2); }
@@ -118,7 +119,7 @@ function optionsSource(withCustomConsts) {
   l.push("  key: process.env.SANITIZER_KEY, // " + (state.keyEncoding === 'hex' ? '64 hex characters from generateKey(); keep it to correlate tokens across files' : 'passphrase; keep it to correlate tokens across files'));
   if (state.keyEncoding === 'utf8') l.push("  keyEncoding: 'utf8',");
   if (!isDefaultRules()) {
-    const order = state.rules.filter((r) => r.enabled).map((r) => r.kind === 'builtin' ? "'" + r.id + "'" : (withCustomConsts ? r.id : js(materialize(state.custom[r.id]))));
+    const order = state.rules.filter((r) => r.enabled).map((r) => r.kind === 'builtin' ? "'" + r.id + "'" : (withCustomConsts ? r.id : js(ruleDef(r))));
     l.push('  rules: [' + order.join(', ') + '],');
   } else l.push('  // rules: omitted, so every built-in rule runs in the documented order');
   if (state.aggressive) l.push('  aggressive: true,');
@@ -237,7 +238,16 @@ const SAMPLES = {
     'CEF:0|Example|NGFW|9.1|200|Traffic denied|7|src=203.0.113.77 spt=40122 dst=10.20.4.15 dpt=22 shost=KALI-01 dhost=srv-app-01 proto=TCP cs1=brute-force cs1Label=signature',
     'CEF:0|Example|EDR|4.2|300|Credential access|9|suser=CORP\\\\bwallace shost=DESKTOP-4H2K1QZ fname=lsass.dmp filePath=C:\\\\Users\\\\bwallace\\\\AppData\\\\Local\\\\Temp\\\\lsass.dmp dhost=DC01.corp.example.test',
     'CEF:0|Example|EDR|4.2|301|Outbound beacon|8|src=10.20.7.31 dst=198.51.100.200 dpt=8443 shost=DESKTOP-4H2K1QZ suser=CORP\\\\bwallace request=https://198.51.100.200/gate.php?id=4H2K1',
-    'CEF:0|Example|NGFW|9.1|100|Traffic allowed|3|src=10.20.4.15 spt=51530 dst=203.0.113.77 dpt=443 suser=alice@example.test shost=srv-app-01 dhost=cdn.example.test proto=TCP'].join('\n') }
+    'CEF:0|Example|NGFW|9.1|100|Traffic allowed|3|src=10.20.4.15 spt=51530 dst=203.0.113.77 dpt=443 suser=alice@example.test shost=srv-app-01 dhost=cdn.example.test proto=TCP'].join('\n') },
+  ids: { label: 'Identity and vehicle records', text: [
+    'Sep 28 09:14:02 intake-01 dmv[3301]: applicant verified, Driver License: D1234567 state=CA',
+    'Sep 28 09:14:03 intake-01 dmv[3301]: renewal queued for FL A123-456-78-901-0',
+    '{"ts":"2026-09-28T09:14:05Z","service":"parking","license_plate":"8ABC123","plate_state":"CA","gate":"B2"}',
+    'Sep 28 09:14:07 cam-03 alpr[811]: ALPR hit: 7XYZ123 lane 2 confidence 0.97',
+    'Sep 28 09:14:09 kiosk-2 pdf417[77]: DCSSAMPLE DACALEX DAQD1234567',
+    'Sep 28 09:15:00 valet-1 tickets[45]: car 6DEF456 parked, holder B7654321 on file',
+    'Sep 28 09:15:02 runner-4 ci[902]: OPS-1234 fixed in release 4.2, DL: 150.2 Mbps UL: 50.1 Mbps',
+    'Sep 28 09:15:04 bmc-7 sensors[12]: VRM: OK, fan 3 at 4200 rpm'].join('\n') }
 };
 function loadSample(id) {
   const s = SAMPLES[id]; if (!s) return;
