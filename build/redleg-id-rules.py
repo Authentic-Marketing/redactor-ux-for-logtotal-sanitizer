@@ -141,8 +141,11 @@ LEGS = [
         "by default licences start Loose and plates Strict (JJ, 2026-09-28)",
     ),
     (
-        "the switch widens and the rule name runs under it",
-        swap(".rule-meta .btn.tier .rule-kind{min-width:3.25rem;padding:0 4px}", ".rule-meta .btn.tier .rule-kind{min-width:4.5rem;padding:0 4px}"),
+        # Amended 2026-09-28: the Settings view widened to 1120 px, so a wider switch no longer
+        # reached the name in its column and this leg stayed green. The name now runs on under
+        # the switch, which is the defect the check exists to catch at any column width.
+        "the rule name runs under the switch",
+        swap(".rule-name{font-size:.85rem;font-weight:600;min-width:6.6rem;line-height:1.25}", ".rule-name{font-size:.85rem;font-weight:600;min-width:6.6rem;line-height:1.25;white-space:nowrap;letter-spacing:1.5em}"),
         "a click on either switch lands on it and the rule name stays clear of it, at 390 and 1400 px",
     ),
     (
