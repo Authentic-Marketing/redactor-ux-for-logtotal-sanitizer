@@ -299,12 +299,14 @@ with sync_playwright() as p:
     )
     # The switch sits in the chip slot, so the two rows stay one line, as tall as their
     # neighbours. It is what a pointer hits, 44 px or more, and the rule name never runs under it,
-    # at phone and desktop widths.
+    # at phone and desktop widths. Amended 2026-09-28: the name's text is measured as well as its
+    # box, because the grid keeps the box clear even when the text itself spills under the switch.
     GEOM = """() => { const q = (id) => document.querySelector('.rule[data-id="' + id + '"]');
       q('drivers_license').scrollIntoView({ block: 'center' });
       const hs = ['drivers_license', 'license_plates', 'paymentInfo', 'phoneNumbers'].map((id) => Math.round(q(id).getBoundingClientRect().height));
-      const hit = ['drivers_license', 'license_plates'].map((id) => { const b = q(id).querySelector('[data-act=loose]'); const r = b.getBoundingClientRect(); const n = q(id).querySelector('.rule-name').getBoundingClientRect();
-        return b.contains(document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2)) && r.height >= 44 && r.width >= 44 && n.right <= r.left + 0.5; });
+      const hit = ['drivers_license', 'license_plates'].map((id) => { const b = q(id).querySelector('[data-act=loose]'); const r = b.getBoundingClientRect(); const ne = q(id).querySelector('.rule-name'); const n = ne.getBoundingClientRect();
+        const rg = document.createRange(); rg.selectNodeContents(ne); const t = rg.getBoundingClientRect();
+        return b.contains(document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2)) && r.height >= 44 && r.width >= 44 && n.right <= r.left + 0.5 && t.right <= r.left + 0.5; });
       return { heights: hs, hit }; }"""
     geo = []
     for w in (390, 1400):
