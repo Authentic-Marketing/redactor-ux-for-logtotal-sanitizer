@@ -8,7 +8,7 @@ Run everything from this directory.
 | --- | --- |
 | `assemble.py` | Concatenates `ui/head.frag`, `ui/body.frag` and `ui/app-*.js`, embeds the bundled library, the bridge script, the update script, the logo and the favicon, and writes the page. |
 | `ui/` | The page source. Edit here, never in `index.html`. |
-| `pkg/sanitizer.iife.js` | `@socprime/logtotal-sanitizer` 0.2.0-beta.2 bundled with esbuild 0.27.7 as an IIFE global. |
+| `pkg/sanitizer.iife.js` | `@socprime/logtotal-sanitizer` 0.2.0-beta.3 bundled with esbuild 0.27.7 as an IIFE global. |
 | `bridge/` | The loopback bridge and the update script, embedded into the page and downloadable from it. |
 | `verify.py` | 51 behavior checks against the built page in headless Chromium. The rule-row counts derive from the page's own seed list, so adding or removing a shipped rule does not need the numbers editing here. |
 | `verify-bridge.py` | 36 checks that start the real bridge, including four proving a non-loopback address is refused and nine covering the bridge's allowlist and request cap. |
@@ -22,10 +22,25 @@ Run everything from this directory.
 ```
 python3 assemble.py ../index.html --public --version-json ../version.json
 python3 verify.py
-cd bridge && npm install @socprime/logtotal-sanitizer@0.2.0-beta.2 && cd ..
+cd bridge && npm install @socprime/logtotal-sanitizer@0.2.0-beta.3 && cd ..
 python3 verify-bridge.py
 ```
 
 `assemble.py` takes an optional `--public` flag, which omits two build-provenance lines from the page head. The published page is built with it.
+
+## Changing an ID format
+
+To change a driver's license or plate format, or add a jurisdiction:
+
+1. Edit its entry in `fixtures/id-formats.json`, with the source URL and a confidence grade.
+2. Add at least one synthetic value per format to `fixtures/id-vectors.json`: repeated or sequential digits and placeholder letters, never a real number. `verify-id-rules.py` fails on any format without a value. Add any false positive you find to the negative lines, which must stay untouched.
+3. Change the Driver's licenses or License plates patterns in `SEEDED_RULES` in `ui/app-1.js`. Strict patterns go in `patterns`, loose ones in `aggressivePatterns`.
+4. Rebuild the page and run the ID checks.
+
+```
+python3 assemble.py ../index.html --public
+python3 verify-id-rules.py
+python3 redleg-id-rules.py
+```
 
 Screenshots and the generated log fixtures land in `shots/`, `small.log` and `big.log`, all gitignored.

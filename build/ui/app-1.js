@@ -4,7 +4,7 @@ const L = window.LogTotalSanitizer;
 const LIB = { name: '@socprime/logtotal-sanitizer', version: '0.2.0-beta.3', published: '2026-09-23' };
 // This page's own version, independent of the library it bundles. update-page.mjs swaps the
 // library and never touches this, so the two are compared separately and can differ legitimately.
-const PAGE = { version: '1.4.0' };
+const PAGE = { version: '1.4.1' };
 const STORE = 'logtotal-sanitizer-ui.v1';
 const $ = (s, r) => (r || document).querySelector(s);
 const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
@@ -32,8 +32,8 @@ const NOTES = {
 // that order wins a tie, which is why vendor hostnames belong to the Hostnames rule.
 // Key prefixes verified 2026-09-23 on each vendor's own page. Crypto patterns verified
 // 2026-09-23 against upstream test vectors (BIP173/350/352, BOLT11/12, ERC-55, SEP-23,
-// ZIP-320, Bitcoin Core, Dogecoin, Litecoin and CashTokens test data), the list and sources
-// in the build record's rules-expansion-2026-09-23/SPEC.md. Chains follow the CoinGecko
+// ZIP-320, Bitcoin Core, Dogecoin, Litecoin and CashTokens test data). Each vector and its
+// source is in build/fixtures/crypto-vectors.json. Chains follow the CoinGecko
 // top 20 by market cap read 2026-09-23T20:12Z. ICAP is left out: an IBAN-shaped ICAP is
 // claimed and rejected by the payment rule before this rule runs.
 // Driver's licence and plate formats for the 50 states, DC and the 10 provinces were read

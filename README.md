@@ -32,18 +32,19 @@ The "Identity and vehicle records" sample shows both tiers on synthetic lines. I
 
 Some values match only after a label: all-digit licenses (Texas, Pennsylvania, New York and more than 20 others), all-digit plates (Delaware, New Hampshire, Rhode Island), vanity plates, and plates written with a space or hyphen, such as `ABC-1234`. Ticket keys, issue numbers and prose are written the same way. Vanity plate rules could not be verified for most jurisdictions and are not encoded.
 
-Every format, its source URLs and a confidence grade are in `build/fixtures/id-formats.json`.
+Every format, its source URLs and a confidence grade are in `build/fixtures/id-formats.json`. The test values in `build/fixtures/id-vectors.json` are synthetic, built from repeated or sequential digits and placeholder letters, never a real license or plate number. `verify-id-rules.py` also runs both rules, with Loose on, over a 478 KB adversarial line and fails if the pass takes 1000 ms or more, which catches a pattern that backtracks badly.
 
 Known limits:
 
 - The loose tier cannot be free of false positives. `ABC1234` is both a New York plate and a build ID. Keep License plates on Strict and Aggressive off unless recall matters more than precision.
 - The loose tier skips bare Missouri numbers that end in A to F, which read as hex. They still match after a label.
-- Plate formats rest on each jurisdiction's Wikipedia article, MEDIUM confidence at best. Unresolved source conflicts sit in `id-formats.json` with their confidence.
+- Formats were read on 2026-09-27, mostly from secondary sources. License formats come largely from compiled format tables and screening and legal-reference sites, with a DMV or provincial page where one was found. Of the 61 license entries, 25 are HIGH confidence, 33 MEDIUM and 3 LOW (Rhode Island, South Dakota, Vermont). Plate formats rest on each jurisdiction's Wikipedia article, so none is above MEDIUM: 56 are MEDIUM and 5 LOW (Idaho, Pennsylvania, South Carolina, Washington, West Virginia). Unresolved source conflicts sit in `id-formats.json` with their confidence.
 - Fields named `dl`, `tag` or `registration` are not keyed on. They usually hold download counts and version tags.
+- No rule covers commercial driver's license labels (`CDL`), learner's permits, temporary, dealer or military plates, vehicle identification numbers (VINs), or IDs from Mexico or any other country outside the US and Canada.
 
 ## Two engines
 
-- **Bundled.** Version 0.2.0-beta.2 is inside the page. Nothing is fetched to sanitize.
+- **Bundled.** Version 0.2.0-beta.3 is inside the page. Nothing is fetched to sanitize.
 - **Local installation.** A loopback bridge to the package installed on your machine, so the page runs whatever version you have. The page refuses any bridge address that is not 127.0.0.1 or localhost, and the bridge refuses any page it does not know.
 
 ## Quick start
@@ -89,7 +90,7 @@ config file can never switch on a network request.
 Needs Node 20 or newer and npm.
 
 ```
-npm install @socprime/logtotal-sanitizer@0.2.0-beta.2
+npm install @socprime/logtotal-sanitizer@0.2.0-beta.3
 node sanitizer-bridge.mjs
 ```
 
@@ -109,13 +110,13 @@ node sanitizer-bridge.mjs --max-rps 50
 
 ## Versions
 
-Bundled and tested: 0.2.0-beta.2 (npm latest on 2026-09-21). Minimum supported: 0.2.0-beta.2. Pin the same version everywhere, because tokens only match across machines when the key, the library version and the rule set all match.
+Bundled and tested: 0.2.0-beta.3, published 2026-09-23. Minimum supported: 0.2.0-beta.2. Pin the same version everywhere, because tokens only match across machines when the key, the library version and the rule set all match.
 
 To move the bundled copy to a newer release, use the Engine panel's update command. It runs `build/bridge/update-page.mjs`, which needs Node and npm, downloads the version you name (or the newest published one if you name none), rebundles it with esbuild, prints the version it is about to write, and saves a timestamped backup beside the page.
 
 ## Keys
 
-The HMAC key lives in page memory only. The saved configuration never includes it. Exporting a key file is a deliberate, separately named action. Keep that file out of version control. In Local mode the key travels to your own bridge with each request and the bridge does not store it.
+The HMAC key lives in page memory only. The saved configuration never includes it. Exporting a key file is a deliberate, separately named action. Keep that file out of version control. In Local mode the key travels to your own bridge with each request and the bridge does not store it. The key matters most for the Driver's licenses and License plates rules. Without the key, a token cannot be turned back into its value. With it, anyone can compute the token for every value a license or plate format allows and look tokens up. A California license, one letter and seven digits, has 260 million possible values, few enough for a laptop to try them all.
 
 ## Token stability
 
@@ -136,7 +137,7 @@ pip install playwright && playwright install chromium
 python3 verify.py
 python3 verify-id-rules.py
 python3 redleg-id-rules.py
-cd bridge && npm install @socprime/logtotal-sanitizer@0.2.0-beta.2 && cd ..
+cd bridge && npm install @socprime/logtotal-sanitizer@0.2.0-beta.3 && cd ..
 python3 verify-bridge.py
 ```
 
