@@ -374,7 +374,7 @@
         <li>Memory grows with each new value.</li>
         <li>Anyone with the key can hash a guess and compare tokens.</li>
       </ul>
-      <h3>11 library rules</h3>
+      <h3>15 rules</h3>
       <ul>
         <li>Redact (R): secrets, session and CSRF cookies, payment data, government IDs, health identifiers, home-path usernames.</li>
         <li>Pseudonymize: phones (PHONE), IP and MAC addresses (IP), hosts and domains (HOST), emails, usernames and Windows account IDs (USER), coordinates and postcodes (GEO).</li>
