@@ -6,6 +6,11 @@
 <meta name="artifact-class" content="deliverable">
 <meta name="color-scheme" content="dark light">
 <meta name="description" content="Redact secrets, identifiers and PII from logs in your browser tab. Built by Authentic Marketing on SOC Prime's open-source LogTotal Sanitizer library. Nothing leaves the page.">
+<meta property="og:image" content="https://authenticmarketing.xyz/wp-content/uploads/2026/09/redactor-ux-social-card.png">
+<meta property="og:image:width" content="1280">
+<meta property="og:image:height" content="640">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://authenticmarketing.xyz/wp-content/uploads/2026/09/redactor-ux-social-card.png">
 <title>Redactor UX for LogTotal Sanitizer, by Authentic Marketing</title>
 <link rel="icon" type="image/png" href="__FAVICON__">
 <!--
@@ -18,6 +23,9 @@
   mode, the loopback calls to your own bridge. Your log text and your key are never part
   of any of them. The count shown in the header is measured from the Performance API and
   counts external requests only.
+  The og and twitter image tags name a link-preview image for sites that unfurl a shared
+  link to this page, and those sites fetch it themselves. Browsers never fetch meta tag
+  content, so the page itself never requests the image.
   Visual tokens: orchestrator/context/clients/soc-prime/brand/DESIGN.md (2026-08-07).
 -->
 <style>
