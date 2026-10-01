@@ -1,12 +1,12 @@
 {
   "schema": 1,
   "web_app": {
-    "version": "1.2.1",
+    "version": "1.4.0",
     "download_url": "https://authenticmarketing.xyz/wp-content/uploads/2026/09/logtotal-sanitizer-web-app.zip"
   },
   "library": {
     "name": "@socprime/logtotal-sanitizer",
-    "version": "0.2.0-beta.2"
+    "version": "0.2.0-beta.3"
   },
-  "generated": "2026-09-24"
+  "generated": "2026-09-30"
 }
