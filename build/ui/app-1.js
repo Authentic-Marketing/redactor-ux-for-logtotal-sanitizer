@@ -4,7 +4,7 @@ const L = window.LogTotalSanitizer;
 const LIB = { name: '@socprime/logtotal-sanitizer', version: '0.2.0-beta.3', published: '2026-09-23' };
 // This page's own version, independent of the library it bundles. update-page.mjs swaps the
 // library and never touches this, so the two are compared separately and can differ legitimately.
-const PAGE = { version: '1.4.2' };
+const PAGE = { version: '1.4.3' };
 const STORE = 'logtotal-sanitizer-ui.v1';
 const $ = (s, r) => (r || document).querySelector(s);
 const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));

@@ -252,13 +252,13 @@
       <div class="bars" id="bars"></div>
       <div class="row between" style="margin-top:8px">
         <h3>Distinct values replaced</h3>
-        <div class="row"><button class="btn sm ghost" id="revealBtn" type="button" aria-pressed="false">Reveal originals</button><button class="btn sm ghost" id="dlReport" type="button">Download report JSON</button></div>
+        <div class="row"><button class="btn sm ghost" id="revealBtn" type="button" aria-pressed="false">Reveal originals</button><button class="btn sm ghost" id="dlReport" type="button">Download report JSON</button><span class="small mut" id="reportCaution">Holds the original values. Keep this file private.</span></div>
       </div>
       <p class="note" id="replNote">Contains original values. Keep it local.</p>
       <div class="tblwrap"><table class="tbl" id="replTable"><thead><tr><th>Rule</th><th>Original</th><th>Token</th><th>Count</th><th>Context</th></tr></thead><tbody id="replBody"></tbody></table></div>
     </div>
     <div class="panel" id="panelOutput" role="tabpanel" aria-labelledby="tabOutput" hidden>
-      <div class="row between"><span class="small mut" id="outMeta"></span><div class="row"><button class="btn sm" id="dlOut" type="button">Download sanitized log</button></div></div>
+      <div class="row between"><span class="small mut" id="outMeta"></span><div class="row"><span class="small mut" id="outCaution">Review the sanitized output before you share it.</span><button class="btn sm" id="dlOut" type="button">Download sanitized log</button></div></div>
       <pre class="outpre" id="outPre"></pre>
     </div>
   </section>
@@ -389,5 +389,6 @@
   <div class="row"><span><b>Library</b> <code id="libLine"></code></span><span>Apache-2.0</span><span>Zero runtime dependencies</span><span>Node 20 or newer for the CLI</span></div>
   <div class="row"><span>Library: LogTotal Sanitizer, open source from <a href="https://socprime.com" target="_blank" rel="noopener">SOC Prime</a></span><a id="repoLink" href="https://github.com/socprime/logtotal-sanitizer" target="_blank" rel="noopener">GitHub</a><a href="https://www.npmjs.com/package/@socprime/logtotal-sanitizer" target="_blank" rel="noopener">npm</a><a href="https://logtotal.com" target="_blank" rel="noopener">LogTotal</a></div>
   <div class="row"><span>Built by <a href="https://authenticmarketing.xyz" target="_blank" rel="noopener">Authentic Marketing</a>. Not affiliated with or endorsed by SOC Prime. LogTotal and SOC Prime are trademarks of SOC Prime.</span></div>
+  <div class="row"><details class="lic" id="licenses"><summary>Licenses</summary><p class="small">Redactor UX by Authentic Marketing, built using SOC Prime's LogTotal Sanitizer. Not affiliated with or endorsed by SOC Prime. Both Redactor UX and LogTotal Sanitizer are licensed under Apache-2.0. The full license text is in this file's source, at the top of the HTML, and in <a href="https://github.com/Authentic-Marketing/redactor-ux-for-logtotal-sanitizer/blob/main/LICENSE" target="_blank" rel="noopener">LICENSE on GitHub</a>.</p></details></div>
 </footer>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
