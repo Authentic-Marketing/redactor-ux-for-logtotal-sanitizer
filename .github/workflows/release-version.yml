@@ -1,0 +1,80 @@
+# When a release is published, wait until authenticmarketing.xyz serves it (the site pulls each
+# published release on a schedule), then commit version.json for it, so version.json only moves
+# once the download it names is live. The confirm job holds a read-only token; only the commit
+# job can write, and it touches version.json alone. A release created with GITHUB_TOKEN does not
+# trigger workflows, so releases are published by a person.
+name: Confirm the site serves a release
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag to confirm, for example v1.4.3
+        required: true
+      timeout_min:
+        description: Minutes to wait for the site
+        required: false
+        default: "60"
+
+permissions: {}
+
+concurrency:
+  group: version-json
+  cancel-in-progress: false
+
+jobs:
+  confirm:
+    if: github.event_name == 'workflow_dispatch' || github.event.release.prerelease == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    permissions:
+      contents: read
+    env:
+      TAG: ${{ github.event.release.tag_name || inputs.tag }}
+      TIMEOUT_MIN: ${{ inputs.timeout_min || '60' }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Wait until the site serves the release
+        run: python3 build/site_release.py poll --tag "$TAG" --timeout-min "$TIMEOUT_MIN"
+
+  commit:
+    needs: confirm
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    env:
+      TAG: ${{ github.event.release.tag_name || inputs.tag }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Commit version.json
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git checkout -B main origin/main
+            python3 build/site_release.py version-json --tag "$TAG" --out version.json
+            if git diff --quiet -- version.json; then
+              echo "version.json already current"
+              exit 0
+            fi
+            v="${TAG#v}"
+            git commit -m "version.json $v, after the am.xyz download read back as $v" \
+              -m "Committed by the release workflow once authenticmarketing.xyz served both files with the release checksums." \
+              -- version.json
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            echo "push rejected, retrying ($attempt)"
+          done
+          exit 1
