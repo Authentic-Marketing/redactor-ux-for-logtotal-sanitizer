@@ -6,16 +6,16 @@
 <meta name="artifact-class" content="deliverable">
 <meta name="color-scheme" content="dark light">
 <meta name="description" content="Redact secrets, identifiers and PII from logs in your browser tab. Built by Authentic Marketing on SOC Prime's open-source LogTotal Sanitizer library. Nothing leaves the page.">
-<meta property="og:image" content="https://authenticmarketing.xyz/wp-content/uploads/2026/09/redactor-ux-social-card.png">
+<meta property="og:image" content="https://authenticmarketing.xyz/wp-content/uploads/2026/09/redactor-ux-social-card-6f7560cd.png">
 <meta property="og:image:width" content="1280">
 <meta property="og:image:height" content="640">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://authenticmarketing.xyz/wp-content/uploads/2026/09/redactor-ux-social-card.png">
+<meta name="twitter:image" content="https://authenticmarketing.xyz/wp-content/uploads/2026/09/redactor-ux-social-card-6f7560cd.png">
 <title>Redactor UX for LogTotal Sanitizer, by Authentic Marketing</title>
 <link rel="icon" type="image/png" href="__FAVICON__">
 <!--
   Self-contained page. It bundles the published npm package @socprime/logtotal-sanitizer
-  0.2.0-beta.2 (Apache-2.0, published 2026-09-21) as an IIFE global so every control on
+  __LIB_VERSION__ (Apache-2.0, published __LIB_PUBLISHED__) as an IIFE global so every control on
   the page drives the real library. The page loads no external resource. It makes no
   network request until you ask for one: the npm update check you click, the opt-in
   check when the page opens (off unless you switch it on under Engine, then at most one

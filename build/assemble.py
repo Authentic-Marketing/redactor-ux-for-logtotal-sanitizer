@@ -44,17 +44,27 @@ lib = re.search(
     r"const LIB = \{ name: '([^']+)', version: '([^']+)', published: '([^']+)' \};", app
 )
 assert lib, "LIB constant not found in the app sources"
+# Every library version string in the head comes from LIB, so a bump cannot leave a stale one.
+head = head.replace("__LIB_VERSION__", lib.group(2)).replace(
+    "__LIB_PUBLISHED__", lib.group(3)
+)
+assert "__LIB_" not in head
 html = (
     head + body + "\n<!-- bundle:start " + lib.group(1) + " " + lib.group(2) + " -->\n"
     "<script>\n" + bundle + "\n</script>\n<!-- bundle:end -->\n"
     "<script>\n" + app + "\n</script>\n</body>\n</html>\n"
 )
-# Apache-2.0 section 4: the license notice travels with a standalone copy of the page.
+# Apache-2.0 section 4: the license notice and the full license text travel with a standalone
+# copy of the page. The text is the LICENSE file from the bundled npm package, byte for byte.
+license_text = open("LICENSE-logtotal-sanitizer", encoding="ascii").read()
+assert "--" not in license_text, "license text would end the HTML comment"
 notice = (
     "<!--\nSPDX-License-Identifier: Apache-2.0\n"
-    "Bundles " + lib.group(1) + " " + lib.group(2) + ", unmodified, Apache-2.0,\n"
+    "Bundles " + lib.group(1) + " " + lib.group(2) + " (bundled with esbuild, source files"
+    " not modified), Apache-2.0,\n"
     "https://github.com/socprime/logtotal-sanitizer\n"
-    "License text: https://www.apache.org/licenses/LICENSE-2.0\n-->\n"
+    "The license text follows, as shipped in the npm package.\n"
+    "license:start\n" + license_text + "license:end\n-->\n"
 )
 assert html.startswith("<!DOCTYPE html>\n")
 html = html.replace("<!DOCTYPE html>\n", "<!DOCTYPE html>\n" + notice, 1)
@@ -76,9 +86,9 @@ print(
     bool(re.search(r'<meta name="artifact-class" content="deliverable">', s)),
 )
 if public:
-    assert (
-        "artifact-class" not in s and "orchestrator/" not in s
-    ), "public build still carries an estate marker"
+    for marker in ("artifact-class", "orchestrator/", "soc-prime/", "DESIGN.md", "/home/customer"):
+        assert marker not in s, "public build still carries an estate marker: " + marker
+    assert not any(bad.values()), "public build carries a dash or section sign"
 print("script tags:", s.count("<script>"), s.count("</script>"))
 
 # No test-only hook may reach the shipped page. The open-on-load check is tested by seeding
@@ -94,7 +104,7 @@ if "--version-json" in sys.argv[2:]:
     dest = sys.argv[sys.argv.index("--version-json") + 1]
     page = re.search(r"const PAGE = \{ version: '([^']+)' \};", app)
     assert page, "PAGE constant not found in the app sources"
-    download = "https://authenticmarketing.xyz/wp-content/uploads/2026/09/logtotal-sanitizer-web-app.zip"
+    download = "https://authenticmarketing.xyz/wp-content/uploads/2026/09/redactor-ux.html"
     for i, a in enumerate(sys.argv):
         if a == "--download-url":
             download = sys.argv[i + 1]
